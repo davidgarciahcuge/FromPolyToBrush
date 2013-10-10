@@ -18,6 +18,9 @@
     IBOutlet NSButton *buttonBrowse;
     IBOutlet NSButton *buttonImport;
     IBOutlet NSTextField *labelPath;
+    
+    //Path
+    NSMutableString *FPTBhomeFilePath;
 }
 
 //Init window.
