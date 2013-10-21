@@ -6,11 +6,14 @@
 //  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
 //
 
+
+
 #import "FPTBWindowController.h"
 
 #import <OsiriXAPI/ViewerController.h>
 #import <OsirixAPI/Notifications.h>
 #import <OsirixAPI/Roi.h>
+#import <OsiriXAPI/DCMPix.h>
 
 #import "vtkStructuredPointsReader.h"
 #import "vtkStructuredPoints.h"
@@ -42,8 +45,10 @@
 
 -(id)initWithViewerController:(ViewerController*)viewerController {
     
-    _viewerController = [viewerController retain];
-    //[_viewerController retain];
+    _viewerController = viewerController;
+    [_viewerController retain];
+
+    _imageView = [[_viewerController imageView] retain];
     
     // Load the window
 	self = [self initWithWindowNibName:@"FPTBWindow"];
@@ -51,7 +56,7 @@
 	FPTBhomeFilePath = [[NSMutableString alloc] initWithString: NSHomeDirectory()];//home path
     [FPTBhomeFilePath appendString:@"/Documents/RadioAnatomy_Data/FPTBROIs_generated"]; //folder of masks and meshes
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewerWillClose:) name:OsirixCloseViewerNotification object:NULL]; //When the controller would receive an OsirixCloseViewerNotification will perform the method viewerWillClose:.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: nil];    
     
     return self;
 }
@@ -77,17 +82,37 @@
 {
     [FPTBhomeFilePath release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [_viewerController release];
+    [_imageView release];
+    
     [super dealloc];
     
 }
 
 - (void)viewerWillClose:(NSNotification*)notification {
+    
+    NSLog(@"viewerWillClose");
+    
     if( [notification object] == _viewerController )
 	{
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self close];
-        //[self autorelease];
+        [self autorelease];
+	}
+    
+    //NSLog(@"MainWindowController:viewerWillClose:End");
+}
+
+- (void)windowWillClose:(NSNotification*)notification {
+    
+    NSLog(@"windowWillClose");
+    
+    if( [notification object] == [self window] )
+	{
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [self close];
+        [self autorelease];
 	}
 }
 
@@ -177,11 +202,25 @@
     //int end = 0;
     //int step = -1;  
     
+    //short FPTBmaxMovieIndex = [_viewerController maxMovieIndex];
+    
+    //We get the list of images
+    NSMutableArray *fptbPixList = [_viewerController pixList];
+    //[[_viewerController pixList] retain];
+    
+    //We get the ROIs
+    NSMutableArray *fptbRoiList = [_viewerController roiList];
+    NSLog(@"Dirección de fptbRoiList = %p", &fptbRoiList);
+    NSLog(@"fptbRoiList apunta a:  %p", fptbRoiList);
+    //NSMutableArray *fptbRoiList = [[NSMutableArray alloc] initWithArray:[_viewerController roiList]];
+    //[_viewerController roiList retain];
     
     // For each slice
     for( int i = start; i != end; i+=step)         
     {               
         unsigned short *buff = buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+        
+        DCMPix *curDCM = [/*[*/fptbPixList /*objectAtIndex:y]*/ objectAtIndex: i];
         
         // Create the images ROIs array
         NSMutableArray* roisPerImages = [NSMutableArray array];
@@ -279,21 +318,34 @@
                                               imageOrigin:roiOrigin];                
             free(optRoiBuff);
             
-            // Add RGB color to the new ROI               
-            //[theNewROI setColor: labelColor];
-            [theNewROI setNSColor:[NSColor redColor]];
+        // Add RGB color to the new ROI               
+        [theNewROI setNSColor:[NSColor greenColor]];
             
-            // Set ROI thickness
-            [theNewROI setSliceThickness:sz];
-            
-            // Set ROI hidden
-            /*if (_hideOutROIs) {
-                [theNewROI setOpacity:0.0];
-            }*/
-            [theNewROI setOpacity:0.5];
-            
-            // Add the new ROI to the slice array
-            [roisPerImages addObject: theNewROI];
+        // Set ROI thickness
+        [theNewROI setSliceThickness:sz];
+
+        //Set ROI opacity
+        [theNewROI setOpacity:0.5];
+        
+        //Set the ROI to its images
+        [theNewROI setPix:curDCM];
+        
+        //Unlock the ROI
+        [theNewROI setLocked:false];
+        
+        
+        //[fptbRoiList addObject:theNewROI];
+        [[fptbRoiList objectAtIndex: i] addObject: theNewROI];
+        //[fptbRoiList removeObjectAtIndex:i];
+        //[fptbRoiList insertObject:theNewROI atIndex:i];
+        
+        //[[_viewerController roiList[0] objectAtIndex: i] addObject: theNewROI];
+        
+        [_imageView roiSet: theNewROI];
+        
+        [theNewROI release];
+        // Add the new ROI to the slice array
+            //[roisPerImages addObject: theNewROI];
             
         //} // End labels
         
@@ -304,9 +356,71 @@
     
     [roisPerMovies addObject:roisPerSeries];
     
+    
+    [_imageView setIndex: [_imageView curImage]];
+    
+    //[_imageView stopROIEditingForce: YES];
+
+    
+    //We try to avoid the step of saving in a file
+    //_viewerController = [ViewerController frontMostDisplayed2DViewer];
+    //[_viewerController retain];
+    
+    //short FPTBmaxMovieIndex = [_viewerController maxMovieIndex];
+    
+    //NSMutableArray *FPTBpixList = [[NSMutableArray alloc] initWithArray:[_viewerController pixList]];
+    
+    //NSArray *fptbPixList;
+    
+    //fptbPixList = [_viewerController pixList];
+    //[[_viewerController pixList] retain];
+    
+    //[[_viewerController pixList] retain];
+    //FPTBpixList = [_viewerController pixList];
+    
+    //FPTBpixList = [[_viewerController pixList] copy];
+    //[FPTBpixList retain];
+    
+    /*NSMutableArray *fptbRoiList = [_viewerController roiList];
+    [fptbRoiList retain];
+    
+    for( int y = 0; y < FPTBmaxMovieIndex; y++)
+	{
+		if( [roisPerMovies count] > y)
+		{
+			NSArray *roisSeries = [roisPerMovies objectAtIndex: y];
+			
+			for( int x = 0; x < [fptbPixList count]; x++)
+			{
+				DCMPix *curDCM = [fptbPixList objectAtIndex: x];
+				
+				if( [roisSeries count] > x)
+				{
+					NSArray *roisImages = [roisSeries objectAtIndex: x];
+					
+					for( ROI *r in roisImages)
+					{
+                        //Correct the origin only if the orientation is the same
+                        r.pix = curDCM;
+                        
+						[r setOriginAndSpacing: curDCM.pixelSpacingX :curDCM.pixelSpacingY :[DCMPix originCorrectedAccordingToOrientation: curDCM]];
+						
+						[[[fptbRoiList objectAtIndex:y] objectAtIndex: x] addObject: r];
+						[_imageView roiSet: r];
+					}
+				}
+			}
+		}
+	}
+	
+	[_imageView setIndex: [_imageView curImage]];*/
+    
+    //[FPTBpixList release];
+    //[FPTBroiList release];
+    
     // Save the ROIs in the output file
     //if (hasLabelInCompleteImage) {
-    NSMutableString *FPTBroisFile = [[NSMutableString alloc] initWithString:FPTBhomeFilePath];
+    /*NSMutableString *FPTBroisFile = [[NSMutableString alloc] initWithString:FPTBhomeFilePath];
     [FPTBroisFile appendString:@"/RadioAnatomyROIs.rois_series"];
     
     // Save the ROIs to the file
@@ -337,7 +451,7 @@
     [[NSTask launchedTaskWithLaunchPath:path arguments:args] waitUntilExit];
     
     [FPTBroisFile release];
-    [FPTBroisZip release];
+    [FPTBroisZip release];*/
         
     //}
 }
