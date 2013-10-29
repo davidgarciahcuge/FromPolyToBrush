@@ -6,11 +6,14 @@
 //  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
 //
 
+
+
 #import "FPTBWindowController.h"
 
 #import <OsiriXAPI/ViewerController.h>
 #import <OsirixAPI/Notifications.h>
 #import <OsirixAPI/Roi.h>
+#import <OsiriXAPI/DCMPix.h>
 
 #import "vtkStructuredPointsReader.h"
 #import "vtkStructuredPoints.h"
@@ -42,16 +45,18 @@
 
 -(id)initWithViewerController:(ViewerController*)viewerController {
     
-    _viewerController = [viewerController retain];
-    //[_viewerController retain];
-    
+    //We get the viewer and sen retain.
+    _viewerController = viewerController;
+    [_viewerController retain];
+      
     // Load the window
 	self = [self initWithWindowNibName:@"FPTBWindow"];
 	
 	FPTBhomeFilePath = [[NSMutableString alloc] initWithString: NSHomeDirectory()];//home path
     [FPTBhomeFilePath appendString:@"/Documents/RadioAnatomy_Data/FPTBROIs_generated"]; //folder of masks and meshes
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewerWillClose:) name:OsirixCloseViewerNotification object:NULL]; //When the controller would receive an OsirixCloseViewerNotification will perform the method viewerWillClose:.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewerWillClose:) name: OsirixCloseViewerNotification object: nil];
     
     return self;
 }
@@ -76,18 +81,38 @@
 - (void)dealloc
 {
     [FPTBhomeFilePath release];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [_viewerController release];
+    
     [super dealloc];
     
 }
 
 - (void)viewerWillClose:(NSNotification*)notification {
+    
+    NSLog(@"viewerWillClose");
+    
     if( [notification object] == _viewerController )
 	{
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self close];
-        //[self autorelease];
+        [self autorelease];
+	}
+    
+    //NSLog(@"MainWindowController:viewerWillClose:End");
+}
+
+- (void)windowWillClose:(NSNotification*)notification {
+    
+    NSLog(@"windowWillClose");
+    
+    if( [notification object] == [self window] )
+	{
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [self close];
+        [self autorelease];
 	}
 }
 
@@ -102,12 +127,13 @@
     [nsopanel setCanChooseDirectories:FALSE];
     [nsopanel setAllowsMultipleSelection:FALSE];
     [nsopanel setTitle:@"Select the labeled image file"];
+    
     NSInteger returnvalue = [nsopanel runModal];
     
     if( returnvalue == NSOKButton )
     {        
         NSArray* filenames = [nsopanel URLs];          
-        //[_imageField setStringValue:[[filenames objectAtIndex:0] path]];
+
         labeledImagePath = [[filenames objectAtIndex:0] path];
         
         if (labeledImagePath != @"")
@@ -139,49 +165,67 @@
     // Read image
     vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
     reader->SetFileName( [labeledImagePath UTF8String] );
-    reader->Update(); 
+    //reader->Update();
     
-    vtkStructuredPoints* img = vtkStructuredPoints::New();
-    img = reader->GetOutput();
+   
+    
+    //vtkStructuredPoints* img = vtkStructuredPoints::New();
+    vtkStructuredPoints *img = reader -> GetOutput();
+    img -> Update();
+    
+    //For allowing the img block memory to stay in memory without been linked to the filter.
+    //img -> Register(NULL);
+    //img -> SetSource(NULL);
+    
+    reader -> Delete();
     
     // Get image information
     double *spac1 = img->GetSpacing();
+    
     double sx = spac1[0];
     double sy = spac1[1];
     double sz = spac1[2];
+    
     double *org1 = img->GetOrigin();  
+    
     NSPoint roiOrigin;
     roiOrigin.x = org1[0];
     roiOrigin.y = org1[1];  
+    
     int *dim = img->GetDimensions();
     
     // Get data pointer
     unsigned short *buffOriginal = (unsigned short*)img->GetScalarPointer(); //Pointer to the first byte of the DICOM image
+    
     int buffWidth  = dim[0];
     int buffHeight = dim[1];
     int buffDepth  = dim[2];
-    
-    // Create the movie ROIs array
-    NSMutableArray* roisPerMovies = [NSMutableArray array];
-    
-    // Create the series ROIs array
-    NSMutableArray* roisPerSeries = [NSMutableArray array];
     
     //We assume we are in RAI coordinates, feet first.
     int start = 0;
     int end = buffDepth-1;
     int step = 1; 
     
-    //We assume we are not in RAI coordinates, head first.
-    //int start = buffDepth-1;
-    //int end = 0;
-    //int step = -1;  
+    //We get the list of images
+    NSMutableArray *fptbPixList = [_viewerController pixList];
+    //[[_viewerController pixList] retain];
     
+    //We get the ROIs
+    NSMutableArray *fptbRoiList = [_viewerController roiList];
+    NSLog(@"Dirección de fptbRoiList = %p", &fptbRoiList);
+    NSLog(@"fptbRoiList apunta a:  %p", fptbRoiList);
+    //NSMutableArray *fptbRoiList = [[NSMutableArray alloc] initWithArray:[_viewerController roiList]];
+    //[_viewerController roiList retain];
+    
+    //img -> Update();
+    //reader -> Update();
     
     // For each slice
     for( int i = start; i != end; i+=step)         
     {               
         unsigned short *buff = buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+        
+        DCMPix *curDCM = [fptbPixList objectAtIndex: i];
         
         // Create the images ROIs array
         NSMutableArray* roisPerImages = [NSMutableArray array];
@@ -246,16 +290,18 @@
                 free(roiBuff);
                 
                 // Add the empty ROIs to the series ROIs. Para mantener la sincronización con las imágenes.
-                [roisPerSeries addObject:roisPerImages];
+                //[roisPerSeries addObject:roisPerImages];
                 
                 continue;
             }
             
             // Resize buffer for memory optimisation
-            int optBuffWidth = maxW - minW+1;
-            int optBuffHeight = maxH - minH+1;        
-            unsigned char *optRoiBuff = (unsigned char*) malloc( optBuffHeight*optBuffWidth*sizeof(unsigned char) );
-            for (int h=0; h<optBuffHeight; h++) {    
+            
+        int optBuffWidth = maxW - minW+1;
+        int optBuffHeight = maxH - minH+1;        
+        unsigned char *optRoiBuff = (unsigned char*) malloc( optBuffHeight*optBuffWidth*sizeof(unsigned char) );
+            
+        for (int h=0; h<optBuffHeight; h++) {    
                 for (int w=0; w<optBuffWidth; w++) {
                     
                     int k = (minH+h)*buffWidth + w + minW;
@@ -265,81 +311,55 @@
                     
                 }
             }
-            free(roiBuff);
-            
-            // Create the new ROI
-            ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
-                                                textWidth:optBuffWidth
-                                               textHeight:optBuffHeight
-                                                 textName:@"ROI_Prueba"
-                                                positionX:minW
-                                                positionY:minH
-                                                 spacingX:sx
-                                                 spacingY:sy
-                                              imageOrigin:roiOrigin];                
-            free(optRoiBuff);
-            
-            // Add RGB color to the new ROI               
-            //[theNewROI setColor: labelColor];
-            [theNewROI setNSColor:[NSColor redColor]];
-            
-            // Set ROI thickness
-            [theNewROI setSliceThickness:sz];
-            
-            // Set ROI hidden
-            /*if (_hideOutROIs) {
-                [theNewROI setOpacity:0.0];
-            }*/
-            [theNewROI setOpacity:0.5];
-            
-            // Add the new ROI to the slice array
-            [roisPerImages addObject: theNewROI];
-            
-        //} // End labels
         
-        // Add the images ROIs to the series ROI
-        [roisPerSeries addObject:roisPerImages];
+            
+        free(roiBuff);
+            
+        // Create the new ROI
+        ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
+                                            textWidth:optBuffWidth
+                                            textHeight:optBuffHeight
+                                            textName:@"ROI_Prueba"
+                                            positionX:minW
+                                            positionY:minH
+                                            spacingX:sx
+                                            spacingY:sy
+                                            imageOrigin:roiOrigin];                
+        free(optRoiBuff);
+            
+        // Add RGB color to the new ROI               
+        [theNewROI setNSColor:[NSColor greenColor]];
+            
+        // Set ROI thickness
+        [theNewROI setSliceThickness:sz];
+
+        //Set ROI opacity
+        [theNewROI setOpacity:0.5];
+        
+        //Set the ROI to its images
+        [theNewROI setPix:curDCM];
+        
+        //Unlock the ROI
+        [theNewROI setLocked:false];
+        
+        //We add the ROI to roiList in OSIRIX
+        [[fptbRoiList objectAtIndex: i] addObject: theNewROI];
+        
+        //Since the arrasy sent a retain to theNewROI, we can send a release. We won't loose it.
+        [theNewROI release];
+        
+        //[[_viewerController roiList[0] objectAtIndex: i] addObject: theNewROI];
+        
+        [_imageView roiSet: theNewROI];
+        
         
     } // End slices
     
-    [roisPerMovies addObject:roisPerSeries];
+  
+    [_imageView setIndex: [_imageView curImage]];
     
-    // Save the ROIs in the output file
-    //if (hasLabelInCompleteImage) {
-    NSMutableString *FPTBroisFile = [[NSMutableString alloc] initWithString:FPTBhomeFilePath];
-    [FPTBroisFile appendString:@"/RadioAnatomyROIs.rois_series"];
+    //reader -> Delete();
     
-    // Save the ROIs to the file
-    //[NSArchiver archiveRootObject: roisPerMovies toFile :@"/Users/David/Development/ROIs_generated/RadioAnatomyROIs.rois_series"];
-    [NSArchiver archiveRootObject: roisPerMovies toFile :FPTBroisFile];  
-    
-    
-    NSMutableString *FPTBroisZip = [[NSMutableString alloc] initWithString:FPTBroisFile];
-    [FPTBroisZip appendString:@".zip"];
-       
-    // Zip the file
-    //NSString *outputZip = [NSString stringWithFormat:@"%@.zip", outputFile];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL isDir;
-    
-    if (!([fileManager fileExistsAtPath:FPTBhomeFilePath isDirectory:&isDir] && isDir)) {
-    
-        [fileManager createDirectoryAtPath:FPTBhomeFilePath withIntermediateDirectories:false attributes:nil error:nil];
-        
-    }
-    
-    if ([fileManager fileExistsAtPath:FPTBroisZip]) {
-            [fileManager removeItemAtPath:FPTBroisZip error:NULL];
-        }
-    
-    NSString *path = @"/usr/bin/zip";
-    NSArray *args = [NSArray arrayWithObjects:@"-m", @"-j", FPTBroisZip, FPTBroisFile, nil];
-    [[NSTask launchedTaskWithLaunchPath:path arguments:args] waitUntilExit];
-    
-    [FPTBroisFile release];
-    [FPTBroisZip release];
-        
-    //}
 }
 
 
