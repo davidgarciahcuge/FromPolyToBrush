@@ -25,8 +25,6 @@
     NSMutableString *FPTBhomeFilePath;
 }
 
-@property (weak) ViewerController *_viewerController; 
-
 //Init window.
 -(id)initWithViewerController :(ViewerController*)viewerController;
 
