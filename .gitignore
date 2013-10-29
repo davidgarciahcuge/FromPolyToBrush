@@ -159,3 +159,5 @@ xcuserdata
 #
 # ...none. Everything is now explained.
 FromPolyToBrush.xcodeproj/project.xcworkspace/xcuserdata/David.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.xcbkptlist
