@@ -8,13 +8,24 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "OsiriXAPI/vtkView.h"
+#import "OsiriXAPI/VTKView.h"
+
+//VTK imports
+#import "vtkPolyData.h"
+#import "vtkRenderer.h"
+#import "vtkCocoaRenderWindow.h"
+#import "vtkCocoaRenderWindowInteractor.h"
 
 @interface FPTBMeshesView : VTKView
 {
 
-    
+    vtkPolyData *_mesh;
+    vtkRenderer *_fptbRenderer;
+    vtkCocoaRenderWindow *_fptbRenderCocoaRenderWindow;
+    vtkCocoaRenderWindowInteractor *_fptbCocoaRenderWindowInteractor;
     
 }
+
+- (void)showMesh:(vtkPolyData*) mesh;
 
 @end

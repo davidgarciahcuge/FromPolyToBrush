@@ -15,9 +15,13 @@
 #import <OsirixAPI/Roi.h>
 #import <OsiriXAPI/DCMPix.h>
 
+#define id Id
 #import "vtkStructuredPointsReader.h"
 #import "vtkStructuredPoints.h"
-
+#import "vtkPolyDataReader.h"
+#import "vtkPolyData.h"
+#import "vtkImageDataGeometryFilter.h"
+#undef id
 
 @interface FPTBWindowController ()
 
@@ -48,7 +52,10 @@
     //We get the viewer and sen retain.
     _viewerController = viewerController;
     [_viewerController retain];
-      
+    
+    //Init the view
+    //meshesView = [[FPTBMeshesView alloc] initWithFrame:[[self window] frame]];
+    
     // Load the window
 	self = [self initWithWindowNibName:@"FPTBWindow"];
 	
@@ -80,13 +87,20 @@
 
 - (void)dealloc
 {
+    NSLog(@"FPTBWindowController:dealloc:begin");
+
     [FPTBhomeFilePath release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [_viewerController release];
     
+    //[meshesView release];
+    
     [super dealloc];
+    
+    NSLog(@"FPTBWindowController:dealloc:close");
+
     
 }
 
@@ -106,14 +120,20 @@
 
 - (void)windowWillClose:(NSNotification*)notification {
     
-    NSLog(@"windowWillClose");
+    NSLog(@"FPTBWindowController:windowWillClose:begin");
     
     if( [notification object] == [self window] )
 	{
+        NSLog(@"It is plugin's window!!");
+        
         [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
         [self close];
         [self autorelease];
 	}
+    
+    NSLog(@"FPTBWindowController:windowWillClose:close");
+
 }
 
 -(IBAction)browseLabeledImages:(id)sender
@@ -136,11 +156,11 @@
 
         labeledImagePath = [[filenames objectAtIndex:0] path];
         
-        if (labeledImagePath != @"")
+        if (![labeledImagePath  isEqual: @""])
         {
-            [buttonImport setEnabled:true];
+            [buttonBrushROI setEnabled:true];
         }else {
-            [buttonImport setEnabled:false];
+            [buttonBrushROI setEnabled:false];
         }
         
         [self updateLabel];
@@ -174,8 +194,8 @@
     img -> Update();
     
     //For allowing the img block memory to stay in memory without been linked to the filter.
-    //img -> Register(NULL);
-    //img -> SetSource(NULL);
+    img -> Register(NULL);
+    img -> SetSource(NULL);
     
     reader -> Delete();
     
@@ -228,7 +248,7 @@
         DCMPix *curDCM = [fptbPixList objectAtIndex: i];
         
         // Create the images ROIs array
-        NSMutableArray* roisPerImages = [NSMutableArray array];
+        //NSMutableArray* roisPerImages = [NSMutableArray array];
         
         // Add loaded ROIs if merging mode
         /*if (hasLoadedROIsToMerge) {
@@ -358,9 +378,116 @@
   
     [_imageView setIndex: [_imageView curImage]];
     
+    NSLog(@"Reference count before Delete %i", img -> GetReferenceCount());
+    img -> Delete();
+    
     //reader -> Delete();
     
 }
+
+-(IBAction)loadMeshFromFile:(id)sender
+{
+
+    NSLog(@"loadMeshFromFile:begin");    
+    
+    NSOpenPanel* nsopanel = [NSOpenPanel openPanel];
+    [nsopanel setCanChooseFiles:TRUE];
+    [nsopanel setCanCreateDirectories:FALSE];
+    [nsopanel setCanChooseDirectories:FALSE];
+    [nsopanel setAllowsMultipleSelection:FALSE];
+    [nsopanel setTitle:@"Select mesh for showing"];
+    
+    NSInteger returnvalue = [nsopanel runModal];
+
+    
+    if( returnvalue == NSOKButton )
+    {        
+        NSString* meshName = [[[nsopanel URLs]objectAtIndex:0] path];          
+        
+        //labeledImagePath = [[filenames objectAtIndex:0] path];
+        
+        if (![meshName  isEqual: @""])
+        {
+            vtkPolyDataReader *vreader = vtkPolyDataReader::New();
+            vreader -> SetFileName([meshName UTF8String]);
+            
+            //vreader -> Register(NULL);
+            
+            vtkPolyData *mesh = vreader -> GetOutput();
+            mesh -> Update();
+            
+            //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
+            
+            mesh -> Register(NULL);
+            
+            //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
+
+            mesh -> SetSource(NULL);
+            
+            vreader -> Delete();
+            
+            //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
+
+            [meshesView showMesh:mesh];
+            
+        }else {
+            //[buttonImport setEnabled:false];
+        }
+        
+        
+    }
+    
+    NSLog(@"loadMeshFromFile:end");
+}
+
+-(IBAction)meshFromLabeledImage:(id)sender
+{
+    
+    @try {
+        // Read image
+        vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
+        reader->SetFileName( [labeledImagePath UTF8String] );
+        //reader->Update();
+        
+        
+        
+        //vtkStructuredPoints* img = vtkStructuredPoints::New();
+        vtkStructuredPoints *img = reader -> GetOutput();
+        img -> Update();
+        
+        //For allowing the img block memory to stay in memory without been linked to the filter.
+        //img -> Register(NULL);
+        //img -> SetSource(NULL);
+        
+        //reader -> Delete();
+        
+        // Convert the image to a polydata
+        vtkImageDataGeometryFilter *imageDataGeometryFilter = vtkImageDataGeometryFilter::New();
+        
+        //imageDataGeometryFilter->SetInput(img);
+        //imageDataGeometryFilter->Update();
+        
+        vtkPolyData *mesh = imageDataGeometryFilter -> GetOutput();
+        
+        [meshesView showMesh:mesh];
+        
+        //mesh -> Update();
+        
+        // Create a mapper and actor
+        //vtkSmartPointer mapper =
+        //vtkSmartPointer<vtkPolyDataMapper>::New();
+        //mapper->SetInputConnection(imageDataGeometryFilter->GetOutputPort());
+    }
+    @catch (...) {
+        
+		NSLog(@"Exception captured");
+	
+    }
+
+    
+}
+
+
 
 
 @end
