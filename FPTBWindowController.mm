@@ -178,208 +178,240 @@
 
 -(IBAction)importLabeledImages:(id)sender
 {
-    NSLog(@"Importing labeled images");
     
-    //NSString *imageFile = [la];
+//#ifdef DEBUG
+    DLog(@"Importing labeled images");
+//#endif
+    try {
     
-    // Read image
-    vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
-    reader->SetFileName( [labeledImagePath UTF8String] );
-    //reader->Update();
+    NSOpenPanel* nsopanel = [NSOpenPanel openPanel];
+    [nsopanel setCanChooseFiles:TRUE];
+    [nsopanel setCanCreateDirectories:FALSE];
+    [nsopanel setCanChooseDirectories:FALSE];
+    [nsopanel setAllowsMultipleSelection:FALSE];
+    [nsopanel setTitle:@"Select the labeled image file"];
     
-   
+    NSInteger returnvalue = [nsopanel runModal];
     
-    //vtkStructuredPoints* img = vtkStructuredPoints::New();
-    vtkStructuredPoints *img = reader -> GetOutput();
-    img -> Update();
-    
-    //For allowing the img block memory to stay in memory without been linked to the filter.
-    img -> Register(NULL);
-    img -> SetSource(NULL);
-    
-    reader -> Delete();
-    
-    // Get image information
-    double *spac1 = img->GetSpacing();
-    
-    double sx = spac1[0];
-    double sy = spac1[1];
-    double sz = spac1[2];
-    
-    double *org1 = img->GetOrigin();  
-    
-    NSPoint roiOrigin;
-    roiOrigin.x = org1[0];
-    roiOrigin.y = org1[1];  
-    
-    int *dim = img->GetDimensions();
-    
-    // Get data pointer
-    unsigned short *buffOriginal = (unsigned short*)img->GetScalarPointer(); //Pointer to the first byte of the DICOM image
-    
-    int buffWidth  = dim[0];
-    int buffHeight = dim[1];
-    int buffDepth  = dim[2];
-    
-    //We assume we are in RAI coordinates, feet first.
-    int start = 0;
-    int end = buffDepth-1;
-    int step = 1; 
-    
-    //We get the list of images
-    NSMutableArray *fptbPixList = [_viewerController pixList];
-    //[[_viewerController pixList] retain];
-    
-    //We get the ROIs
-    NSMutableArray *fptbRoiList = [_viewerController roiList];
-    NSLog(@"Dirección de fptbRoiList = %p", &fptbRoiList);
-    NSLog(@"fptbRoiList apunta a:  %p", fptbRoiList);
-    //NSMutableArray *fptbRoiList = [[NSMutableArray alloc] initWithArray:[_viewerController roiList]];
-    //[_viewerController roiList retain];
-    
-    //img -> Update();
-    //reader -> Update();
-    
-    // For each slice
-    for( int i = start; i != end; i+=step)         
-    {               
-        unsigned short *buff = buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+    if( returnvalue == NSOKButton )
+    {
+        NSArray* filenames = [nsopanel URLs];
         
-        DCMPix *curDCM = [fptbPixList objectAtIndex: i];
+        labeledImagePath = [[filenames objectAtIndex:0] path];
         
-        // Create the images ROIs array
-        //NSMutableArray* roisPerImages = [NSMutableArray array];
-        
-        // Add loaded ROIs if merging mode
-        /*if (hasLoadedROIsToMerge) {
-            mi++;
-            if (mi < [loadedRoisSeries count]) {
-                if ([[loadedRoisSeries objectAtIndex:mi] count] > 0) { 
-                    [roisPerImages addObjectsFromArray:[loadedRoisSeries objectAtIndex:mi]];
-                }
-            }
-        }*/
-        
-        // For each label
-        //int cntLabel = 0;
-        //for (NSDictionary* label in labels) {
-            //cntLabel++;
+        if (![labeledImagePath  isEqual: @""])
+        {
+            //[buttonBrushROI setEnabled:true];
+            // Read image
+            vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
+            reader->SetFileName( [labeledImagePath UTF8String] );
+            reader->Update();
             
-            // Create the ROI buff
-            //I am creating only one label, I don't need to go trough the dictionary.
-            unsigned char *roiBuff = (unsigned char*) malloc( buffHeight*buffWidth*sizeof(unsigned char) );
             
-            int minW = buffWidth; int maxW = 0;
-            int minH = buffHeight; int maxH = 0;
             
-            bool hasLabelValue = false;
+            //vtkStructuredPoints* img = vtkStructuredPoints::New();
+            vtkStructuredPoints *img = reader -> GetOutput();
+            //img -> Update();
             
-            // Get label information
-            /*int labelValue = [[label valueForKey:@"IDX"] intValue];
-            NSString* labelName = [label valueForKey:@"LABEL"];  
-            RGBColor labelColor;          
-            labelColor.red = (short) [[label valueForKey:@"R"]floatValue] /255.0*65535.;
-            labelColor.green = (short) [[label valueForKey:@"G"]floatValue] /255.0*65535.;
-            labelColor.blue = (short) [[label valueForKey:@"B"]floatValue] /255.0*65535.; */
+            //For allowing the img block memory to stay in memory without been linked to the filter.
+            img -> Register(NULL);
+            img -> SetSource(NULL);
             
-            // Skip label 0
-            //if (labelValue == 0) continue;
+            reader -> Delete();
             
-            for (int h=0; h<buffHeight; h++) {                    
-                for (int w=0; w<buffWidth; w++) {
-                    int k = h*buffWidth + w;
-                    
-                    //if (buff[k] == labelValue) {
-                    if (buff[k] == 1){
-                        roiBuff[k] = 255;
-                        hasLabelValue = true;
-                        //hasLabelInCompleteImage = true;
-                        if (w < minW) minW = w;
-                        if (w > maxW) maxW = w;
-                        if (h < minH) minH = h;
-                        if (h > maxH) maxH = h;
-                    } else {
-                        roiBuff[k] = 0;
+            // Get image information
+            double *spac1 = img->GetSpacing();
+            
+            double sx = spac1[0];
+            double sy = spac1[1];
+            double sz = spac1[2];
+            
+            double *org1 = img->GetOrigin();
+            
+            NSPoint roiOrigin;
+            roiOrigin.x = org1[0];
+            roiOrigin.y = org1[1];
+            
+            int *dim = img->GetDimensions();
+            
+            // Get data pointer
+            unsigned short *buffOriginal = (unsigned short*)img->GetScalarPointer(); //Pointer to the first byte of the DICOM image
+            
+            int buffWidth  = dim[0];
+            int buffHeight = dim[1];
+            int buffDepth  = dim[2];
+            
+            //We assume we are in RAI coordinates, feet first.
+            int start = 0;
+            int end = buffDepth-1;
+            int step = 1;
+            
+            //We get the list of images
+            NSMutableArray *fptbPixList = [_viewerController pixList];
+            //[[_viewerController pixList] retain];
+            
+            //We get the ROIs
+            NSMutableArray *fptbRoiList = [_viewerController roiList];
+            NSLog(@"Dirección de fptbRoiList = %p", &fptbRoiList);
+            NSLog(@"fptbRoiList apunta a:  %p", fptbRoiList);
+            //NSMutableArray *fptbRoiList = [[NSMutableArray alloc] initWithArray:[_viewerController roiList]];
+            //[_viewerController roiList retain];
+            
+            //img -> Update();
+            //reader -> Update();
+            
+            // For each slice
+            for( int i = start; i != end; i+=step)
+            {
+                unsigned short *buff = buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+                
+                DCMPix *curDCM = [fptbPixList objectAtIndex: i];
+                
+                // Create the images ROIs array
+                //NSMutableArray* roisPerImages = [NSMutableArray array];
+                
+                // Add loaded ROIs if merging mode
+                /*if (hasLoadedROIsToMerge) {
+                 mi++;
+                 if (mi < [loadedRoisSeries count]) {
+                 if ([[loadedRoisSeries objectAtIndex:mi] count] > 0) {
+                 [roisPerImages addObjectsFromArray:[loadedRoisSeries objectAtIndex:mi]];
+                 }
+                 }
+                 }*/
+                
+                // For each label
+                //int cntLabel = 0;
+                //for (NSDictionary* label in labels) {
+                //cntLabel++;
+                
+                // Create the ROI buff
+                //I am creating only one label, I don't need to go trough the dictionary.
+                unsigned char *roiBuff = (unsigned char*) malloc( buffHeight*buffWidth*sizeof(unsigned char) );
+                
+                int minW = buffWidth; int maxW = 0;
+                int minH = buffHeight; int maxH = 0;
+                
+                bool hasLabelValue = false;
+                
+                // Get label information
+                /*int labelValue = [[label valueForKey:@"IDX"] intValue];
+                 NSString* labelName = [label valueForKey:@"LABEL"];
+                 RGBColor labelColor;
+                 labelColor.red = (short) [[label valueForKey:@"R"]floatValue] /255.0*65535.;
+                 labelColor.green = (short) [[label valueForKey:@"G"]floatValue] /255.0*65535.;
+                 labelColor.blue = (short) [[label valueForKey:@"B"]floatValue] /255.0*65535.; */
+                
+                // Skip label 0
+                //if (labelValue == 0) continue;
+                
+                for (int h=0; h<buffHeight; h++) {
+                    for (int w=0; w<buffWidth; w++) {
+                        int k = h*buffWidth + w;
+                        
+                        //if (buff[k] == labelValue) {
+                        if (buff[k] == 1){
+                            roiBuff[k] = 255;
+                            hasLabelValue = true;
+                            //hasLabelInCompleteImage = true;
+                            if (w < minW) minW = w;
+                            if (w > maxW) maxW = w;
+                            if (h < minH) minH = h;
+                            if (h > maxH) maxH = h;
+                        } else {
+                            roiBuff[k] = 0;
+                        }
+                        
                     }
-                    
                 }
-            }
-            
-            // If the slice does not contain the current label skip it
-            if (!hasLabelValue) {
+                
+                // If the slice does not contain the current label skip it
+                if (!hasLabelValue) {
+                    free(roiBuff);
+                    
+                    // Add the empty ROIs to the series ROIs. Para mantener la sincronización con las imágenes.
+                    //[roisPerSeries addObject:roisPerImages];
+                    
+                    continue;
+                }
+                
+                // Resize buffer for memory optimisation
+                
+                int optBuffWidth = maxW - minW+1;
+                int optBuffHeight = maxH - minH+1;
+                unsigned char *optRoiBuff = (unsigned char*) malloc( optBuffHeight*optBuffWidth*sizeof(unsigned char) );
+                
+                for (int h=0; h<optBuffHeight; h++) {
+                    for (int w=0; w<optBuffWidth; w++) {
+                        
+                        int k = (minH+h)*buffWidth + w + minW;
+                        int optK = h*optBuffWidth + w;
+                        
+                        optRoiBuff[optK] = roiBuff[k];
+                        
+                    }
+                }
+                
+                
                 free(roiBuff);
                 
-                // Add the empty ROIs to the series ROIs. Para mantener la sincronización con las imágenes.
-                //[roisPerSeries addObject:roisPerImages];
+                // Create the new ROI
+                ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
+                                                    textWidth:optBuffWidth
+                                                   textHeight:optBuffHeight
+                                                     textName:@"ROI_Prueba"
+                                                    positionX:minW
+                                                    positionY:minH
+                                                     spacingX:sx
+                                                     spacingY:sy
+                                                  imageOrigin:roiOrigin];
+                free(optRoiBuff);
                 
-                continue;
-            }
+                // Add RGB color to the new ROI               
+                [theNewROI setNSColor:[NSColor greenColor]];
+                
+                // Set ROI thickness
+                [theNewROI setSliceThickness:sz];
+                
+                //Set ROI opacity
+                [theNewROI setOpacity:0.5];
+                
+                //Set the ROI to its images
+                [theNewROI setPix:curDCM];
+                
+                //Unlock the ROI
+                [theNewROI setLocked:false];
+                
+                //We add the ROI to roiList in OSIRIX
+                [[fptbRoiList objectAtIndex: i] addObject: theNewROI];
+                
+                //Since the arrasy sent a retain to theNewROI, we can send a release. We won't loose it.
+                [theNewROI release];
+                
+                //[[_viewerController roiList[0] objectAtIndex: i] addObject: theNewROI];
+                
+                [_imageView roiSet: theNewROI];
+                
+                
+            } // End slices
             
-            // Resize buffer for memory optimisation
             
-        int optBuffWidth = maxW - minW+1;
-        int optBuffHeight = maxH - minH+1;        
-        unsigned char *optRoiBuff = (unsigned char*) malloc( optBuffHeight*optBuffWidth*sizeof(unsigned char) );
+            [_imageView setIndex: [_imageView curImage]];
             
-        for (int h=0; h<optBuffHeight; h++) {    
-                for (int w=0; w<optBuffWidth; w++) {
-                    
-                    int k = (minH+h)*buffWidth + w + minW;
-                    int optK = h*optBuffWidth + w;
-                    
-                    optRoiBuff[optK] = roiBuff[k];
-                    
-                }
-            }
+            NSLog(@"Reference count before Delete %i", img -> GetReferenceCount());
+            img -> Delete();
+        }else {
+            //[buttonBrushROI setEnabled:false];
+        }
         
-            
-        free(roiBuff);
-            
-        // Create the new ROI
-        ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
-                                            textWidth:optBuffWidth
-                                            textHeight:optBuffHeight
-                                            textName:@"ROI_Prueba"
-                                            positionX:minW
-                                            positionY:minH
-                                            spacingX:sx
-                                            spacingY:sy
-                                            imageOrigin:roiOrigin];                
-        free(optRoiBuff);
-            
-        // Add RGB color to the new ROI               
-        [theNewROI setNSColor:[NSColor greenColor]];
-            
-        // Set ROI thickness
-        [theNewROI setSliceThickness:sz];
-
-        //Set ROI opacity
-        [theNewROI setOpacity:0.5];
-        
-        //Set the ROI to its images
-        [theNewROI setPix:curDCM];
-        
-        //Unlock the ROI
-        [theNewROI setLocked:false];
-        
-        //We add the ROI to roiList in OSIRIX
-        [[fptbRoiList objectAtIndex: i] addObject: theNewROI];
-        
-        //Since the arrasy sent a retain to theNewROI, we can send a release. We won't loose it.
-        [theNewROI release];
-        
-        //[[_viewerController roiList[0] objectAtIndex: i] addObject: theNewROI];
-        
-        [_imageView roiSet: theNewROI];
-        
-        
-    } // End slices
+        [self updateLabel];
     
-  
-    [_imageView setIndex: [_imageView curImage]];
+    }
     
-    NSLog(@"Reference count before Delete %i", img -> GetReferenceCount());
-    img -> Delete();
+    }catch(...)
+    {
+        NSLog(@"Error capturado");
+    }
     
     //reader -> Delete();
     
@@ -443,17 +475,22 @@
 -(IBAction)meshFromLabeledImage:(id)sender
 {
     
-    @try {
+    try {
         // Read image
         vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
+        //vtkPolyDataReader *reader = vtkPolyDataReader::New();
         reader->SetFileName( [labeledImagePath UTF8String] );
-        //reader->Update();
+        reader->Update();
         
         
         
         //vtkStructuredPoints* img = vtkStructuredPoints::New();
-        vtkStructuredPoints *img = reader -> GetOutput();
-        img -> Update();
+        //vtkPolyData *img = reader -> GetOutput();
+        vtkImageData *img = reader -> GetOutput();
+        
+        //vtkStructuredPoints* img = reader -> GetOutput();
+        
+        //img -> Update();
         
         //For allowing the img block memory to stay in memory without been linked to the filter.
         //img -> Register(NULL);
@@ -464,8 +501,8 @@
         // Convert the image to a polydata
         vtkImageDataGeometryFilter *imageDataGeometryFilter = vtkImageDataGeometryFilter::New();
         
-        //imageDataGeometryFilter->SetInput(img);
-        //imageDataGeometryFilter->Update();
+        imageDataGeometryFilter->SetInput(img);
+        imageDataGeometryFilter->Update();
         
         vtkPolyData *mesh = imageDataGeometryFilter -> GetOutput();
         
@@ -478,7 +515,7 @@
         //vtkSmartPointer<vtkPolyDataMapper>::New();
         //mapper->SetInputConnection(imageDataGeometryFilter->GetOutputPort());
     }
-    @catch (...) {
+    catch (...) {
         
 		NSLog(@"Exception captured");
 	
