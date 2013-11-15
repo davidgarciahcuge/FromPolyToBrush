@@ -165,3 +165,5 @@ FromPolyToBrush.xcodeproj/project.xcworkspace/xcuserdata/David.xcuserdatad/UserI
 *.xcbkptlist
 
 *.xcbkptlist
+
+.DS_Store
