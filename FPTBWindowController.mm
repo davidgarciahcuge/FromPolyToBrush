@@ -214,8 +214,8 @@
             //img -> Update();
             
             //For allowing the img block memory to stay in memory without been linked to the filter.
-            img -> Register(NULL);
-            img -> SetSource(NULL);
+            //img -> Register(NULL);
+            //img -> SetSource(NULL);
             
             reader -> Delete();
             
@@ -446,15 +446,16 @@
             //vreader -> Register(NULL);
             
             vtkPolyData *mesh = vreader -> GetOutput();
-            mesh -> Update();
+            //mesh -> Update();
+            vreader -> Update();
             
             //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
             
-            mesh -> Register(NULL);
+            //mesh -> Register(NULL);
             
             //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
 
-            mesh -> SetSource(NULL);
+            //mesh -> SetSource(NULL);
             
             vreader -> Delete();
             
@@ -501,7 +502,7 @@
         // Convert the image to a polydata
         vtkImageDataGeometryFilter *imageDataGeometryFilter = vtkImageDataGeometryFilter::New();
         
-        imageDataGeometryFilter->SetInput(img);
+        imageDataGeometryFilter->SetInputDataObject(img);
         imageDataGeometryFilter->Update();
         
         vtkPolyData *mesh = imageDataGeometryFilter -> GetOutput();

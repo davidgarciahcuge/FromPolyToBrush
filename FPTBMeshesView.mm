@@ -78,7 +78,7 @@
     _mesh = mesh;
     
     vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
-    fptbMapper -> SetInput(_mesh);
+    fptbMapper -> SetInputData(_mesh);
     _mesh -> Delete();
         
     vtkActor *fptbActor = vtkActor::New();
