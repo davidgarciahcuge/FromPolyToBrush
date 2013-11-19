@@ -16,7 +16,7 @@
 #import <OsiriXAPI/DCMPix.h>
 
 #define id Id
-#import "vtkStructuredPointsReader.h"
+#import <vtkStructuredPointsReader.h>
 #import "vtkStructuredPoints.h"
 #import "vtkPolyDataReader.h"
 #import "vtkPolyData.h"
@@ -205,13 +205,15 @@
             // Read image
             vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
             reader->SetFileName( [labeledImagePath UTF8String] );
-            reader->Update();
+            //reader->Update();
             
             
             
             //vtkStructuredPoints* img = vtkStructuredPoints::New();
             vtkStructuredPoints *img = reader -> GetOutput();
+            
             //img -> Update();
+            reader -> Update();
             
             //For allowing the img block memory to stay in memory without been linked to the filter.
             //img -> Register(NULL);
