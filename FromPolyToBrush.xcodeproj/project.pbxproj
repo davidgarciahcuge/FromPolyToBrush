@@ -11,46 +11,47 @@
 		63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */; };
 		63205BEA17CB81AB001D56A4 /* FPTBWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63205BE717CB81AB001D56A4 /* FPTBWindow.xib */; };
 		6320F63E1758FC01000FD6FF /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */; };
+		632239ED183BDAB30045AC66 /* libLSDyna.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239C7183BDAB30045AC66 /* libLSDyna.a */; };
+		632239EE183BDAB30045AC66 /* libMapReduceMPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239C8183BDAB30045AC66 /* libMapReduceMPI.a */; };
+		632239EF183BDAB30045AC66 /* libmpistubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239C9183BDAB30045AC66 /* libmpistubs.a */; };
+		632239F0183BDAB30045AC66 /* libvtkalglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239CA183BDAB30045AC66 /* libvtkalglib.a */; };
+		632239F1183BDAB30045AC66 /* libvtkCharts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239CB183BDAB30045AC66 /* libvtkCharts.a */; };
+		632239F2183BDAB30045AC66 /* libvtkCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239CC183BDAB30045AC66 /* libvtkCommon.a */; };
+		632239F3183BDAB30045AC66 /* libvtkDICOMParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239CD183BDAB30045AC66 /* libvtkDICOMParser.a */; };
+		632239F4183BDAB30045AC66 /* libvtkexoIIc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239CE183BDAB30045AC66 /* libvtkexoIIc.a */; };
+		632239F5183BDAB30045AC66 /* libvtkexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239CF183BDAB30045AC66 /* libvtkexpat.a */; };
+		632239F6183BDAB30045AC66 /* libvtkFiltering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D0183BDAB30045AC66 /* libvtkFiltering.a */; };
+		632239F7183BDAB30045AC66 /* libvtkfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D1183BDAB30045AC66 /* libvtkfreetype.a */; };
+		632239F8183BDAB30045AC66 /* libvtkftgl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D2183BDAB30045AC66 /* libvtkftgl.a */; };
+		632239F9183BDAB30045AC66 /* libvtkGenericFiltering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D3183BDAB30045AC66 /* libvtkGenericFiltering.a */; };
+		632239FA183BDAB30045AC66 /* libvtkGeovis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D4183BDAB30045AC66 /* libvtkGeovis.a */; };
+		632239FB183BDAB30045AC66 /* libvtkGraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D5183BDAB30045AC66 /* libvtkGraphics.a */; };
+		632239FC183BDAB30045AC66 /* libvtkhdf5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D6183BDAB30045AC66 /* libvtkhdf5.a */; };
+		632239FD183BDAB30045AC66 /* libvtkhdf5_hl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D7183BDAB30045AC66 /* libvtkhdf5_hl.a */; };
+		632239FE183BDAB30045AC66 /* libvtkHybrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D8183BDAB30045AC66 /* libvtkHybrid.a */; };
+		632239FF183BDAB30045AC66 /* libvtkImaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239D9183BDAB30045AC66 /* libvtkImaging.a */; };
+		63223A00183BDAB30045AC66 /* libvtkInfovis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239DA183BDAB30045AC66 /* libvtkInfovis.a */; };
+		63223A01183BDAB30045AC66 /* libvtkIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239DB183BDAB30045AC66 /* libvtkIO.a */; };
+		63223A02183BDAB30045AC66 /* libvtkjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239DC183BDAB30045AC66 /* libvtkjpeg.a */; };
+		63223A03183BDAB30045AC66 /* libvtklibxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239DD183BDAB30045AC66 /* libvtklibxml2.a */; };
+		63223A04183BDAB30045AC66 /* libvtkmetaio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239DE183BDAB30045AC66 /* libvtkmetaio.a */; };
+		63223A05183BDAB30045AC66 /* libvtkNetCDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239DF183BDAB30045AC66 /* libvtkNetCDF.a */; };
+		63223A06183BDAB40045AC66 /* libvtkNetCDF_cxx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E0183BDAB30045AC66 /* libvtkNetCDF_cxx.a */; };
+		63223A07183BDAB40045AC66 /* libvtkOsiriX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E1183BDAB30045AC66 /* libvtkOsiriX.a */; };
+		63223A08183BDAB40045AC66 /* libvtkpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E2183BDAB30045AC66 /* libvtkpng.a */; };
+		63223A09183BDAB40045AC66 /* libvtkproj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E3183BDAB30045AC66 /* libvtkproj4.a */; };
+		63223A0A183BDAB40045AC66 /* libvtkRendering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E4183BDAB30045AC66 /* libvtkRendering.a */; };
+		63223A0B183BDAB40045AC66 /* libvtksqlite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E5183BDAB30045AC66 /* libvtksqlite.a */; };
+		63223A0C183BDAB40045AC66 /* libvtksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E6183BDAB30045AC66 /* libvtksys.a */; };
+		63223A0D183BDAB40045AC66 /* libvtktiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E7183BDAB30045AC66 /* libvtktiff.a */; };
+		63223A0E183BDAB40045AC66 /* libvtkverdict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E8183BDAB30045AC66 /* libvtkverdict.a */; };
+		63223A0F183BDAB40045AC66 /* libvtkViews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239E9183BDAB30045AC66 /* libvtkViews.a */; };
+		63223A10183BDAB40045AC66 /* libvtkVolumeRendering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239EA183BDAB30045AC66 /* libvtkVolumeRendering.a */; };
+		63223A11183BDAB40045AC66 /* libvtkWidgets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239EB183BDAB30045AC66 /* libvtkWidgets.a */; };
+		63223A12183BDAB40045AC66 /* libvtkzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632239EC183BDAB30045AC66 /* libvtkzlib.a */; };
 		632307C2181FEAAA004DA543 /* FPTBMeshesView.h in Headers */ = {isa = PBXBuildFile; fileRef = 632307C0181FEAAA004DA543 /* FPTBMeshesView.h */; };
 		632307C3181FEAAA004DA543 /* FPTBMeshesView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 632307C1181FEAAA004DA543 /* FPTBMeshesView.mm */; };
 		6393C8EF183A7251008D71ED /* symbolList in Resources */ = {isa = PBXBuildFile; fileRef = 6393C8EE183A7251008D71ED /* symbolList */; };
-		6393CC35183A9BA3008D71ED /* libLSDyna.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC10183A9BA3008D71ED /* libLSDyna.a */; };
-		6393CC36183A9BA3008D71ED /* libMapReduceMPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC11183A9BA3008D71ED /* libMapReduceMPI.a */; };
-		6393CC37183A9BA3008D71ED /* libmpistubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC12183A9BA3008D71ED /* libmpistubs.a */; };
-		6393CC38183A9BA3008D71ED /* libvtkalglib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC13183A9BA3008D71ED /* libvtkalglib.a */; };
-		6393CC39183A9BA3008D71ED /* libvtkCharts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC14183A9BA3008D71ED /* libvtkCharts.a */; };
-		6393CC3A183A9BA3008D71ED /* libvtkCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC15183A9BA3008D71ED /* libvtkCommon.a */; };
-		6393CC3B183A9BA4008D71ED /* libvtkDICOMParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC16183A9BA3008D71ED /* libvtkDICOMParser.a */; };
-		6393CC3C183A9BA4008D71ED /* libvtkexoIIc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC17183A9BA3008D71ED /* libvtkexoIIc.a */; };
-		6393CC3D183A9BA4008D71ED /* libvtkexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC18183A9BA3008D71ED /* libvtkexpat.a */; };
-		6393CC3E183A9BA4008D71ED /* libvtkFiltering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC19183A9BA3008D71ED /* libvtkFiltering.a */; };
-		6393CC3F183A9BA4008D71ED /* libvtkfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC1A183A9BA3008D71ED /* libvtkfreetype.a */; };
-		6393CC40183A9BA4008D71ED /* libvtkftgl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC1B183A9BA3008D71ED /* libvtkftgl.a */; };
-		6393CC41183A9BA4008D71ED /* libvtkGenericFiltering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC1C183A9BA3008D71ED /* libvtkGenericFiltering.a */; };
-		6393CC42183A9BA4008D71ED /* libvtkGeovis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC1D183A9BA3008D71ED /* libvtkGeovis.a */; };
-		6393CC43183A9BA4008D71ED /* libvtkGraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC1E183A9BA3008D71ED /* libvtkGraphics.a */; };
-		6393CC44183A9BA4008D71ED /* libvtkhdf5_hl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC1F183A9BA3008D71ED /* libvtkhdf5_hl.a */; };
-		6393CC45183A9BA4008D71ED /* libvtkhdf5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC20183A9BA3008D71ED /* libvtkhdf5.a */; };
-		6393CC46183A9BA4008D71ED /* libvtkHybrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC21183A9BA3008D71ED /* libvtkHybrid.a */; };
-		6393CC47183A9BA4008D71ED /* libvtkImaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC22183A9BA3008D71ED /* libvtkImaging.a */; };
-		6393CC48183A9BA4008D71ED /* libvtkInfovis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC23183A9BA3008D71ED /* libvtkInfovis.a */; };
-		6393CC49183A9BA4008D71ED /* libvtkIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC24183A9BA3008D71ED /* libvtkIO.a */; };
-		6393CC4A183A9BA4008D71ED /* libvtkjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC25183A9BA3008D71ED /* libvtkjpeg.a */; };
-		6393CC4B183A9BA4008D71ED /* libvtklibxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC26183A9BA3008D71ED /* libvtklibxml2.a */; };
-		6393CC4C183A9BA4008D71ED /* libvtkmetaio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC27183A9BA3008D71ED /* libvtkmetaio.a */; };
-		6393CC4D183A9BA4008D71ED /* libvtkNetCDF_cxx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC28183A9BA3008D71ED /* libvtkNetCDF_cxx.a */; };
-		6393CC4E183A9BA4008D71ED /* libvtkNetCDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC29183A9BA3008D71ED /* libvtkNetCDF.a */; };
-		6393CC4F183A9BA4008D71ED /* libvtkpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC2A183A9BA3008D71ED /* libvtkpng.a */; };
-		6393CC50183A9BA4008D71ED /* libvtkproj4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC2B183A9BA3008D71ED /* libvtkproj4.a */; };
-		6393CC51183A9BA4008D71ED /* libvtkRendering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC2C183A9BA3008D71ED /* libvtkRendering.a */; };
-		6393CC52183A9BA4008D71ED /* libvtksqlite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC2D183A9BA3008D71ED /* libvtksqlite.a */; };
-		6393CC53183A9BA4008D71ED /* libvtksys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC2E183A9BA3008D71ED /* libvtksys.a */; };
-		6393CC54183A9BA4008D71ED /* libvtktiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC2F183A9BA3008D71ED /* libvtktiff.a */; };
-		6393CC55183A9BA4008D71ED /* libvtkverdict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC30183A9BA3008D71ED /* libvtkverdict.a */; };
-		6393CC56183A9BA4008D71ED /* libvtkViews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC31183A9BA3008D71ED /* libvtkViews.a */; };
-		6393CC57183A9BA4008D71ED /* libvtkVolumeRendering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC32183A9BA3008D71ED /* libvtkVolumeRendering.a */; };
-		6393CC58183A9BA4008D71ED /* libvtkWidgets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC33183A9BA3008D71ED /* libvtkWidgets.a */; };
-		6393CC59183A9BA4008D71ED /* libvtkzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6393CC34183A9BA3008D71ED /* libvtkzlib.a */; };
 		8D5B49AE048680CD000E48DA /* FromPolyToBrush_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF630370AF2F00C91783 /* FromPolyToBrush_Prefix.pch */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -68,46 +69,47 @@
 		63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBWindowController.mm; sourceTree = "<group>"; };
 		63205BE717CB81AB001D56A4 /* FPTBWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPTBWindow.xib; sourceTree = "<group>"; };
 		6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriXAPI.framework; sourceTree = "<group>"; };
+		632239C7183BDAB30045AC66 /* libLSDyna.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLSDyna.a; sourceTree = "<group>"; };
+		632239C8183BDAB30045AC66 /* libMapReduceMPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMapReduceMPI.a; sourceTree = "<group>"; };
+		632239C9183BDAB30045AC66 /* libmpistubs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmpistubs.a; sourceTree = "<group>"; };
+		632239CA183BDAB30045AC66 /* libvtkalglib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkalglib.a; sourceTree = "<group>"; };
+		632239CB183BDAB30045AC66 /* libvtkCharts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkCharts.a; sourceTree = "<group>"; };
+		632239CC183BDAB30045AC66 /* libvtkCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkCommon.a; sourceTree = "<group>"; };
+		632239CD183BDAB30045AC66 /* libvtkDICOMParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkDICOMParser.a; sourceTree = "<group>"; };
+		632239CE183BDAB30045AC66 /* libvtkexoIIc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkexoIIc.a; sourceTree = "<group>"; };
+		632239CF183BDAB30045AC66 /* libvtkexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkexpat.a; sourceTree = "<group>"; };
+		632239D0183BDAB30045AC66 /* libvtkFiltering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkFiltering.a; sourceTree = "<group>"; };
+		632239D1183BDAB30045AC66 /* libvtkfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkfreetype.a; sourceTree = "<group>"; };
+		632239D2183BDAB30045AC66 /* libvtkftgl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkftgl.a; sourceTree = "<group>"; };
+		632239D3183BDAB30045AC66 /* libvtkGenericFiltering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkGenericFiltering.a; sourceTree = "<group>"; };
+		632239D4183BDAB30045AC66 /* libvtkGeovis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkGeovis.a; sourceTree = "<group>"; };
+		632239D5183BDAB30045AC66 /* libvtkGraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkGraphics.a; sourceTree = "<group>"; };
+		632239D6183BDAB30045AC66 /* libvtkhdf5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkhdf5.a; sourceTree = "<group>"; };
+		632239D7183BDAB30045AC66 /* libvtkhdf5_hl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkhdf5_hl.a; sourceTree = "<group>"; };
+		632239D8183BDAB30045AC66 /* libvtkHybrid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkHybrid.a; sourceTree = "<group>"; };
+		632239D9183BDAB30045AC66 /* libvtkImaging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkImaging.a; sourceTree = "<group>"; };
+		632239DA183BDAB30045AC66 /* libvtkInfovis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkInfovis.a; sourceTree = "<group>"; };
+		632239DB183BDAB30045AC66 /* libvtkIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkIO.a; sourceTree = "<group>"; };
+		632239DC183BDAB30045AC66 /* libvtkjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkjpeg.a; sourceTree = "<group>"; };
+		632239DD183BDAB30045AC66 /* libvtklibxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtklibxml2.a; sourceTree = "<group>"; };
+		632239DE183BDAB30045AC66 /* libvtkmetaio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkmetaio.a; sourceTree = "<group>"; };
+		632239DF183BDAB30045AC66 /* libvtkNetCDF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkNetCDF.a; sourceTree = "<group>"; };
+		632239E0183BDAB30045AC66 /* libvtkNetCDF_cxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkNetCDF_cxx.a; sourceTree = "<group>"; };
+		632239E1183BDAB30045AC66 /* libvtkOsiriX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkOsiriX.a; sourceTree = "<group>"; };
+		632239E2183BDAB30045AC66 /* libvtkpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkpng.a; sourceTree = "<group>"; };
+		632239E3183BDAB30045AC66 /* libvtkproj4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkproj4.a; sourceTree = "<group>"; };
+		632239E4183BDAB30045AC66 /* libvtkRendering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkRendering.a; sourceTree = "<group>"; };
+		632239E5183BDAB30045AC66 /* libvtksqlite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtksqlite.a; sourceTree = "<group>"; };
+		632239E6183BDAB30045AC66 /* libvtksys.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtksys.a; sourceTree = "<group>"; };
+		632239E7183BDAB30045AC66 /* libvtktiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtktiff.a; sourceTree = "<group>"; };
+		632239E8183BDAB30045AC66 /* libvtkverdict.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkverdict.a; sourceTree = "<group>"; };
+		632239E9183BDAB30045AC66 /* libvtkViews.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkViews.a; sourceTree = "<group>"; };
+		632239EA183BDAB30045AC66 /* libvtkVolumeRendering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkVolumeRendering.a; sourceTree = "<group>"; };
+		632239EB183BDAB30045AC66 /* libvtkWidgets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkWidgets.a; sourceTree = "<group>"; };
+		632239EC183BDAB30045AC66 /* libvtkzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkzlib.a; sourceTree = "<group>"; };
 		632307C0181FEAAA004DA543 /* FPTBMeshesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTBMeshesView.h; sourceTree = "<group>"; };
 		632307C1181FEAAA004DA543 /* FPTBMeshesView.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBMeshesView.mm; sourceTree = "<group>"; };
 		6393C8EE183A7251008D71ED /* symbolList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbolList; sourceTree = "<group>"; };
-		6393CC10183A9BA3008D71ED /* libLSDyna.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLSDyna.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libLSDyna.a"; sourceTree = "<group>"; };
-		6393CC11183A9BA3008D71ED /* libMapReduceMPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMapReduceMPI.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libMapReduceMPI.a"; sourceTree = "<group>"; };
-		6393CC12183A9BA3008D71ED /* libmpistubs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpistubs.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libmpistubs.a"; sourceTree = "<group>"; };
-		6393CC13183A9BA3008D71ED /* libvtkalglib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkalglib.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkalglib.a"; sourceTree = "<group>"; };
-		6393CC14183A9BA3008D71ED /* libvtkCharts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkCharts.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkCharts.a"; sourceTree = "<group>"; };
-		6393CC15183A9BA3008D71ED /* libvtkCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkCommon.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkCommon.a"; sourceTree = "<group>"; };
-		6393CC16183A9BA3008D71ED /* libvtkDICOMParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkDICOMParser.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkDICOMParser.a"; sourceTree = "<group>"; };
-		6393CC17183A9BA3008D71ED /* libvtkexoIIc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkexoIIc.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkexoIIc.a"; sourceTree = "<group>"; };
-		6393CC18183A9BA3008D71ED /* libvtkexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkexpat.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkexpat.a"; sourceTree = "<group>"; };
-		6393CC19183A9BA3008D71ED /* libvtkFiltering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkFiltering.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkFiltering.a"; sourceTree = "<group>"; };
-		6393CC1A183A9BA3008D71ED /* libvtkfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkfreetype.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkfreetype.a"; sourceTree = "<group>"; };
-		6393CC1B183A9BA3008D71ED /* libvtkftgl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkftgl.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkftgl.a"; sourceTree = "<group>"; };
-		6393CC1C183A9BA3008D71ED /* libvtkGenericFiltering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkGenericFiltering.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkGenericFiltering.a"; sourceTree = "<group>"; };
-		6393CC1D183A9BA3008D71ED /* libvtkGeovis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkGeovis.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkGeovis.a"; sourceTree = "<group>"; };
-		6393CC1E183A9BA3008D71ED /* libvtkGraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkGraphics.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkGraphics.a"; sourceTree = "<group>"; };
-		6393CC1F183A9BA3008D71ED /* libvtkhdf5_hl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkhdf5_hl.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkhdf5_hl.a"; sourceTree = "<group>"; };
-		6393CC20183A9BA3008D71ED /* libvtkhdf5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkhdf5.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkhdf5.a"; sourceTree = "<group>"; };
-		6393CC21183A9BA3008D71ED /* libvtkHybrid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkHybrid.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkHybrid.a"; sourceTree = "<group>"; };
-		6393CC22183A9BA3008D71ED /* libvtkImaging.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkImaging.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkImaging.a"; sourceTree = "<group>"; };
-		6393CC23183A9BA3008D71ED /* libvtkInfovis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkInfovis.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkInfovis.a"; sourceTree = "<group>"; };
-		6393CC24183A9BA3008D71ED /* libvtkIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkIO.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkIO.a"; sourceTree = "<group>"; };
-		6393CC25183A9BA3008D71ED /* libvtkjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkjpeg.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkjpeg.a"; sourceTree = "<group>"; };
-		6393CC26183A9BA3008D71ED /* libvtklibxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtklibxml2.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtklibxml2.a"; sourceTree = "<group>"; };
-		6393CC27183A9BA3008D71ED /* libvtkmetaio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkmetaio.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkmetaio.a"; sourceTree = "<group>"; };
-		6393CC28183A9BA3008D71ED /* libvtkNetCDF_cxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkNetCDF_cxx.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkNetCDF_cxx.a"; sourceTree = "<group>"; };
-		6393CC29183A9BA3008D71ED /* libvtkNetCDF.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkNetCDF.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkNetCDF.a"; sourceTree = "<group>"; };
-		6393CC2A183A9BA3008D71ED /* libvtkpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkpng.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkpng.a"; sourceTree = "<group>"; };
-		6393CC2B183A9BA3008D71ED /* libvtkproj4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkproj4.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkproj4.a"; sourceTree = "<group>"; };
-		6393CC2C183A9BA3008D71ED /* libvtkRendering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkRendering.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkRendering.a"; sourceTree = "<group>"; };
-		6393CC2D183A9BA3008D71ED /* libvtksqlite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtksqlite.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtksqlite.a"; sourceTree = "<group>"; };
-		6393CC2E183A9BA3008D71ED /* libvtksys.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtksys.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtksys.a"; sourceTree = "<group>"; };
-		6393CC2F183A9BA3008D71ED /* libvtktiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtktiff.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtktiff.a"; sourceTree = "<group>"; };
-		6393CC30183A9BA3008D71ED /* libvtkverdict.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkverdict.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkverdict.a"; sourceTree = "<group>"; };
-		6393CC31183A9BA3008D71ED /* libvtkViews.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkViews.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkViews.a"; sourceTree = "<group>"; };
-		6393CC32183A9BA3008D71ED /* libvtkVolumeRendering.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkVolumeRendering.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkVolumeRendering.a"; sourceTree = "<group>"; };
-		6393CC33183A9BA3008D71ED /* libvtkWidgets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkWidgets.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkWidgets.a"; sourceTree = "<group>"; };
-		6393CC34183A9BA3008D71ED /* libvtkzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvtkzlib.a; path = "../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10/libvtkzlib.a"; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB5D36050680E57E00F4007A /* FromPolyToBrush.osirixplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FromPolyToBrush.osirixplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA48A640680BB600089EB4F /* FromPolyToBrushFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FromPolyToBrushFilter.h; sourceTree = "<group>"; };
@@ -119,45 +121,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6393CC55183A9BA4008D71ED /* libvtkverdict.a in Frameworks */,
-				6393CC35183A9BA3008D71ED /* libLSDyna.a in Frameworks */,
-				6393CC37183A9BA3008D71ED /* libmpistubs.a in Frameworks */,
-				6393CC3B183A9BA4008D71ED /* libvtkDICOMParser.a in Frameworks */,
-				6393CC4B183A9BA4008D71ED /* libvtklibxml2.a in Frameworks */,
-				6393CC3A183A9BA3008D71ED /* libvtkCommon.a in Frameworks */,
-				6393CC40183A9BA4008D71ED /* libvtkftgl.a in Frameworks */,
-				6393CC53183A9BA4008D71ED /* libvtksys.a in Frameworks */,
-				6393CC45183A9BA4008D71ED /* libvtkhdf5.a in Frameworks */,
-				6393CC3E183A9BA4008D71ED /* libvtkFiltering.a in Frameworks */,
-				6393CC42183A9BA4008D71ED /* libvtkGeovis.a in Frameworks */,
-				6393CC54183A9BA4008D71ED /* libvtktiff.a in Frameworks */,
-				6393CC51183A9BA4008D71ED /* libvtkRendering.a in Frameworks */,
-				6393CC47183A9BA4008D71ED /* libvtkImaging.a in Frameworks */,
-				6393CC38183A9BA3008D71ED /* libvtkalglib.a in Frameworks */,
+				632239ED183BDAB30045AC66 /* libLSDyna.a in Frameworks */,
+				632239EF183BDAB30045AC66 /* libmpistubs.a in Frameworks */,
+				632239FD183BDAB30045AC66 /* libvtkhdf5_hl.a in Frameworks */,
+				63223A03183BDAB30045AC66 /* libvtklibxml2.a in Frameworks */,
+				632239F3183BDAB30045AC66 /* libvtkDICOMParser.a in Frameworks */,
+				632239F2183BDAB30045AC66 /* libvtkCommon.a in Frameworks */,
+				632239F8183BDAB30045AC66 /* libvtkftgl.a in Frameworks */,
+				63223A06183BDAB40045AC66 /* libvtkNetCDF_cxx.a in Frameworks */,
+				632239F6183BDAB30045AC66 /* libvtkFiltering.a in Frameworks */,
+				63223A08183BDAB40045AC66 /* libvtkpng.a in Frameworks */,
+				63223A0A183BDAB40045AC66 /* libvtkRendering.a in Frameworks */,
+				63223A11183BDAB40045AC66 /* libvtkWidgets.a in Frameworks */,
+				632239FA183BDAB30045AC66 /* libvtkGeovis.a in Frameworks */,
+				63223A10183BDAB40045AC66 /* libvtkVolumeRendering.a in Frameworks */,
+				632239FF183BDAB30045AC66 /* libvtkImaging.a in Frameworks */,
+				632239F0183BDAB30045AC66 /* libvtkalglib.a in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
-				6393CC3F183A9BA4008D71ED /* libvtkfreetype.a in Frameworks */,
-				6393CC4E183A9BA4008D71ED /* libvtkNetCDF.a in Frameworks */,
-				6393CC48183A9BA4008D71ED /* libvtkInfovis.a in Frameworks */,
-				6393CC59183A9BA4008D71ED /* libvtkzlib.a in Frameworks */,
-				6393CC4A183A9BA4008D71ED /* libvtkjpeg.a in Frameworks */,
-				6393CC46183A9BA4008D71ED /* libvtkHybrid.a in Frameworks */,
-				6393CC4F183A9BA4008D71ED /* libvtkpng.a in Frameworks */,
-				6393CC3C183A9BA4008D71ED /* libvtkexoIIc.a in Frameworks */,
-				6393CC49183A9BA4008D71ED /* libvtkIO.a in Frameworks */,
-				6393CC4D183A9BA4008D71ED /* libvtkNetCDF_cxx.a in Frameworks */,
-				6393CC4C183A9BA4008D71ED /* libvtkmetaio.a in Frameworks */,
-				6393CC56183A9BA4008D71ED /* libvtkViews.a in Frameworks */,
+				632239F7183BDAB30045AC66 /* libvtkfreetype.a in Frameworks */,
+				63223A0D183BDAB40045AC66 /* libvtktiff.a in Frameworks */,
+				63223A09183BDAB40045AC66 /* libvtkproj4.a in Frameworks */,
+				63223A00183BDAB30045AC66 /* libvtkInfovis.a in Frameworks */,
+				63223A02183BDAB30045AC66 /* libvtkjpeg.a in Frameworks */,
+				632239FE183BDAB30045AC66 /* libvtkHybrid.a in Frameworks */,
+				632239F4183BDAB30045AC66 /* libvtkexoIIc.a in Frameworks */,
+				63223A01183BDAB30045AC66 /* libvtkIO.a in Frameworks */,
+				63223A04183BDAB30045AC66 /* libvtkmetaio.a in Frameworks */,
+				63223A0F183BDAB40045AC66 /* libvtkViews.a in Frameworks */,
+				63223A05183BDAB30045AC66 /* libvtkNetCDF.a in Frameworks */,
+				63223A0B183BDAB40045AC66 /* libvtksqlite.a in Frameworks */,
 				6320F63E1758FC01000FD6FF /* OsiriXAPI.framework in Frameworks */,
-				6393CC36183A9BA3008D71ED /* libMapReduceMPI.a in Frameworks */,
-				6393CC43183A9BA4008D71ED /* libvtkGraphics.a in Frameworks */,
-				6393CC57183A9BA4008D71ED /* libvtkVolumeRendering.a in Frameworks */,
-				6393CC44183A9BA4008D71ED /* libvtkhdf5_hl.a in Frameworks */,
-				6393CC52183A9BA4008D71ED /* libvtksqlite.a in Frameworks */,
-				6393CC58183A9BA4008D71ED /* libvtkWidgets.a in Frameworks */,
-				6393CC41183A9BA4008D71ED /* libvtkGenericFiltering.a in Frameworks */,
-				6393CC3D183A9BA4008D71ED /* libvtkexpat.a in Frameworks */,
-				6393CC39183A9BA3008D71ED /* libvtkCharts.a in Frameworks */,
-				6393CC50183A9BA4008D71ED /* libvtkproj4.a in Frameworks */,
+				632239EE183BDAB30045AC66 /* libMapReduceMPI.a in Frameworks */,
+				632239FB183BDAB30045AC66 /* libvtkGraphics.a in Frameworks */,
+				63223A12183BDAB40045AC66 /* libvtkzlib.a in Frameworks */,
+				63223A07183BDAB40045AC66 /* libvtkOsiriX.a in Frameworks */,
+				632239F9183BDAB30045AC66 /* libvtkGenericFiltering.a in Frameworks */,
+				632239F5183BDAB30045AC66 /* libvtkexpat.a in Frameworks */,
+				63223A0C183BDAB40045AC66 /* libvtksys.a in Frameworks */,
+				632239FC183BDAB30045AC66 /* libvtkhdf5.a in Frameworks */,
+				632239F1183BDAB30045AC66 /* libvtkCharts.a in Frameworks */,
+				63223A0E183BDAB40045AC66 /* libvtkverdict.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,56 +242,58 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		632239C6183BDAB30045AC66 /* VTKLibs */ = {
+			isa = PBXGroup;
+			children = (
+				632239C7183BDAB30045AC66 /* libLSDyna.a */,
+				632239C8183BDAB30045AC66 /* libMapReduceMPI.a */,
+				632239C9183BDAB30045AC66 /* libmpistubs.a */,
+				632239CA183BDAB30045AC66 /* libvtkalglib.a */,
+				632239CB183BDAB30045AC66 /* libvtkCharts.a */,
+				632239CC183BDAB30045AC66 /* libvtkCommon.a */,
+				632239CD183BDAB30045AC66 /* libvtkDICOMParser.a */,
+				632239CE183BDAB30045AC66 /* libvtkexoIIc.a */,
+				632239CF183BDAB30045AC66 /* libvtkexpat.a */,
+				632239D0183BDAB30045AC66 /* libvtkFiltering.a */,
+				632239D1183BDAB30045AC66 /* libvtkfreetype.a */,
+				632239D2183BDAB30045AC66 /* libvtkftgl.a */,
+				632239D3183BDAB30045AC66 /* libvtkGenericFiltering.a */,
+				632239D4183BDAB30045AC66 /* libvtkGeovis.a */,
+				632239D5183BDAB30045AC66 /* libvtkGraphics.a */,
+				632239D6183BDAB30045AC66 /* libvtkhdf5.a */,
+				632239D7183BDAB30045AC66 /* libvtkhdf5_hl.a */,
+				632239D8183BDAB30045AC66 /* libvtkHybrid.a */,
+				632239D9183BDAB30045AC66 /* libvtkImaging.a */,
+				632239DA183BDAB30045AC66 /* libvtkInfovis.a */,
+				632239DB183BDAB30045AC66 /* libvtkIO.a */,
+				632239DC183BDAB30045AC66 /* libvtkjpeg.a */,
+				632239DD183BDAB30045AC66 /* libvtklibxml2.a */,
+				632239DE183BDAB30045AC66 /* libvtkmetaio.a */,
+				632239DF183BDAB30045AC66 /* libvtkNetCDF.a */,
+				632239E0183BDAB30045AC66 /* libvtkNetCDF_cxx.a */,
+				632239E1183BDAB30045AC66 /* libvtkOsiriX.a */,
+				632239E2183BDAB30045AC66 /* libvtkpng.a */,
+				632239E3183BDAB30045AC66 /* libvtkproj4.a */,
+				632239E4183BDAB30045AC66 /* libvtkRendering.a */,
+				632239E5183BDAB30045AC66 /* libvtksqlite.a */,
+				632239E6183BDAB30045AC66 /* libvtksys.a */,
+				632239E7183BDAB30045AC66 /* libvtktiff.a */,
+				632239E8183BDAB30045AC66 /* libvtkverdict.a */,
+				632239E9183BDAB30045AC66 /* libvtkViews.a */,
+				632239EA183BDAB30045AC66 /* libvtkVolumeRendering.a */,
+				632239EB183BDAB30045AC66 /* libvtkWidgets.a */,
+				632239EC183BDAB30045AC66 /* libvtkzlib.a */,
+			);
+			name = VTKLibs;
+			path = ../../Osirix/Source_Code/osirix/Binaries/VTKLibs;
+			sourceTree = "<group>";
+		};
 		6377199517EC860C00A67CD7 /* VTK */ = {
 			isa = PBXGroup;
 			children = (
-				6393CC0F183A9B80008D71ED /* libs */,
+				632239C6183BDAB30045AC66 /* VTKLibs */,
 			);
 			name = VTK;
-			sourceTree = "<group>";
-		};
-		6393CC0F183A9B80008D71ED /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				6393CC10183A9BA3008D71ED /* libLSDyna.a */,
-				6393CC11183A9BA3008D71ED /* libMapReduceMPI.a */,
-				6393CC12183A9BA3008D71ED /* libmpistubs.a */,
-				6393CC13183A9BA3008D71ED /* libvtkalglib.a */,
-				6393CC14183A9BA3008D71ED /* libvtkCharts.a */,
-				6393CC15183A9BA3008D71ED /* libvtkCommon.a */,
-				6393CC16183A9BA3008D71ED /* libvtkDICOMParser.a */,
-				6393CC17183A9BA3008D71ED /* libvtkexoIIc.a */,
-				6393CC18183A9BA3008D71ED /* libvtkexpat.a */,
-				6393CC19183A9BA3008D71ED /* libvtkFiltering.a */,
-				6393CC1A183A9BA3008D71ED /* libvtkfreetype.a */,
-				6393CC1B183A9BA3008D71ED /* libvtkftgl.a */,
-				6393CC1C183A9BA3008D71ED /* libvtkGenericFiltering.a */,
-				6393CC1D183A9BA3008D71ED /* libvtkGeovis.a */,
-				6393CC1E183A9BA3008D71ED /* libvtkGraphics.a */,
-				6393CC1F183A9BA3008D71ED /* libvtkhdf5_hl.a */,
-				6393CC20183A9BA3008D71ED /* libvtkhdf5.a */,
-				6393CC21183A9BA3008D71ED /* libvtkHybrid.a */,
-				6393CC22183A9BA3008D71ED /* libvtkImaging.a */,
-				6393CC23183A9BA3008D71ED /* libvtkInfovis.a */,
-				6393CC24183A9BA3008D71ED /* libvtkIO.a */,
-				6393CC25183A9BA3008D71ED /* libvtkjpeg.a */,
-				6393CC26183A9BA3008D71ED /* libvtklibxml2.a */,
-				6393CC27183A9BA3008D71ED /* libvtkmetaio.a */,
-				6393CC28183A9BA3008D71ED /* libvtkNetCDF_cxx.a */,
-				6393CC29183A9BA3008D71ED /* libvtkNetCDF.a */,
-				6393CC2A183A9BA3008D71ED /* libvtkpng.a */,
-				6393CC2B183A9BA3008D71ED /* libvtkproj4.a */,
-				6393CC2C183A9BA3008D71ED /* libvtkRendering.a */,
-				6393CC2D183A9BA3008D71ED /* libvtksqlite.a */,
-				6393CC2E183A9BA3008D71ED /* libvtksys.a */,
-				6393CC2F183A9BA3008D71ED /* libvtktiff.a */,
-				6393CC30183A9BA3008D71ED /* libvtkverdict.a */,
-				6393CC31183A9BA3008D71ED /* libvtkViews.a */,
-				6393CC32183A9BA3008D71ED /* libvtkVolumeRendering.a */,
-				6393CC33183A9BA3008D71ED /* libvtkWidgets.a */,
-				6393CC34183A9BA3008D71ED /* libvtkzlib.a */,
-			);
-			name = libs;
 			sourceTree = "<group>";
 		};
 		AB2C26750677B0C400A08910 /* FromPolyToBrushFilter */ = {
@@ -437,12 +442,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/include/vtk-5.10\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Osirix/Source_Code/osirix/VTKHeaders\"";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Plug-ins";
 				LD_DYLIB_INSTALL_NAME = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "/Users/David/Development/VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10";
+				LIBRARY_SEARCH_PATHS = /Users/David/Development/Osirix/Source_Code/osirix/Binaries/VTKLibs;
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -453,7 +458,7 @@
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = FromPolyToBrush;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -481,12 +486,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/include/vtk-5.10\"";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Osirix/Source_Code/osirix/VTKHeaders\"";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Plug-ins";
 				LD_DYLIB_INSTALL_NAME = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "/Users/David/Development/VTK/VTK5_10_1/Libraries_and_Headers/Static/32_bit/bin/lib/vtk-5.10";
+				LIBRARY_SEARCH_PATHS = /Users/David/Development/Osirix/Source_Code/osirix/Binaries/VTKLibs;
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -497,7 +502,7 @@
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = FromPolyToBrush;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -518,7 +523,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 			};
 			name = Development;
 		};
@@ -531,7 +536,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 			};
 			name = Deployment;
 		};
