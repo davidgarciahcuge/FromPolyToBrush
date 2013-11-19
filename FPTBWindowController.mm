@@ -182,7 +182,7 @@
 //#ifdef DEBUG
     DLog(@"Importing labeled images");
 //#endif
-    try {
+    //try {
     
     NSOpenPanel* nsopanel = [NSOpenPanel openPanel];
     [nsopanel setCanChooseFiles:TRUE];
@@ -410,10 +410,10 @@
     
     }
     
-    }catch(...)
-    {
-        NSLog(@"Error capturado");
-    }
+    //}catch(...)
+    //{
+      //  NSLog(@"Error capturado");
+    //}
     
     //reader -> Delete();
     
