@@ -11,6 +11,44 @@
 		63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */; };
 		63205BEA17CB81AB001D56A4 /* FPTBWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63205BE717CB81AB001D56A4 /* FPTBWindow.xib */; };
 		6320F63E1758FC01000FD6FF /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */; };
+		63223A14183BE28D0045AC66 /* symbolList in Resources */ = {isa = PBXBuildFile; fileRef = 63223A13183BE28D0045AC66 /* symbolList */; };
+		63223A15183BE2CF0045AC66 /* libLSDyna.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D017EC868D00A67CD7 /* libLSDyna.5.10.1.dylib */; };
+		63223A16183BE2CF0045AC66 /* libMapReduceMPI.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D117EC868D00A67CD7 /* libMapReduceMPI.5.10.1.dylib */; };
+		63223A17183BE2CF0045AC66 /* libmpistubs.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D217EC868D00A67CD7 /* libmpistubs.5.10.1.dylib */; };
+		63223A18183BE2CF0045AC66 /* libvtkalglib.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D317EC868D00A67CD7 /* libvtkalglib.5.10.1.dylib */; };
+		63223A19183BE2CF0045AC66 /* libvtkCharts.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D417EC868D00A67CD7 /* libvtkCharts.5.10.1.dylib */; };
+		63223A1A183BE2CF0045AC66 /* libvtkCommon.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D517EC868D00A67CD7 /* libvtkCommon.5.10.1.dylib */; };
+		63223A1B183BE2CF0045AC66 /* libvtkDICOMParser.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D617EC868D00A67CD7 /* libvtkDICOMParser.5.10.1.dylib */; };
+		63223A1C183BE2CF0045AC66 /* libvtkexoIIc.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D717EC868D00A67CD7 /* libvtkexoIIc.5.10.1.dylib */; };
+		63223A1D183BE2CF0045AC66 /* libvtkexpat.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D817EC868D00A67CD7 /* libvtkexpat.5.10.1.dylib */; };
+		63223A1E183BE2CF0045AC66 /* libvtkFiltering.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722D917EC868D00A67CD7 /* libvtkFiltering.5.10.1.dylib */; };
+		63223A1F183BE2CF0045AC66 /* libvtkfreetype.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722DA17EC868D00A67CD7 /* libvtkfreetype.5.10.1.dylib */; };
+		63223A20183BE2CF0045AC66 /* libvtkftgl.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722DB17EC868D00A67CD7 /* libvtkftgl.5.10.1.dylib */; };
+		63223A21183BE2CF0045AC66 /* libvtkGenericFiltering.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722DC17EC868D00A67CD7 /* libvtkGenericFiltering.5.10.1.dylib */; };
+		63223A22183BE2CF0045AC66 /* libvtkGeovis.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722DD17EC868D00A67CD7 /* libvtkGeovis.5.10.1.dylib */; };
+		63223A23183BE2CF0045AC66 /* libvtkGraphics.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722DE17EC868D00A67CD7 /* libvtkGraphics.5.10.1.dylib */; };
+		63223A24183BE2CF0045AC66 /* libvtkhdf5.1.8.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722DF17EC868D00A67CD7 /* libvtkhdf5.1.8.5.dylib */; };
+		63223A25183BE2CF0045AC66 /* libvtkhdf5_hl.1.8.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E017EC868D00A67CD7 /* libvtkhdf5_hl.1.8.5.dylib */; };
+		63223A26183BE2CF0045AC66 /* libvtkHybrid.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E117EC868D00A67CD7 /* libvtkHybrid.5.10.1.dylib */; };
+		63223A27183BE2CF0045AC66 /* libvtkImaging.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E217EC868D00A67CD7 /* libvtkImaging.5.10.1.dylib */; };
+		63223A28183BE2CF0045AC66 /* libvtkInfovis.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E317EC868D00A67CD7 /* libvtkInfovis.5.10.1.dylib */; };
+		63223A29183BE2CF0045AC66 /* libvtkIO.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E417EC868D00A67CD7 /* libvtkIO.5.10.1.dylib */; };
+		63223A2A183BE2CF0045AC66 /* libvtkjpeg.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E517EC868D00A67CD7 /* libvtkjpeg.5.10.1.dylib */; };
+		63223A2B183BE2CF0045AC66 /* libvtklibxml2.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E617EC868D00A67CD7 /* libvtklibxml2.5.10.1.dylib */; };
+		63223A2C183BE2CF0045AC66 /* libvtkmetaio.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E717EC868D00A67CD7 /* libvtkmetaio.5.10.1.dylib */; };
+		63223A2D183BE2CF0045AC66 /* libvtkNetCDF.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E817EC868D00A67CD7 /* libvtkNetCDF.5.10.1.dylib */; };
+		63223A2E183BE2CF0045AC66 /* libvtkNetCDF_cxx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722E917EC868D00A67CD7 /* libvtkNetCDF_cxx.dylib */; };
+		63223A2F183BE2CF0045AC66 /* libvtkpng.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722EA17EC868D00A67CD7 /* libvtkpng.5.10.1.dylib */; };
+		63223A30183BE2CF0045AC66 /* libvtkproj4.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722EB17EC868D00A67CD7 /* libvtkproj4.5.10.1.dylib */; };
+		63223A31183BE2CF0045AC66 /* libvtkRendering.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722EC17EC868D00A67CD7 /* libvtkRendering.5.10.1.dylib */; };
+		63223A32183BE2CF0045AC66 /* libvtksqlite.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722ED17EC868D00A67CD7 /* libvtksqlite.5.10.1.dylib */; };
+		63223A33183BE2CF0045AC66 /* libvtksys.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722EE17EC868D00A67CD7 /* libvtksys.5.10.1.dylib */; };
+		63223A34183BE2CF0045AC66 /* libvtktiff.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722EF17EC868D00A67CD7 /* libvtktiff.5.10.1.dylib */; };
+		63223A35183BE2CF0045AC66 /* libvtkverdict.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722F017EC868D00A67CD7 /* libvtkverdict.5.10.1.dylib */; };
+		63223A36183BE2CF0045AC66 /* libvtkViews.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722F117EC868D00A67CD7 /* libvtkViews.5.10.1.dylib */; };
+		63223A37183BE2CF0045AC66 /* libvtkVolumeRendering.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722F217EC868D00A67CD7 /* libvtkVolumeRendering.5.10.1.dylib */; };
+		63223A38183BE2CF0045AC66 /* libvtkWidgets.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722F317EC868D00A67CD7 /* libvtkWidgets.5.10.1.dylib */; };
+		63223A39183BE2CF0045AC66 /* libvtkzlib.5.10.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637722F417EC868D00A67CD7 /* libvtkzlib.5.10.1.dylib */; };
 		637722F517EC868E00A67CD7 /* ap.h in Headers */ = {isa = PBXBuildFile; fileRef = 6377199817EC868800A67CD7 /* ap.h */; };
 		637722F617EC868E00A67CD7 /* apvt.h in Headers */ = {isa = PBXBuildFile; fileRef = 6377199917EC868800A67CD7 /* apvt.h */; };
 		637722F717EC868E00A67CD7 /* bdsvd.h in Headers */ = {isa = PBXBuildFile; fileRef = 6377199A17EC868800A67CD7 /* bdsvd.h */; };
@@ -2345,6 +2383,7 @@
 		63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBWindowController.mm; sourceTree = "<group>"; };
 		63205BE717CB81AB001D56A4 /* FPTBWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPTBWindow.xib; sourceTree = "<group>"; };
 		6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriXAPI.framework; sourceTree = "<group>"; };
+		63223A13183BE28D0045AC66 /* symbolList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbolList; sourceTree = "<group>"; };
 		6377199817EC868800A67CD7 /* ap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ap.h; sourceTree = "<group>"; };
 		6377199917EC868800A67CD7 /* apvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apvt.h; sourceTree = "<group>"; };
 		6377199A17EC868800A67CD7 /* bdsvd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bdsvd.h; sourceTree = "<group>"; };
@@ -4729,6 +4768,43 @@
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				6320F63E1758FC01000FD6FF /* OsiriXAPI.framework in Frameworks */,
+				63223A15183BE2CF0045AC66 /* libLSDyna.5.10.1.dylib in Frameworks */,
+				63223A16183BE2CF0045AC66 /* libMapReduceMPI.5.10.1.dylib in Frameworks */,
+				63223A17183BE2CF0045AC66 /* libmpistubs.5.10.1.dylib in Frameworks */,
+				63223A18183BE2CF0045AC66 /* libvtkalglib.5.10.1.dylib in Frameworks */,
+				63223A19183BE2CF0045AC66 /* libvtkCharts.5.10.1.dylib in Frameworks */,
+				63223A1A183BE2CF0045AC66 /* libvtkCommon.5.10.1.dylib in Frameworks */,
+				63223A1B183BE2CF0045AC66 /* libvtkDICOMParser.5.10.1.dylib in Frameworks */,
+				63223A1C183BE2CF0045AC66 /* libvtkexoIIc.5.10.1.dylib in Frameworks */,
+				63223A1D183BE2CF0045AC66 /* libvtkexpat.5.10.1.dylib in Frameworks */,
+				63223A1E183BE2CF0045AC66 /* libvtkFiltering.5.10.1.dylib in Frameworks */,
+				63223A1F183BE2CF0045AC66 /* libvtkfreetype.5.10.1.dylib in Frameworks */,
+				63223A20183BE2CF0045AC66 /* libvtkftgl.5.10.1.dylib in Frameworks */,
+				63223A21183BE2CF0045AC66 /* libvtkGenericFiltering.5.10.1.dylib in Frameworks */,
+				63223A22183BE2CF0045AC66 /* libvtkGeovis.5.10.1.dylib in Frameworks */,
+				63223A23183BE2CF0045AC66 /* libvtkGraphics.5.10.1.dylib in Frameworks */,
+				63223A24183BE2CF0045AC66 /* libvtkhdf5.1.8.5.dylib in Frameworks */,
+				63223A25183BE2CF0045AC66 /* libvtkhdf5_hl.1.8.5.dylib in Frameworks */,
+				63223A26183BE2CF0045AC66 /* libvtkHybrid.5.10.1.dylib in Frameworks */,
+				63223A27183BE2CF0045AC66 /* libvtkImaging.5.10.1.dylib in Frameworks */,
+				63223A28183BE2CF0045AC66 /* libvtkInfovis.5.10.1.dylib in Frameworks */,
+				63223A29183BE2CF0045AC66 /* libvtkIO.5.10.1.dylib in Frameworks */,
+				63223A2A183BE2CF0045AC66 /* libvtkjpeg.5.10.1.dylib in Frameworks */,
+				63223A2B183BE2CF0045AC66 /* libvtklibxml2.5.10.1.dylib in Frameworks */,
+				63223A2C183BE2CF0045AC66 /* libvtkmetaio.5.10.1.dylib in Frameworks */,
+				63223A2D183BE2CF0045AC66 /* libvtkNetCDF.5.10.1.dylib in Frameworks */,
+				63223A2E183BE2CF0045AC66 /* libvtkNetCDF_cxx.dylib in Frameworks */,
+				63223A2F183BE2CF0045AC66 /* libvtkpng.5.10.1.dylib in Frameworks */,
+				63223A30183BE2CF0045AC66 /* libvtkproj4.5.10.1.dylib in Frameworks */,
+				63223A31183BE2CF0045AC66 /* libvtkRendering.5.10.1.dylib in Frameworks */,
+				63223A32183BE2CF0045AC66 /* libvtksqlite.5.10.1.dylib in Frameworks */,
+				63223A33183BE2CF0045AC66 /* libvtksys.5.10.1.dylib in Frameworks */,
+				63223A34183BE2CF0045AC66 /* libvtktiff.5.10.1.dylib in Frameworks */,
+				63223A35183BE2CF0045AC66 /* libvtkverdict.5.10.1.dylib in Frameworks */,
+				63223A36183BE2CF0045AC66 /* libvtkViews.5.10.1.dylib in Frameworks */,
+				63223A37183BE2CF0045AC66 /* libvtkVolumeRendering.5.10.1.dylib in Frameworks */,
+				63223A38183BE2CF0045AC66 /* libvtkWidgets.5.10.1.dylib in Frameworks */,
+				63223A39183BE2CF0045AC66 /* libvtkzlib.5.10.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4738,6 +4814,7 @@
 		089C166AFE841209C02AAC07 /* FromPolyToBrush */ = {
 			isa = PBXGroup;
 			children = (
+				63223A13183BE28D0045AC66 /* symbolList */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -9802,6 +9879,7 @@
 				63772AB617EC86BF00A67CD7 /* new in Resources */,
 				63772AB717EC86BF00A67CD7 /* numeric in Resources */,
 				63772AB817EC86BF00A67CD7 /* queue in Resources */,
+				63223A14183BE28D0045AC66 /* symbolList in Resources */,
 				63772AB917EC86BF00A67CD7 /* set in Resources */,
 				63772ABA17EC86BF00A67CD7 /* stack in Resources */,
 				63772ABB17EC86BF00A67CD7 /* stdexcept in Resources */,
@@ -9871,7 +9949,11 @@
 				HEADER_SEARCH_PATHS = /Users/David/Documents/Xcode_Projects/FromPolyToBrush/headers;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Plug-ins";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/lib_64\"";
+				LD_DYLIB_INSTALL_NAME = /Users/David/Development/Repositories/FromPolyToBrush/lib_64;
+				LIBRARY_SEARCH_PATHS = (
+					"\\\"$(SRCROOT)/lib_64\\\"",
+					/Users/David/Development/Repositories/FromPolyToBrush/lib_64,
+				);
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
@@ -9879,6 +9961,8 @@
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
+					"-exported_symbols_list",
+					symbolList,
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = FromPolyToBrush;
@@ -9913,7 +9997,11 @@
 				HEADER_SEARCH_PATHS = /Users/David/Documents/Xcode_Projects/FromPolyToBrush/headers;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Plug-ins";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/lib_64\"";
+				LD_DYLIB_INSTALL_NAME = /Users/David/Development/Repositories/FromPolyToBrush/lib_64;
+				LIBRARY_SEARCH_PATHS = (
+					"\\\"$(SRCROOT)/lib_64\\\"",
+					/Users/David/Development/Repositories/FromPolyToBrush/lib_64,
+				);
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
@@ -9921,6 +10009,8 @@
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
+					"-exported_symbols_list",
+					symbolList,
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = FromPolyToBrush;
