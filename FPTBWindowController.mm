@@ -479,7 +479,7 @@
 {
     
     try {
-        // Read image
+        //// Read image
         vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
         //vtkPolyDataReader *reader = vtkPolyDataReader::New();
         reader->SetFileName( [labeledImagePath UTF8String] );
