@@ -219,7 +219,7 @@
             //img -> Register(NULL);
             //img -> SetSource(NULL);
             
-            reader -> Delete();
+            //reader -> Delete();
             
             // Get image information
             double *spac1 = img->GetSpacing();
