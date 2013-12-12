@@ -459,7 +459,7 @@
 
             //mesh -> SetSource(NULL);
             
-            vreader -> Delete();
+            //vreader -> Delete();
             
             //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
 
