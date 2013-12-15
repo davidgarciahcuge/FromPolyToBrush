@@ -12,7 +12,8 @@
 #define id Id
 #import "vtkPolyDataMapper.h"
 #import "vtkActor.h"
-#import "vtkDebugLeaks.h"
+//#import "vtkDebugLeaks.h"
+#import <vtkConeSource.h>
 #undef id
 
 @implementation FPTBMeshesView
@@ -75,10 +76,14 @@
 - (void)showMesh:(vtkPolyData*) mesh
 {
     
+    NSLog(@"showMesh: start");
     _mesh = mesh;
+    
+    NSLog(@"Numero de puntos: @i", _mesh -> vtkDataSet::GetNumberOfPoints());
     
     vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
     fptbMapper -> SetInputData(_mesh);
+    
     _mesh -> Delete();
         
     vtkActor *fptbActor = vtkActor::New();
@@ -86,12 +91,40 @@
     fptbActor -> SetMapper(fptbMapper);
     fptbMapper -> Delete();
     
+    fptbMapper -> Update();
+    
     _fptbRenderer -> AddActor(fptbActor);
     _fptbRenderer -> ResetCamera();
+    _fptbRenderer -> SetBackground(0.1, 0.2, 0.3);
+    
+    //_fptbRenderCocoaRenderWindow -> Render();
+    //_fptbCocoaRenderWindowInteractor -> Start();
+    
+    
     fptbActor -> Delete();
     
     [self setNeedsDisplay:TRUE];
     
+    //Trying reading a cone
+//    vtkConeSource *cone = vtkConeSource::New();
+//    
+//    vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
+//    fptbMapper -> SetInputDataObject(<#vtkDataObject *data#>)(cone -> GetOutput());
+//    fptbMapper -> Update();
+//    
+//    vtkActor *fptbActor = vtkActor::New();
+//    fptbActor -> SetMapper(fptbMapper);
+//    fptbActor -> GetProperty() -> SetOpacity();
+//    
+//    _fptbRenderer -> AddActor(fptbActor);
+//    
+//    //_fptbRenderCocoaRenderWindow -> Render();
+//    //_fptbCocoaRenderWindowInteractor -> Start();
+//    
+//    [self setNeedsDisplay:true];
+    
+    
+    NSLog(@"showMesh: end");
 
    
 }

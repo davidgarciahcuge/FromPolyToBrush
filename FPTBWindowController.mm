@@ -20,6 +20,7 @@
 #import "vtkStructuredPoints.h"
 #import "vtkPolyDataReader.h"
 #import "vtkPolyData.h"
+#import "vtkPolyDataMapper.h"
 #import "vtkImageDataGeometryFilter.h"
 #undef id
 
