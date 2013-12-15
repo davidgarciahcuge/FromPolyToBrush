@@ -447,19 +447,17 @@
             //vreader -> Register(NULL);
             
             vtkPolyData *mesh = vreader -> GetOutput();
-            //mesh -> Update();
-            vreader -> Update();
-            
+            mesh -> Update();
+            //vreader -> Update();
             
             //mesh -> Register(NULL);
             
-
             //mesh -> SetSource(NULL);
             
             //vreader -> Delete();
             
 
-            //[meshesView showMesh:mesh];
+            [meshesView showMesh:mesh];
             
         }else {
             //[buttonImport setEnabled:false];
