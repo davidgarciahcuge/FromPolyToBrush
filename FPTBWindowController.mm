@@ -211,7 +211,7 @@
             
             //vtkStructuredPoints* img = vtkStructuredPoints::New();
             vtkStructuredPoints *img = reader -> GetOutput();
-            //img -> Update();
+            img -> Update();
             //reader -> Update();
             
             //For allowing the img block memory to stay in memory without been linked to the filter.
