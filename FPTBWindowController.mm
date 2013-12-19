@@ -16,7 +16,7 @@
 #import <OsiriXAPI/DCMPix.h>
 
 #define id Id
-#import <vtkStructuredPointsReader.h>
+#import "vtkStructuredPointsReader.h"
 #import "vtkStructuredPoints.h"
 #import "vtkPolyDataReader.h"
 #import "vtkPolyData.h"

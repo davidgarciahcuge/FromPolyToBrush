@@ -79,19 +79,19 @@
     NSLog(@"showMesh: start");
     _mesh = mesh;
     
-    NSLog(@"Numero de puntos: @i", _mesh -> vtkDataSet::GetNumberOfPoints());
+    NSLog(@"Numero de puntos: %lli", _mesh -> GetNumberOfPoints());
     
     vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
     fptbMapper -> SetInputData(_mesh);
     
-    _mesh -> Delete();
+    //_mesh -> Delete();
         
     vtkActor *fptbActor = vtkActor::New();
 
     fptbActor -> SetMapper(fptbMapper);
-    fptbMapper -> Delete();
+    //fptbMapper -> Delete();
     
-    fptbMapper -> Update();
+    //fptbMapper -> Update();
     
     _fptbRenderer -> AddActor(fptbActor);
     _fptbRenderer -> ResetCamera();
@@ -101,7 +101,7 @@
     //_fptbCocoaRenderWindowInteractor -> Start();
     
     
-    fptbActor -> Delete();
+    //fptbActor -> Delete();
     
     [self setNeedsDisplay:TRUE];
     
@@ -109,7 +109,7 @@
 //    vtkConeSource *cone = vtkConeSource::New();
 //    
 //    vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
-//    fptbMapper -> SetInputDataObject(<#vtkDataObject *data#>)(cone -> GetOutput());
+//    fptbMapper -> SetInputDataObject(cone -> GetOutput());
 //    fptbMapper -> Update();
 //    
 //    vtkActor *fptbActor = vtkActor::New();
