@@ -82,16 +82,16 @@
     NSLog(@"Numero de puntos: %lli", _mesh -> GetNumberOfPoints());
     
     vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
-    fptbMapper -> SetInputData(_mesh);
+    fptbMapper -> SetInput(_mesh);
     
-    //_mesh -> Delete();
+    _mesh -> Delete();
         
     vtkActor *fptbActor = vtkActor::New();
 
     fptbActor -> SetMapper(fptbMapper);
-    //fptbMapper -> Delete();
+    fptbMapper -> Delete();
     
-    //fptbMapper -> Update();
+    fptbMapper -> Update();
     
     _fptbRenderer -> AddActor(fptbActor);
     _fptbRenderer -> ResetCamera();
@@ -101,28 +101,9 @@
     //_fptbCocoaRenderWindowInteractor -> Start();
     
     
-    //fptbActor -> Delete();
+    fptbActor -> Delete();
     
     [self setNeedsDisplay:TRUE];
-    
-    //Trying reading a cone
-//    vtkConeSource *cone = vtkConeSource::New();
-//    
-//    vtkPolyDataMapper *fptbMapper = vtkPolyDataMapper::New();
-//    fptbMapper -> SetInputDataObject(cone -> GetOutput());
-//    fptbMapper -> Update();
-//    
-//    vtkActor *fptbActor = vtkActor::New();
-//    fptbActor -> SetMapper(fptbMapper);
-//    fptbActor -> GetProperty() -> SetOpacity();
-//    
-//    _fptbRenderer -> AddActor(fptbActor);
-//    
-//    //_fptbRenderCocoaRenderWindow -> Render();
-//    //_fptbCocoaRenderWindowInteractor -> Start();
-//    
-//    [self setNeedsDisplay:true];
-    
     
     NSLog(@"showMesh: end");
 

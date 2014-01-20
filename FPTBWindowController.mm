@@ -402,7 +402,7 @@
             [_imageView setIndex: [_imageView curImage]];
             
             NSLog(@"Reference count before Delete %i", img -> GetReferenceCount());
-            img -> Delete();
+            //img -> Delete();
         }else {
             //[buttonBrushROI setEnabled:false];
         }
@@ -454,13 +454,13 @@
             
             //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
             
-            //mesh -> Register(NULL);
+            mesh -> Register(NULL);
             
             //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
 
-            //mesh -> SetSource(NULL);
+            mesh -> SetSource(NULL);
             
-            //vreader -> Delete();
+            vreader -> Delete();
             
             //NSLog(@"mesh reference count: %i", mesh -> GetReferenceCount());
 
@@ -505,7 +505,7 @@
         // Convert the image to a polydata
         vtkImageDataGeometryFilter *imageDataGeometryFilter = vtkImageDataGeometryFilter::New();
         
-        imageDataGeometryFilter->SetInputDataObject(img);
+        imageDataGeometryFilter->SetInput(img);
         imageDataGeometryFilter->Update();
         
         vtkPolyData *mesh = imageDataGeometryFilter -> GetOutput();
