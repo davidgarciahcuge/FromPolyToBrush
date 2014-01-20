@@ -158,10 +158,8 @@ xcuserdata
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
 # ...none. Everything is now explained.
+.DS_Store
+
 FromPolyToBrush.xcodeproj/project.xcworkspace/xcuserdata/David.xcuserdatad/UserInterfaceState.xcuserstate
 
-*.xcbkptlist
-
-*.xcbkptlist
-
-*.xcbkptlist
+.DS_Store

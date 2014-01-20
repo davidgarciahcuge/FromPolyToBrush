@@ -4,7 +4,7 @@
 //
 //  Created by David García Juan on 26/08/13.
 //  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
-//
+// PRUEBA 19:29
 
 
 
@@ -136,7 +136,7 @@
 
         labeledImagePath = [[filenames objectAtIndex:0] path];
         
-        if (labeledImagePath != @"")
+        if (![labeledImagePath  isEqual: @""])
         {
             [buttonImport setEnabled:true];
         }else {
@@ -177,7 +177,7 @@
     //img -> Register(NULL);
     //img -> SetSource(NULL);
     
-    reader -> Delete();
+    //reader -> Delete();
     
     // Get image information
     double *spac1 = img->GetSpacing();
