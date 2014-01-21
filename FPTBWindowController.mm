@@ -229,7 +229,7 @@
         DCMPix *curDCM = [fptbPixList objectAtIndex: i];
         
         // Create the images ROIs array
-        NSMutableArray* roisPerImages = [NSMutableArray array];
+        //NSMutableArray* roisPerImages = [NSMutableArray array];
         
         // Add loaded ROIs if merging mode
         /*if (hasLoadedROIsToMerge) {

@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <OsiriXAPI/DCMView.h>
 
-#import "MyROIVolumeView.h"
+#import "FPTBVolumeView.h"
 
 @class ViewerController;
 
@@ -28,7 +28,7 @@
     NSMutableString *FPTBhomeFilePath;
     
     //My view class for performing the visualization
-    IBOutlet MyROIVolumeView *_theView;
+    IBOutlet FPTBVolumeView *_theView;
     
 }
 
