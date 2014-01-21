@@ -8,8 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <OsirixAPI/VTKView.h>
+#import "OsiriXAPI/VTKView.h"
 
 @interface MyROIVolumeView : VTKView
+{
+
+
+    
+}
 
 @end
