@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <OsiriXAPI/DCMView.h>
 
+#import "MyROIVolumeView.h"
+
 @class ViewerController;
 
 @interface FPTBWindowController : NSWindowController {
@@ -19,10 +21,15 @@
     
     IBOutlet NSButton *buttonBrowse;
     IBOutlet NSButton *buttonImport;
+    IBOutlet NSButton *buttonDisplay;
     IBOutlet NSTextField *labelPath;
     
     //Path
     NSMutableString *FPTBhomeFilePath;
+    
+    //My view class for performing the visualization
+    IBOutlet MyROIVolumeView *_theView;
+    
 }
 
 //Init window.
@@ -36,6 +43,9 @@
 
 //Import labeled images to Brush ROIs
 -(IBAction)importLabeledImages:(id)sender;
+
+//Display a 3D model of the imported labeled image
+-(IBAction)displayLabeledImages:(id)sender;
 
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630E20B4188E8E1D007D0D88 /* MyROIVolumeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 630E20B2188E8E1D007D0D88 /* MyROIVolumeView.h */; };
+		630E20B5188E8E1D007D0D88 /* MyROIVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 630E20B3188E8E1D007D0D88 /* MyROIVolumeView.m */; };
 		63205BE817CB81AB001D56A4 /* FPTBWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 63205BE517CB81AB001D56A4 /* FPTBWindowController.h */; };
 		63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */; };
 		63205BEA17CB81AB001D56A4 /* FPTBWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63205BE717CB81AB001D56A4 /* FPTBWindow.xib */; };
@@ -2379,6 +2381,8 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF630370AF2F00C91783 /* FromPolyToBrush_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromPolyToBrush_Prefix.pch; sourceTree = "<group>"; };
+		630E20B2188E8E1D007D0D88 /* MyROIVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyROIVolumeView.h; sourceTree = "<group>"; };
+		630E20B3188E8E1D007D0D88 /* MyROIVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyROIVolumeView.m; sourceTree = "<group>"; };
 		63205BE517CB81AB001D56A4 /* FPTBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTBWindowController.h; sourceTree = "<group>"; };
 		63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBWindowController.mm; sourceTree = "<group>"; };
 		63205BE717CB81AB001D56A4 /* FPTBWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPTBWindow.xib; sourceTree = "<group>"; };
@@ -7511,6 +7515,8 @@
 				ABA48A660680BB690089EB4F /* FromPolyToBrushFilter.m */,
 				63205BE517CB81AB001D56A4 /* FPTBWindowController.h */,
 				63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */,
+				630E20B2188E8E1D007D0D88 /* MyROIVolumeView.h */,
+				630E20B3188E8E1D007D0D88 /* MyROIVolumeView.m */,
 			);
 			name = FromPolyToBrushFilter;
 			sourceTree = "<group>";
@@ -8654,6 +8660,7 @@
 				636D9178187C4D9B0062DB0C /* vtkImageCast.h in Headers */,
 				636D9029187C4D9B0062DB0C /* vtkFreeTypeLabelRenderStrategy.h in Headers */,
 				636D9214187C4D9B0062DB0C /* vtkImplicitSelectionLoop.h in Headers */,
+				630E20B4188E8E1D007D0D88 /* MyROIVolumeView.h in Headers */,
 				636D8F55187C4D9B0062DB0C /* vtkDelimitedTextWriter.h in Headers */,
 				636D91EF187C4D9B0062DB0C /* vtkImageStack.h in Headers */,
 				636D8FB8187C4D9B0062DB0C /* vtkExtractSelectedIds.h in Headers */,
@@ -9924,6 +9931,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABA48A670680BB690089EB4F /* FromPolyToBrushFilter.m in Sources */,
+				630E20B5188E8E1D007D0D88 /* MyROIVolumeView.m in Sources */,
 				63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

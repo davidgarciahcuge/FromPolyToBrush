@@ -139,17 +139,18 @@
         if (![labeledImagePath  isEqual: @""])
         {
             [buttonImport setEnabled:true];
-        }else {
-            [buttonImport setEnabled:false];
+            [buttonDisplay setEnabled:true];
+            
+            [self updateLabel];
+            
         }
         
-        [self updateLabel];
         
     }
     
 }
 
--(void)updateLabel{
+-(void)updateLabel {
     
     NSLog(@"Update label."); 
     [labelPath setStringValue:labeledImagePath];
@@ -359,6 +360,22 @@
     [_imageView setIndex: [_imageView curImage]];
     
     //reader -> Delete();
+    
+}
+
+-(IBAction)displayLabeledImages:(id)sender
+{
+    
+    NSLog(@"3D Display button pulsado");
+    
+    [_viewerController computeInterval];
+    
+    [_viewerController displayAWarningIfNonTrueVolumicData];
+    
+    for( int i = 0; i < [_viewerController maxMovieIndex]; i++)
+		[_viewerController saveROI: i];
+    
+    
     
 }
 
