@@ -14,6 +14,7 @@
 #import <OsirixAPI/Notifications.h>
 #import <OsirixAPI/Roi.h>
 #import <OsiriXAPI/DCMPix.h>
+#import "OsiriXAPI/RoiVolumeController.h"
 
 #import "vtkStructuredPointsReader.h"
 #import "vtkStructuredPoints.h"
@@ -47,13 +48,15 @@
     
     //We get the viewer and sen retain.
     _viewerController = viewerController;
-    [_viewerController retain];
+    [viewerController retain];
       
     // Load the window
-	self = [self initWithWindowNibName:@"FPTBWindow"];
+	self = [super initWithWindowNibName:@"FPTBWindow"];
+    
+    [[self window] setDelegate:self];
 	
-	FPTBhomeFilePath = [[NSMutableString alloc] initWithString: NSHomeDirectory()];//home path
-    [FPTBhomeFilePath appendString:@"/Documents/RadioAnatomy_Data/FPTBROIs_generated"]; //folder of masks and meshes
+	//FPTBhomeFilePath = [[NSMutableString alloc] initWithString: NSHomeDirectory()];//home path
+    //[FPTBhomeFilePath appendString:@"/Documents/RadioAnatomy_Data/FPTBROIs_generated"]; //folder of masks and meshes
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewerWillClose:) name: OsirixCloseViewerNotification object: nil];
@@ -67,26 +70,33 @@
     
  
     // place at viewer window upper right corner
-	NSRect frame = [[self window] frame];
-	NSRect screen = [[[_viewerController window] screen] frame];
-	frame.origin.x = screen.origin.x+screen.size.width-frame.size.width;
-	frame.origin.y = screen.origin.y+screen.size.height-frame.size.height;
-	[[self window] setFrame:frame display:YES]; 
+//	NSRect frame = [[self window] frame];
+//	NSRect screen = [[[_viewerController window] screen] frame];
+//	frame.origin.x = screen.origin.x+screen.size.width-frame.size.width;
+//	frame.origin.y = screen.origin.y+screen.size.height-frame.size.height;
+//	[[self window] setFrame:frame display:YES]; 
     
     // Show
+    [[self window] center];
     [[self window] setLevel:NSFloatingWindowLevel];
     
 }
 
 - (void)dealloc
 {
-    [FPTBhomeFilePath release];
+    //[FPTBhomeFilePath release];
+    NSLog(@"FPTBWindowController: dealloc: start");
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [_viewerController release];
+    [_fptbPixList release];
+    [_fptbRoiList release];
+
     
     [super dealloc];
+    
+    NSLog(@"FPTBWindowController: dealloc: end");
     
 }
 
@@ -97,8 +107,8 @@
     if( [notification object] == _viewerController )
 	{
         [[NSNotificationCenter defaultCenter] removeObserver:self];
-        [self close];
-        [self autorelease];
+        [[self window] close];
+        //[self autorelease]; //We don't need id because we subclass from NSWindow, and he will take care of deallocating everything.
 	}
     
     //NSLog(@"MainWindowController:viewerWillClose:End");
@@ -111,8 +121,9 @@
     if( [notification object] == [self window] )
 	{
         [[NSNotificationCenter defaultCenter] removeObserver:self];
-        [self close];
-        [self autorelease];
+        [[self window] close];
+        //[self autorelease];/We don't need id because we subclass from NSWindow, and he will take care of deallocating everything.
+
 	}
 }
 
@@ -208,14 +219,17 @@
     int step = 1; 
     
     //We get the list of images
-    NSMutableArray *fptbPixList = [_viewerController pixList];
+    _fptbPixList = [_viewerController pixList];
+    [_fptbPixList retain];
     //[[_viewerController pixList] retain];
     
     //We get the ROIs
-    NSMutableArray *fptbRoiList = [_viewerController roiList];
-    NSLog(@"Dirección de fptbRoiList = %p", &fptbRoiList);
-    NSLog(@"fptbRoiList apunta a:  %p", fptbRoiList);
-    //NSMutableArray *fptbRoiList = [[NSMutableArray alloc] initWithArray:[_viewerController roiList]];
+    _fptbRoiList = [_viewerController roiList];
+    [_fptbRoiList retain];
+    
+    NSLog(@"Dirección de _fptbRoiList = %p", &_fptbRoiList);
+    NSLog(@"_fptbRoiList apunta a:  %p", _fptbRoiList);
+    //NSMutableArray *_fptbRoiList = [[NSMutableArray alloc] initWithArray:[_viewerController roiList]];
     //[_viewerController roiList retain];
     
     //img -> Update();
@@ -226,7 +240,7 @@
     {               
         unsigned short *buff = buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
         
-        DCMPix *curDCM = [fptbPixList objectAtIndex: i];
+        DCMPix *curDCM = [_fptbPixList objectAtIndex: i];
         
         // Create the images ROIs array
         //NSMutableArray* roisPerImages = [NSMutableArray array];
@@ -344,7 +358,7 @@
         [theNewROI setLocked:false];
         
         //We add the ROI to roiList in OSIRIX
-        [[fptbRoiList objectAtIndex: i] addObject: theNewROI];
+        [[_fptbRoiList objectAtIndex: i] addObject: theNewROI];
         
         //Since the arrasy sent a retain to theNewROI, we can send a release. We won't loose it.
         [theNewROI release];
@@ -365,6 +379,11 @@
 
 -(IBAction)displayLabeledImages:(id)sender
 {
+    //Por ahora trabajamos presuponiendo que sólo tendremos una ROI en la imagen
+    
+    ROI *roi = nil;
+    float volume = 0, preLocation = 0, interval = 0;
+    NSMutableArray *fptbpts;
     
     NSLog(@"3D Display button pulsado");
     
@@ -373,7 +392,78 @@
     [_viewerController displayAWarningIfNonTrueVolumicData];
     
     for( int i = 0; i < [_viewerController maxMovieIndex]; i++)
+    {
 		[_viewerController saveROI: i];
+    }
+    
+    roi = [_viewerController selectedROI];
+    
+    if( roi == nil)
+	{
+		NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Select a ROI to compute volume of all ROIs with the same name.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+		return;
+	}
+    
+    // Check that sliceLocation is available and identical for all images
+	preLocation = 0;
+	interval = 0;
+    
+    //We obtain the curMovieIndex from the ViewController
+    //_fptbCurMovieIndex = [_viewerController curMovieIndex];
+	
+	for( int x = 0; x < [_fptbPixList count]; x++)
+	{
+		DCMPix *curPix = [_fptbPixList objectAtIndex: x];
+		
+		if( preLocation != 0)
+		{
+			if( interval)
+			{
+				if( fabs( [curPix sliceLocation] - preLocation - interval) > 1.0)
+				{
+					NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Slice Interval is not constant!", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+					return;
+				}
+			}
+			interval = [curPix sliceLocation] - preLocation;
+		}
+		preLocation = [curPix sliceLocation];
+	}
+    
+    if( interval == 0)
+    {
+        NSRunCriticalAlertPanel(NSLocalizedString(@"ROIs Volume Error", nil), NSLocalizedString(@"Slice Locations not available to compute a volume.", nil) , NSLocalizedString(@"OK", nil), nil, nil);
+        return;
+    }
+    
+    //We assume that we won't have missing ROIs for now, so we don't take the code for generating the missing rois.
+    NSString	*error;
+    NSMutableDictionary	*data = [NSMutableDictionary dictionary];
+        
+    volume = [_viewerController computeVolume: roi points:&fptbpts generateMissingROIs: NO generatedROIs: nil computeData:data error: &error];
+    
+    NSLog(@"Volume = %f", volume);
+    
+    //Usando el ROIVolumeController de Osirix
+    //ROIVolumeController *volumeControlloer = [[ROIVolumeController alloc] initWithPoints:fptbpts :volume :_viewerController roi:roi];
+    
+    //[volumeControlloer showWindow:self];
+    
+    
+    [_theView setPixSource:fptbpts];
+    
+    //Set the data for rendering
+    //[_theView setPointsSource:fptbpts];
+    
+    //Render the volume
+    //[_theView renderVolume];
+    
+    
+    
+    
+    
+        
+    
     
     
     

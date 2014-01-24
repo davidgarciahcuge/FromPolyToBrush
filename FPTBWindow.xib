@@ -75,7 +75,7 @@
                                         <action selector="displayLabeledImages:" target="-2" id="q4V-wd-aKD"/>
                                     </connections>
                                 </button>
-                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="T1V-fi-zUN" customClass="FPTBVolumeView">
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="T1V-fi-zUN" customClass="FPTBROIVolumeView">
                                     <rect key="frame" x="18" y="8" width="918" height="534"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>

@@ -7,17 +7,26 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import <OsiriXAPI/DCMView.h>
 
-#import "FPTBVolumeView.h"
+#import "OsiriXAPI/DCMView.h"
+#import "OsiriXAPI/DCMPix.h"
+#import "OsiriXAPI/Window3DController.h"
+
+#import "FPTBROIVolumeView.h"
+
 
 @class ViewerController;
 
-@interface FPTBWindowController : NSWindowController {
+@interface FPTBWindowController : Window3DController <NSWindowDelegate> {
     
     ViewerController *_viewerController;
+    
     DCMView *_imageView;
     NSString *labeledImagePath;
+    NSMutableArray *_fptbPixList, *_fptbRoiList;
+    //short _fptbCurMovieIndex;
+    
+    DCMPix *_fptbcurPix;
     
     IBOutlet NSButton *buttonBrowse;
     IBOutlet NSButton *buttonImport;
@@ -28,7 +37,7 @@
     NSMutableString *FPTBhomeFilePath;
     
     //My view class for performing the visualization
-    IBOutlet FPTBVolumeView *_theView;
+    IBOutlet FPTBROIVolumeView *_theView;
     
 }
 
