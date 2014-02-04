@@ -40,7 +40,7 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Applications/Osirix/Osirix_MD_2_8_64_bits.app">
+         FilePath = "/Applications/Osirix/Osirix_5_8_32_bits.app">
       </PathRunnable>
       <AdditionalOptions>
       </AdditionalOptions>

@@ -29,7 +29,7 @@
 #include "vtkObject.h"
 
 #if VTK_MINOR_VERSION & 1
-# include <vtksys/DateStamp.h> // For date stamp
+# include "vtksys/DateStamp.h" // For date stamp
 # define VTK_SOURCE_VERSION "vtk version " VTK_VERSION ", Date: " vtksys_DATE_STAMP_STRING
 #else
 # define VTK_SOURCE_VERSION "vtk version " VTK_VERSION

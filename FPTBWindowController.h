@@ -32,6 +32,8 @@
     IBOutlet NSButton *buttonImport;
     IBOutlet NSButton *buttonDisplay;
     IBOutlet NSTextField *labelPath;
+    IBOutlet NSButton   *pointsCheckbox;
+    IBOutlet NSButton   *surfaceCheckbox;
     
     //Path
     NSMutableString *FPTBhomeFilePath;
@@ -55,6 +57,9 @@
 
 //Display a 3D model of the imported labeled image
 -(IBAction)displayLabeledImages:(id)sender;
+
+//Update the view displaying only points, only the surface or both
+-(IBAction)updateView:(id)sender;
 
 
 @end

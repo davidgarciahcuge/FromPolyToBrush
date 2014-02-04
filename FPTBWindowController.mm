@@ -127,6 +127,8 @@
 	}
 }
 
+#pragma mark Functionality
+
 -(IBAction)browseLabeledImages:(id)sender
 {
     
@@ -150,7 +152,7 @@
         if (![labeledImagePath  isEqual: @""])
         {
             [buttonImport setEnabled:true];
-            [buttonDisplay setEnabled:true];
+            //[buttonDisplay setEnabled:true];
             
             [self updateLabel];
             
@@ -373,6 +375,8 @@
   
     [_imageView setIndex: [_imageView curImage]];
     
+    [buttonDisplay setEnabled:true];
+    
     //reader -> Delete();
     
 }
@@ -450,22 +454,44 @@
     //[volumeControlloer showWindow:self];
     
     
-    [_theView setPixSource:fptbpts];
+    //[_theView setPixSource:fptbpts];
     
     //Set the data for rendering
-    //[_theView setPointsSource:fptbpts];
+    short result = [_theView setPixSource:fptbpts];
+    
+    //short result2 = [_theView renderVolume];
+    [pointsCheckbox setEnabled:TRUE];
+    [pointsCheckbox setState:NSOffState];
+    
+    [surfaceCheckbox setEnabled:TRUE];
+    [surfaceCheckbox setState:NSOnState];
+    
+    [_theView renderVolume];
+    
+    NSLog(@"Error = %hd", result);
+    
+    //NSLog(@"Error2 = %hd", result2);
+    
+    //[_theView renderVolume];
     
     //Render the volume
     //[_theView renderVolume];
+}
+
+-(IBAction)updateView:(id)sender
+{
+    BOOL points = false;
+    BOOL surface = false;
     
+    points = [pointsCheckbox state];
+    surface = [surfaceCheckbox state];
     
-    
-    
-    
+    if (_theView)
+    {
         
-    
-    
-    
+        [_theView updateActorsWithPoints:points witSurface:surface];
+        
+    }
     
 }
 
