@@ -237,6 +237,10 @@
     //img -> Update();
     //reader -> Update();
     
+    //**DAVID**//
+    //Harcoding the number of images to read for testing purposes
+    end = 259;
+    
     // For each slice
     for( int i = start; i != end; i+=step)         
     {               
@@ -375,9 +379,9 @@
   
     [_imageView setIndex: [_imageView curImage]];
     
-    [buttonDisplay setEnabled:true];
+    [buttonDisplay setEnabled:TRUE];
     
-    //reader -> Delete();
+    reader -> Delete();
     
 }
 
@@ -458,6 +462,8 @@
     
     //Set the data for rendering
     short result = [_theView setPixSource:fptbpts];
+    
+    //[buttonDisplay setEnabled:TRUE];
     
     //short result2 = [_theView renderVolume];
     [pointsCheckbox setEnabled:TRUE];
