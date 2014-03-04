@@ -112,8 +112,12 @@
 //}
 
 
--(void)renderVolume
+-(void)renderVolumeWitDelaunay: (BOOL)delaunay withPowerCrust: (BOOL)powerCrust showPoints: (BOOL)points showSurface: (BOOL)surface
 {
+    BOOL useDelaunay = delaunay;
+    BOOL usePowerCrust = powerCrust;
+    BOOL showPoints = points;
+    BOOL showSurface = surface;
     
     WaitRendering *splash = [[WaitRendering alloc] init: NSLocalizedString( @"Rendering 3D Object...", nil)];
 	[splash showWindow:self];
@@ -125,7 +129,16 @@
             //**DAVID**//
             aRenderer = [self renderer];
             
-            //Con mis propios puntos
+            if (surfaceActor)
+            {
+                aRenderer->RemoveActor(surfaceActor);                
+            }
+            
+            if (ballActor)
+            {
+                aRenderer->RemoveActor(ballActor);
+            }
+            
             vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
             
             NSArray *pts = _points3D;
@@ -165,8 +178,12 @@
   
             //**DAVID**//
             
-            //Creamos surface y la mostramos
-            vtkSmartPointer<vtkPowerCrustSurfaceReconstruction> power = vtkSmartPointer<vtkPowerCrustSurfaceReconstruction>::New();
+            vtkSmartPointer<vtkDataSet> output = NULL;
+            
+            //Creamos surface con PowerCrustSurfaceReconstruction
+            if (usePowerCrust == TRUE)
+            {
+                vtkSmartPointer<vtkPowerCrustSurfaceReconstruction> power = vtkSmartPointer<vtkPowerCrustSurfaceReconstruction>::New();
             
 #if VTK_MAJOR_VERSION <= 5
             power->SetInput(profile);
@@ -174,23 +191,28 @@
             power->SetInputData(profile);
 #endif
             
-            vtkSmartPointer<vtkPolyDataNormals> polyDataNormals = vtkSmartPointer<vtkPolyDataNormals>::New();
-            polyDataNormals->ConsistencyOn();
-            polyDataNormals->AutoOrientNormalsOn();
-            polyDataNormals->SetInput(power->GetOutput());
+                vtkSmartPointer<vtkPolyDataNormals> polyDataNormals = vtkSmartPointer<vtkPolyDataNormals>::New();
+                polyDataNormals->ConsistencyOn();
+                polyDataNormals->AutoOrientNormalsOn();
+                polyDataNormals->SetInput(power->GetOutput());
             
-            vtkSmartPointer<vtkDataSet> output = (vtkDataSet*) polyDataNormals -> GetOutput();
+                output = (vtkDataSet*) polyDataNormals -> GetOutput();
+            }else if (useDelaunay == true)
+            {
+            
+            //Creamos surface con Delaunay
+                vtkSmartPointer<vtkDelaunay3D> delaunayTriangulator = vtkSmartPointer<vtkDelaunay3D>::New();
+                delaunayTriangulator->SetInput( profile);
+            
+                delaunayTriangulator->SetTolerance( 0.001);
+                delaunayTriangulator->SetAlpha( 20);
+                delaunayTriangulator->BoundingTriangulationOff();
+            
+                output = (vtkDataSet*) delaunayTriangulator -> GetOutput();
+            }
+            //****//
             
             //**DAVID**//
-            //Delaunay para crear superficies con pocos puntos.
-//            vtkSmartPointer<vtkDelaunay3D> delaunayTriangulator = vtkSmartPointer<vtkDelaunay3D>::New();
-//            delaunayTriangulator->SetInput( polyData);
-//            
-//            delaunayTriangulator->SetTolerance( 0.001);
-//            delaunayTriangulator->SetAlpha( 20);
-//            delaunayTriangulator->BoundingTriangulationOff();
-//            
-//            vtkSmartPointer<vtkDataSet> output = (vtkDataSet*) delaunayTriangulator -> GetOutput();
             
             vtkSmartPointer<vtkTextureMapToSphere> tmapper = vtkSmartPointer<vtkTextureMapToSphere>::New(); //Spheric coordinates??
             tmapper -> SetInput( output);
@@ -202,6 +224,7 @@
             
             vtkSmartPointer<vtkDataSetMapper> map = vtkSmartPointer<vtkDataSetMapper>::New();
 			map->SetInput( tmapper->GetOutput());
+            //map->ScalarVisibilityOff();
             map->Update();
             
 //            // The balls
@@ -247,14 +270,16 @@
 ////			xform->Delete();
             
             pointsActor->SetMapper(mapBalls);
-//			
-			aRenderer->AddActor(pointsActor);
-            
+//
+            if (showPoints)
+            {
+                aRenderer->AddActor(pointsActor);
+            }
             //vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-            if (!surfaceActor) {
+            //if (!surfaceActor) {
                 surfaceActor = vtkSmartPointer<vtkActor>::New();
                 surfaceActor->SetMapper(map);
-            }
+            //}
             
             //actor -> SetMapper(map);
             //**DAVID**//
@@ -262,9 +287,14 @@
           
             //**DAVID**//
             //Uso mi ventana a ver si funciona
+            //surfaceActor->GetProperty()->FrontfaceCullingOn();
+            //surfaceActor->GetProperty()->BackfaceCullingOn();
             
-            aRenderer->AddActor(surfaceActor);
-            
+            if (showSurface)
+            {
+                aRenderer->AddActor(surfaceActor);
+            }
+                
             vtkSmartPointer<vtkAnnotatedCubeActor> cube = vtkSmartPointer<vtkAnnotatedCubeActor>::New();
             
             cube->SetXPlusFaceText ( [NSLocalizedString( @"L", @"L: Left") UTF8String] );
@@ -317,7 +347,8 @@
             
             //[self reseCamera];
             //[self setNeedsDisplay:TRUE];
-            [self updateActorsWithPoints:false witSurface:true];
+            [self showPoints:showPoints showSurface:showSurface];
+            //[self coView:self];
             //**DAVID**//
             
             //////////////**********************//////////////////////////
@@ -353,13 +384,13 @@
     
 }
 
--(void) updateActorsWithPoints:(BOOL)showPoints witSurface:(BOOL)showSurface
+-(void)showPoints: (BOOL)points showSurface: (BOOL)surface
 {
     
     if( surfaceActor && pointsActor)
 	{
         //Doy por echo que los dos actores están añadidos al Renderer
-		if( showPoints == NO)
+		if( points == NO)
         {
             aRenderer->RemoveActor( pointsActor);
         }
@@ -368,7 +399,7 @@
             aRenderer->AddActor( pointsActor);
         }
 		
-		if( showSurface == NO)
+		if( surface == NO)
         {
            aRenderer->RemoveActor( surfaceActor);
         }

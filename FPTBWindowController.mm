@@ -466,13 +466,25 @@
     //[buttonDisplay setEnabled:TRUE];
     
     //short result2 = [_theView renderVolume];
+    
     [pointsCheckbox setEnabled:TRUE];
     [pointsCheckbox setState:NSOffState];
     
     [surfaceCheckbox setEnabled:TRUE];
     [surfaceCheckbox setState:NSOnState];
     
-    [_theView renderVolume];
+    
+//    [delaunayReconstruction setEnabled:TRUE];
+//    [delaunayReconstruction setState:NSOffState];
+//    
+//    [powerCrustReconstruction setEnabled:TRUE];
+//    [powerCrustReconstruction setState:NSOnState];
+    
+    [matrixRadioButtons setEnabled:TRUE];
+    [matrixRadioButtons selectCell:powerCrustReconstruction];
+
+    
+    [_theView renderVolumeWitDelaunay:[delaunayReconstruction state] withPowerCrust:[powerCrustReconstruction state] showPoints:[pointsCheckbox state] showSurface:[surfaceCheckbox state]];
     
     NSLog(@"Error = %hd", result);
     
@@ -488,16 +500,55 @@
 {
     BOOL points = false;
     BOOL surface = false;
+
     
     points = [pointsCheckbox state];
     surface = [surfaceCheckbox state];
+
     
     if (_theView)
     {
         
-        [_theView updateActorsWithPoints:points witSurface:surface];
+        [_theView showPoints:points showSurface:surface];
         
     }
+    
+}
+
+-(IBAction)changeReconstruction:(id)sender
+{
+    
+//    if ([sender selectedCell] == delaunayReconstruction)
+//    {
+//        //[powerCrustReconstruction setState:![delaunayReconstruction state]];
+//        [_theView renderVolumeWitDelaunay:[delaunayReconstruction state] withPowerCrust:[powerCrustReconstruction state]];
+//    }
+//    
+//    
+//    if ([sender selectedCell] == powerCrustReconstruction)
+//    {
+//        //[delaunayReconstruction setState:![powerCrustReconstruction state]];
+//        [_theView renderVolumeWitDelaunay:[delaunayReconstruction state] withPowerCrust:[powerCrustReconstruction state]];
+    
+//    }
+    
+    
+    BOOL delaunay = FALSE;
+    BOOL powerCrust = FALSE;
+    
+    BOOL points = [pointsCheckbox state];
+    BOOL surface = [surfaceCheckbox state];
+    
+    if ([matrixRadioButtons selectedCell] == powerCrustReconstruction)
+    {
+        powerCrust = TRUE;
+    }else
+    {
+        delaunay = TRUE;
+    }
+    
+    [_theView renderVolumeWitDelaunay:delaunay withPowerCrust:powerCrust showPoints:points showSurface:surface];
+
     
 }
 

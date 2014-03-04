@@ -11,8 +11,11 @@
                 <outlet property="buttonBrowse" destination="37" id="45"/>
                 <outlet property="buttonDisplay" destination="zvk-Gp-oXH" id="pTI-VO-ZO3"/>
                 <outlet property="buttonImport" destination="41" id="49"/>
+                <outlet property="delaunayReconstruction" destination="Lno-sb-hY7" id="417-n1-aZj"/>
                 <outlet property="labelPath" destination="32" id="46"/>
+                <outlet property="matrixRadioButtons" destination="LPn-1a-yOf" id="YzI-XJ-v0c"/>
                 <outlet property="pointsCheckbox" destination="qgk-dV-xTP" id="Ry8-7H-N7S"/>
+                <outlet property="powerCrustReconstruction" destination="MMS-kd-1wq" id="4eZ-Hx-hmW"/>
                 <outlet property="surfaceCheckbox" destination="Z0P-KW-RtZ" id="5CQ-yY-gdb"/>
                 <outlet property="window" destination="1" id="3"/>
             </connections>
@@ -23,7 +26,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="990" height="681"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="990" height="681"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -93,7 +96,7 @@
                                     </connections>
                                 </button>
                                 <button ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="14" translatesAutoresizingMaskIntoConstraints="NO" id="Z0P-KW-RtZ">
-                                    <rect key="frame" x="417" y="563" width="76" height="18"/>
+                                    <rect key="frame" x="400" y="563" width="76" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Surface" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Lx6-yG-x2D">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -103,6 +106,34 @@
                                         <action selector="updateView:" target="-2" id="FVV-vQ-Zbh"/>
                                     </connections>
                                 </button>
+                                <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LPn-1a-yOf">
+                                    <rect key="frame" x="482" y="563" width="214" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="cellSize" width="93" height="18"/>
+                                    <size key="intercellSpacing" width="4" height="2"/>
+                                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" enabled="NO" inset="2" id="BJW-VA-S8E">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <cells>
+                                        <column>
+                                            <buttonCell type="radio" title="Delaunay" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" state="on" tag="1" inset="2" id="Lno-sb-hY7">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </column>
+                                        <column>
+                                            <buttonCell type="radio" title="PowerCrust" imagePosition="left" alignment="left" enabled="NO" state="on" inset="2" id="MMS-kd-1wq">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </column>
+                                    </cells>
+                                    <connections>
+                                        <action selector="changeReconstruction:" target="-2" id="tvf-Yt-2pi"/>
+                                    </connections>
+                                </matrix>
                             </subviews>
                         </view>
                         <constraints>

@@ -34,6 +34,9 @@
     IBOutlet NSTextField *labelPath;
     IBOutlet NSButton   *pointsCheckbox;
     IBOutlet NSButton   *surfaceCheckbox;
+    IBOutlet NSButtonCell *delaunayReconstruction;
+    IBOutlet NSButtonCell *powerCrustReconstruction;
+    IBOutlet NSMatrix *matrixRadioButtons;
     
     //Path
     NSMutableString *FPTBhomeFilePath;
@@ -60,6 +63,9 @@
 
 //Update the view displaying only points, only the surface or both
 -(IBAction)updateView:(id)sender;
+
+//Recompute the surface reconstruction
+-(IBAction)changeReconstruction:(id)sender;
 
 
 @end
