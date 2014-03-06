@@ -16,9 +16,14 @@
 #import <OsiriXAPI/DCMPix.h>
 #import "OsiriXAPI/RoiVolumeController.h"
 
+#define id Id
 #import "vtkStructuredPointsReader.h"
 #import "vtkStructuredPoints.h"
-
+#include "vtkPolyDataReader.h"
+#include "vtkPolyDataToImageStencil.h"
+#include "vtkImageStencil.h"
+#include "vtkMetaImageWriter.h"
+#undef id
 
 @interface FPTBWindowController ()
 
@@ -176,16 +181,14 @@
     
     //NSString *imageFile = [la];
     
+    vtkSmartPointer<vtkImageData> stencil = [self labeledImagesFromPolydata:labeledImagePath];
+    
     // Read image
-    vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
-    reader->SetFileName( [labeledImagePath UTF8String] );
-    //reader->Update();
-    
-   
-    
-    //vtkStructuredPoints* img = vtkStructuredPoints::New();
-    vtkStructuredPoints *img = reader -> GetOutput();
-    img -> Update();
+//    vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
+//    reader->SetFileName( [labeledImagePath UTF8String] );
+//    
+//    vtkStructuredPoints *img = reader -> GetOutput();
+//    img -> Update();
     
     //For allowing the img block memory to stay in memory without been linked to the filter.
     //img -> Register(NULL);
@@ -194,22 +197,23 @@
     //reader -> Delete();
     
     // Get image information
-    double *spac1 = img->GetSpacing();
+    //double *spac1 = img->GetSpacing();
+    double *spac1 = stencil -> GetSpacing();
     
     double sx = spac1[0];
     double sy = spac1[1];
     double sz = spac1[2];
     
-    double *org1 = img->GetOrigin();  
+    double *org1 = stencil->GetOrigin();
     
     NSPoint roiOrigin;
     roiOrigin.x = org1[0];
     roiOrigin.y = org1[1];  
     
-    int *dim = img->GetDimensions();
+    int *dim = stencil->GetDimensions();
     
     // Get data pointer
-    unsigned short *buffOriginal = (unsigned short*)img->GetScalarPointer(); //Pointer to the first byte of the DICOM image
+    unsigned short *buffOriginal = (unsigned short*)stencil->GetScalarPointer(); //Pointer to the first byte of the DICOM image
     
     int buffWidth  = dim[0];
     int buffHeight = dim[1];
@@ -239,12 +243,12 @@
     
     //**DAVID**//
     //Harcoding the number of images to read for testing purposes
-    end = 259;
+    //end = 259;
     
     // For each slice
     for( int i = start; i != end; i+=step)         
     {               
-        unsigned short *buff = buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+        unsigned char *buff = (unsigned char*)buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
         
         DCMPix *curDCM = [_fptbPixList objectAtIndex: i];
         
@@ -291,7 +295,7 @@
                     int k = h*buffWidth + w;
                     
                     //if (buff[k] == labelValue) {
-                    if (buff[k] == 1){
+                    if (buff[k] == 255){
                         roiBuff[k] = 255;
                         hasLabelValue = true;
                         //hasLabelInCompleteImage = true;
@@ -381,8 +385,141 @@
     
     [buttonDisplay setEnabled:TRUE];
     
-    reader -> Delete();
+    NSLog(@"Import de la mesh finalizado");
     
+//    reader -> Delete();
+    
+}
+
+-(vtkSmartPointer<vtkImageData>)labeledImagesFromPolydata: (NSString*) filePath
+{
+    //Sacamos la primera imagen para poder acceder al pixelSpacing y los datos que necesitamos
+    //We get the list of images
+    _fptbPixList = [_viewerController pixList];
+    [_fptbPixList retain];
+    
+    DCMPix *firstPix = [_fptbPixList objectAtIndex:0];
+    
+    //Leemos polydata desde archivo
+    vtkSmartPointer<vtkPolyDataReader> dataReader = vtkSmartPointer<vtkPolyDataReader>::New();
+    dataReader->SetFileName("/Users/David/Documents/PHD/Data/Matthias_Segmentation_Data/2014/left-segmented-femur-subject1.vtp");
+    
+    polydata = dataReader->GetOutput();
+    
+    dataReader->Update();
+    
+    //Imagen a la que luego se aplicará el stencil
+    vtkSmartPointer<vtkImageData> whiteImage = vtkSmartPointer<vtkImageData>::New();
+    
+//    double bounds[6];
+//    pd->GetBounds(bounds);
+    
+    // desired volume spacing, sacamos el spacing de la serie que tenemos, que es con la que queremos que esté alineada.
+    double spacing[3];
+    spacing[0] = [firstPix pixelSpacingX];
+    spacing[1] = [firstPix pixelSpacingY];
+    spacing[2] = [firstPix spacingBetweenSlices];
+    
+    whiteImage->SetSpacing(spacing);
+    
+    // compute dimensions, dividiendo los límites entre el spacing, eso hace que squemos el número de píxels.
+//    int dim[3];
+//    for (int i = 0; i < 3; i++)
+//    {
+//        dim[i] = static_cast<int>(ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i]));
+//    }
+    
+    //Mismas dimensiones que el DICOM
+    int dim[3];
+    dim[0] = [firstPix pheight];
+    dim[1] = [firstPix pwidth];
+    dim[2] = [_fptbPixList count];
+    
+    whiteImage->SetDimensions(dim);
+    whiteImage->SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1);
+    
+    //Establecemos origen --> Todo tiene que concidir con la DICOM!!
+//    double origin[3];
+//    origin[0] = bounds[0] + spacing[0] / 2;
+//    origin[1] = bounds[2] + spacing[1] / 2;
+//    origin[2] = bounds[4] + spacing[2] / 2;
+//    
+//    whiteImage->SetOrigin(origin);
+    
+    //Mismo origen que la serie DICOM
+    double origin[3];
+    origin[0] = [firstPix originX];
+    origin[1] = [firstPix originY];
+    origin[2] = [firstPix originZ];
+    
+#if VTK_MAJOR_VERSION <= 5
+    whiteImage->SetScalarTypeToUnsignedChar();
+    whiteImage->AllocateScalars();
+#else
+    whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
+#endif
+    
+    unsigned char inval = 255;
+    unsigned char outval = 0;
+    
+    vtkIdType count = whiteImage->GetNumberOfPoints();
+    
+    NSLog(@"Número de puntos en whiteImage: %lld", count);
+    
+    for (vtkIdType i = 0; i < count; ++i)
+    {
+        whiteImage->GetPointData()->GetScalars()->SetTuple1(i, inval);
+    }
+    
+    // polygonal data --> image stencil:
+    vtkSmartPointer<vtkPolyDataToImageStencil> pol2stenc = vtkSmartPointer<vtkPolyDataToImageStencil>::New();
+    
+#if VTK_MAJOR_VERSION <= 5
+    pol2stenc->SetInput(polydata);
+#else
+    pol2stenc->SetInputData(polydata);
+#endif
+    
+    pol2stenc->SetOutputOrigin(origin);
+    pol2stenc->SetOutputSpacing(spacing);
+    pol2stenc->SetOutputWholeExtent(whiteImage->GetExtent()); //Extent de la imagen output (será el Extent de toda la serie)
+    pol2stenc->Update();
+    
+    // cut the corresponding white image and set the background:
+    vtkSmartPointer<vtkImageStencil> imgstenc =
+    vtkSmartPointer<vtkImageStencil>::New();
+    
+#if VTK_MAJOR_VERSION <= 5
+    imgstenc->SetInput(whiteImage);
+    imgstenc->SetStencil(pol2stenc->GetOutput());
+#else
+    imgstenc->SetInputData(whiteImage);
+    imgstenc->SetStencilConnection(pol2stenc->GetOutputPort());
+#endif
+    
+    imgstenc->ReverseStencilOff();
+    imgstenc->SetBackgroundValue(outval);
+    imgstenc->Update();
+    
+    vtkSmartPointer<vtkImageData> imageStencil = imgstenc -> GetOutput();
+    
+    //Writing the image created in a file
+//    vtkSmartPointer<vtkMetaImageWriter> writer =
+//    vtkSmartPointer<vtkMetaImageWriter>::New();
+//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/fptb_left-segmented-femur-subject1.mhd");
+//    
+//#if VTK_MAJOR_VERSION <= 5
+//    writer->SetInput(imgstenc->GetOutput());
+//#else
+//    writer->SetInputData(imgstenc->GetOutput());
+//#endif
+//    
+//    writer->Write();
+    
+    NSLog(@"Labeled Image creada");
+    
+    return imageStencil;
+//    return EXIT_SUCCESS;
 }
 
 -(IBAction)displayLabeledImages:(id)sender

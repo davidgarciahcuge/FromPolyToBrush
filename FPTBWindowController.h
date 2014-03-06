@@ -14,6 +14,12 @@
 
 #import "FPTBROIVolumeView.h"
 
+#define id ID
+#include "vtkSmartPointer.h"
+#include "vtkImageData.h"
+#include "vtkPolyData.h"
+#undef id
+
 
 @class ViewerController;
 
@@ -27,6 +33,9 @@
     //short _fptbCurMovieIndex;
     
     DCMPix *_fptbcurPix;
+    
+    //vtkSmartPointer<vtkImageData> imageStencil;
+    vtkSmartPointer<vtkPolyData> polydata;
     
     IBOutlet NSButton *buttonBrowse;
     IBOutlet NSButton *buttonImport;
