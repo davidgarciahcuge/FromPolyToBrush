@@ -46,6 +46,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
+        //aRenderer = [self renderer];
         NSLog(@"FPTBROIVolumeView inicializado correctamente");
     }
     return self;

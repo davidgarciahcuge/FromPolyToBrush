@@ -12,7 +12,6 @@
 		63205BE817CB81AB001D56A4 /* FPTBWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 63205BE517CB81AB001D56A4 /* FPTBWindowController.h */; };
 		63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */; };
 		63205BEA17CB81AB001D56A4 /* FPTBWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63205BE717CB81AB001D56A4 /* FPTBWindow.xib */; };
-		6320F63E1758FC01000FD6FF /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */; };
 		63223A14183BE28D0045AC66 /* symbolList in Resources */ = {isa = PBXBuildFile; fileRef = 63223A13183BE28D0045AC66 /* symbolList */; };
 		63D82A1318A3E586007A77C8 /* ap.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D820DC18A3E561007A77C8 /* ap.h */; };
 		63D82A1418A3E586007A77C8 /* apvt.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D820DD18A3E561007A77C8 /* apvt.h */; };
@@ -2388,7 +2387,6 @@
 		63205BE517CB81AB001D56A4 /* FPTBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTBWindowController.h; sourceTree = "<group>"; };
 		63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBWindowController.mm; sourceTree = "<group>"; };
 		63205BE717CB81AB001D56A4 /* FPTBWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPTBWindow.xib; sourceTree = "<group>"; };
-		6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriXAPI.framework; sourceTree = "<group>"; };
 		63223A13183BE28D0045AC66 /* symbolList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbolList; sourceTree = "<group>"; };
 		63D820DC18A3E561007A77C8 /* ap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ap.h; sourceTree = "<group>"; };
 		63D820DD18A3E561007A77C8 /* apvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apvt.h; sourceTree = "<group>"; };
@@ -4802,7 +4800,6 @@
 				63D8336F18A3E6B7007A77C8 /* libvtkmetaio.a in Frameworks */,
 				63D8337018A3E6B7007A77C8 /* libvtkNetCDF.a in Frameworks */,
 				63D8337918A3E6B7007A77C8 /* libvtkViews.a in Frameworks */,
-				6320F63E1758FC01000FD6FF /* OsiriXAPI.framework in Frameworks */,
 				63D8335918A3E6B6007A77C8 /* libMapReduceMPI.a in Frameworks */,
 				63D8336618A3E6B6007A77C8 /* libvtkGraphics.a in Frameworks */,
 				63D8337A18A3E6B7007A77C8 /* libvtkVolumeRendering.a in Frameworks */,
@@ -4864,7 +4861,6 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6320F63D1758FC01000FD6FF /* OsiriXAPI.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
