@@ -6,13 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OsiriXAPI/PluginFilter.h>
 
-#import "FPTBWindowController.h"
+#import <OsiriXAPI/PluginFilter.h>
+//#import <OsiriXAPI/PluginFilter.h>
+
+//#import "FPTBWindowController.h"
 
 @interface FromPolyToBrushFilter : PluginFilter {
     
-    FPTBWindowController *fptbWindowController;
+    //FPTBWindowController *fptbWindowController;
 
 }
 

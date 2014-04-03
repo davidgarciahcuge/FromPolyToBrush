@@ -14,15 +14,26 @@
 #import <OsirixAPI/Notifications.h>
 #import <OsirixAPI/Roi.h>
 #import <OsiriXAPI/DCMPix.h>
-#import "OsiriXAPI/RoiVolumeController.h"
+#import <OsiriXAPI/RoiVolumeController.h>
 
 #define id Id
-#import "vtkStructuredPointsReader.h"
-#import "vtkStructuredPoints.h"
-#include "vtkPolyDataReader.h"
-#include "vtkPolyDataToImageStencil.h"
-#include "vtkImageStencil.h"
-#include "vtkMetaImageWriter.h"
+#import <OsiriXAPI/vtkStructuredPointsReader.h>
+#import <OsiriXAPI/vtkStructuredPoints.h>
+#import <OsiriXAPI/vtkPolyDataReader.h>
+#import <OsiriXAPI/vtkPolyDataToImageStencil.h>
+#import <OsiriXAPI/vtkImageStencil.h>
+#import <OsiriXAPI/vtkMetaImageWriter.h>
+#import <OsiriXAPI/vtkImageData.h>
+#import <OsiriXAPI/vtkPointData.h>
+
+//#import "vtkStructuredPointsReader.h"
+//#import "vtkStructuredPoints.h"
+//#import "vtkPolyDataReader.h"
+//#import "vtkPolyDataToImageStencil.h"
+//#import "vtkImageStencil.h"
+//#import "vtkMetaImageWriter.h"
+//#import "vtkImageData.h"
+//#import "vtkPointData.h"
 #undef id
 
 @interface FPTBWindowController ()
@@ -400,12 +411,14 @@
     
     DCMPix *firstPix = [_fptbPixList objectAtIndex:0];
     
-    //Leemos polydata desde archivo
+    //Leemos la mesh desde archivo
     vtkSmartPointer<vtkPolyDataReader> dataReader = vtkSmartPointer<vtkPolyDataReader>::New();
-    dataReader->SetFileName("/Users/David/Documents/PHD/Data/Matthias_Segmentation_Data/2014/left-segmented-femur-subject1.vtp");
+    //dataReader->SetFileName("/Users/David/Documents/PHD/Data/Matthias_Segmentation_Data/2014/left-segmented-femur-subject1.vtp");
+    
+    dataReader->SetFileName([labeledImagePath UTF8String]);
     
     polydata = dataReader->GetOutput();
-    
+           
     dataReader->Update();
     
     //Imagen a la que luego se aplicará el stencil
@@ -419,6 +432,7 @@
     spacing[0] = [firstPix pixelSpacingX];
     spacing[1] = [firstPix pixelSpacingY];
     spacing[2] = [firstPix spacingBetweenSlices];
+    //spacing[2] = 1;
     
     whiteImage->SetSpacing(spacing);
     

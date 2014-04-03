@@ -8,27 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "OsiriXAPI/ROIVolumeView.h"
-//#import "OsiriXAPI/VTKView.h"
+#import <OsiriXAPI/ROIVolumeView.h>
+//#import <OsiriXAPI/VTKView.h>
 
 #define id Id
-//#include "vtkRenderer.h"
-//#include "vtkCamera.h"
-#include "vtkActor.h"
-#include "vtkSmartPointer.h"
+//#import "vtkRenderer.h"
+//#import "vtkActor.h"
+//#import "vtkSmartPointer.h"
 #undef id
 
 @interface FPTBROIVolumeView : ROIVolumeView
 {
-    //NSArray *_points;
-    
     //vtkRenderer *theRenderer;
-    //vtkCamera *theCamera;
-    //vtkActor *theVolumeActor;
-    
-    vtkSmartPointer<vtkActor> surfaceActor;
-    vtkSmartPointer<vtkActor> pointsActor;
-}
+    //vtkActor *ballActor;
+    //vtkActor *roiVolumeActor;
+}      
 
 // Stablishes the source where the data we want to show resides
 //-(void)setPointsSource:(NSMutableArray*) points;
@@ -38,5 +32,7 @@
 
 // Update rendering actors
 -(void)showPoints: (BOOL)points showSurface: (BOOL)surface;
+
+-(short)setPixSource:(NSMutableArray*)pts;
 
 @end

@@ -6,10 +6,14 @@
 //
 
 #import "FromPolyToBrushFilter.h"
-#import <OsiriXAPI/OSIFloatVolumeData.h>
-#import <OsiriXAPI/OSIROIMask.h>
+#import "FPTBWindowController.h"
+
+//#import <OsiriXAPI/OSIFloatVolumeData.h>
+//#import <OsiriXAPI/OSIROIMask.h>
 
 @implementation FromPolyToBrushFilter
+
+FPTBWindowController *fptbWindowController;
 
 - (void) initPlugin
 {
@@ -37,7 +41,7 @@
     OSIROIMaskRun *maskRun = [maskRuns objectAtIndex:0];
     OSIROIMaskRun *maskRun2 = [maskRuns lastObject];*/
 
-    fptbWindowController = [[FPTBWindowController alloc] initWithViewerController:viewerController];
+    fptbWindowController = [[FPTBWindowController alloc] initWithViewerController: viewerController];
     
     [fptbWindowController showWindow:self];
     

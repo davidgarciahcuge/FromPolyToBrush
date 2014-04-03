@@ -7,37 +7,41 @@
 //
 
 #import "FPTBROIVolumeView.h"
-#import "OsiriXAPI/N2Debug.h"
+
+#import <OsiriXAPI/N2Debug.h>
 
 #define id Id
-//#include "vtkCleanPolyData.h"
-//#include "vtkActorCollection.h"
-//#include "vtkPolyDataMapper.h"
-#include "vtkVersion.h"
-#include "vtkSmartPointer.h"
-#include "vtkCellArray.h"
-#include "vtkCellData.h"
-#include "vtkDoubleArray.h"
-#include "vtkPoints.h"
-#include "vtkPolyLine.h"
-#include "vtkPolyData.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkActor.h"
-#include "vtkRenderWindow.h"
-#include "vtkRenderer.h"
-#include "vtkRenderWindowInteractor.h"
-#include "vtkPolyDataNormals.h"
-#include "vtkDataSet.h"
-#include "vtkSphereSource.h"
-#include "vtkContourFilter.h"
-#include "vtkSurfaceReconstructionFilter.h"
-#include "vtkXMLPolyDataWriter.h"
-#include "vtkDataSet.h"
-#include "vtkDelaunay3D.h"
-#include "vtkSphereSource.h"
-#include "vtkGlyph3D.h"
-#include "vtkAnnotatedCubeActor.h"
+//#import "vtkVersion.h"
+//#import "vtkSmartPointer.h"
+//#import "vtkCellArray.h"
+//#import "vtkCellData.h"
+//#import "vtkDoubleArray.h"
+//#import "vtkPoints.h"
+//#import "vtkPolyLine.h"
+//#import "vtkPolyData.h"
+//#import "vtkPolyDataMapper.h"
+//#import "vtkActor.h"
+//#import "vtkRenderWindow.h"
+//#import "vtkRenderWindowInteractor.h"
+//#import "vtkPolyDataNormals.h"
+//#import "vtkDataSet.h"
+//#import "vtkSphereSource.h"
+//#import "vtkContourFilter.h"
+//#import "vtkSurfaceReconstructionFilter.h"
+//#import "vtkXMLPolyDataWriter.h"
+//#import "vtkDataSet.h"
+//#import "vtkDelaunay3D.h"
+//#import "vtkSphereSource.h"
+//#import "vtkGlyph3D.h"
+//#import "vtkAnnotatedCubeActor.h"
+//#import "vtkRenderer.h"
+//#import "vtkActor.h"
+#import <OsirixAPI/vtkSmartPointer.h>
+#import <OsirixAPI/vtkActor.h>
 #undef id
+
+vtkSmartPointer<vtkActor> pointsActor;
+vtkSmartPointer<vtkActor> surfaceActor;
 
 @implementation FPTBROIVolumeView
 
@@ -128,11 +132,11 @@
         try
         {
             //**DAVID**//
-            aRenderer = [self renderer];
+            //aRenderer = [self renderer];
             
-            if (surfaceActor)
+            if (roiVolumeActor)
             {
-                aRenderer->RemoveActor(surfaceActor);                
+                aRenderer->RemoveActor(roiVolumeActor);
             }
             
             if (ballActor)
@@ -387,26 +391,28 @@
 
 -(void)showPoints: (BOOL)points showSurface: (BOOL)surface
 {
+    //vtkRenderer *aRenderer = [self renderer];
+    //_renderer -> GetActiveCamera();
     
-    if( surfaceActor && pointsActor)
+    if( ballActor && roiVolumeActor)
 	{
         //Doy por echo que los dos actores están añadidos al Renderer
 		if( points == NO)
         {
-            aRenderer->RemoveActor( pointsActor);
+            aRenderer->RemoveActor( ballActor);
         }
 		else
         {
-            aRenderer->AddActor( pointsActor);
+            aRenderer->AddActor( ballActor);
         }
 		
 		if( surface == NO)
         {
-           aRenderer->RemoveActor( surfaceActor);
+           aRenderer->RemoveActor( roiVolumeActor);
         }
 		else
         {
-            aRenderer->AddActor( surfaceActor);
+           aRenderer->AddActor( roiVolumeActor);
         }
 		
     }

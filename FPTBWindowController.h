@@ -8,16 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "OsiriXAPI/DCMView.h"
-#import "OsiriXAPI/DCMPix.h"
-#import "OsiriXAPI/Window3DController.h"
+#import <OsiriXAPI/DCMView.h>
+#import <OsiriXAPI/DCMPix.h>
+#import <OsiriXAPI/Window3DController.h>
 
 #import "FPTBROIVolumeView.h"
 
 #define id ID
-#include "vtkSmartPointer.h"
-#include "vtkImageData.h"
-#include "vtkPolyData.h"
+#import <OsiriXAPI/vtkSmartPointer.h>
+#import <OsiriXAPI/vtkImageData.h>
+#import <OsiriXAPI/vtkPolyData.h>
+
+//#import "vtkPolyData.h"
+//#import "vtkImageData.h"
+//#import "vtkSmartPointer.h"
 #undef id
 
 
