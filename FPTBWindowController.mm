@@ -36,9 +36,7 @@
 //#import "vtkPointData.h"
 #undef id
 
-@interface FPTBWindowController ()
-
-@end
+double spacing[3];
 
 @implementation FPTBWindowController
 
@@ -428,7 +426,7 @@
 //    pd->GetBounds(bounds);
     
     // desired volume spacing, sacamos el spacing de la serie que tenemos, que es con la que queremos que esté alineada.
-    double spacing[3];
+
     spacing[0] = [firstPix pixelSpacingX];
     spacing[1] = [firstPix pixelSpacingY];
     spacing[2] = [firstPix spacingBetweenSlices];
@@ -567,15 +565,24 @@
 	preLocation = 0;
 	interval = 0;
     
+    //We get the z spacingBetweenSlices
+    //zspacing = spacing[2];
+    
     //We obtain the curMovieIndex from the ViewController
     //_fptbCurMovieIndex = [_viewerController curMovieIndex];
+    
+    [self setRealSliceLocation];
 	
 	for( int x = 0; x < [_fptbPixList count]; x++)
 	{
 		DCMPix *curPix = [_fptbPixList objectAtIndex: x];
+        
+        NSLog(@"slice location: %f", [curPix sliceLocation]);
 		
 		if( preLocation != 0)
 		{
+            //**DAVID**//
+            //Check if the slice location es la misma que antes, si lo es, pon la location buena.
 			if( interval)
 			{
 				if( fabs( [curPix sliceLocation] - preLocation - interval) > 1.0)
@@ -584,9 +591,30 @@
 					return;
 				}
 			}
-			interval = [curPix sliceLocation] - preLocation;
+            //Trick for computing the interval between slices
+			interval = [curPix sliceLocation]  - preLocation;
+            
+//            //**DAVID**//
+//            //If sliceLocation is not changing in z, we have to compute the z position.
+//            if (interval == 0) {
+//                [curPix setSliceLocation:([curPix sliceLocation] + (x * zspacing))];
+//            }
+//            else
+//            {
+//                preLocation = [curPix sliceLocation];
+//            }
+//            
+//            continue;
+            //****//
+
 		}
-		preLocation = [curPix sliceLocation];
+        
+        preLocation = [curPix sliceLocation];
+        
+
+        
+        
+		
 	}
     
     if( interval == 0)
@@ -701,6 +729,33 @@
     [_theView renderVolumeWitDelaunay:delaunay withPowerCrust:powerCrust showPoints:points showSurface:surface];
 
     
+}
+
+#pragma mark Internal Use
+
+-(void)setRealSliceLocation
+{
+    double zspacing = spacing[2];
+    
+    for( int x = 0; x < [_fptbPixList count] - 1; x++)
+	{
+		DCMPix *curPix1 = [_fptbPixList objectAtIndex:x];
+        DCMPix *curPix2 = [_fptbPixList objectAtIndex:(x + 1)];
+        
+        if ([curPix1 sliceLocation] == [curPix2 sliceLocation] & x!= [_fptbPixList count] - 2) {
+            [curPix1 setSliceLocation:[curPix1 sliceLocation] + (x*zspacing)];
+            [curPix1 setSliceInterval:[curPix1 spacingBetweenSlices]];
+        }else if ([curPix1 sliceLocation] == [curPix2 sliceLocation] & x == [_fptbPixList count] - 2)
+        {
+            [curPix1 setSliceLocation:[curPix1 sliceLocation] + (x*zspacing)];
+            [curPix2 setSliceLocation:[curPix2 sliceLocation] + ((x+1)*zspacing)];
+            
+            [curPix1 setSliceInterval:[curPix1 spacingBetweenSlices]];
+            [curPix2 setSliceInterval:[curPix2 spacingBetweenSlices]];
+        }
+        
+        
+    }
 }
 
 
