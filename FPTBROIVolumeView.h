@@ -12,17 +12,17 @@
 //#import <OsiriXAPI/VTKView.h>
 
 #define id Id
-//#import "vtkRenderer.h"
-//#import "vtkActor.h"
-//#import "vtkSmartPointer.h"
+//#import <OsirixAPI/vtkRenderer.h"
+#import <OsiriXAPI/vtkActor.h>
+#import <OsiriXAPI/vtkSmartPointer.h>
 #undef id
 
 @interface FPTBROIVolumeView : ROIVolumeView
 {
     //vtkRenderer *theRenderer;
-    //vtkActor *ballActor;
-    //vtkActor *roiVolumeActor;
-}      
+    vtkSmartPointer<vtkActor> ballsActor;
+    vtkSmartPointer<vtkActor> surfaceActor;
+}
 
 // Stablishes the source where the data we want to show resides
 //-(void)setPointsSource:(NSMutableArray*) points;

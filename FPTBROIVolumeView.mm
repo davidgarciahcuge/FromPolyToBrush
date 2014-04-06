@@ -38,10 +38,11 @@
 //#import "vtkActor.h"
 #import <OsirixAPI/vtkSmartPointer.h>
 #import <OsirixAPI/vtkActor.h>
+//#import <OsirixAPI/vtkPowerCrustSurfaceReconstruction.h>
 #undef id
 
-vtkSmartPointer<vtkActor> pointsActor;
-vtkSmartPointer<vtkActor> surfaceActor;
+//vtkSmartPointer<vtkActor> pointsActor;
+//vtkSmartPointer<vtkActor> surfaceActor;
 
 @implementation FPTBROIVolumeView
 
@@ -119,10 +120,15 @@ vtkSmartPointer<vtkActor> surfaceActor;
 
 -(void)renderVolumeWitDelaunay: (BOOL)delaunay withPowerCrust: (BOOL)powerCrust showPoints: (BOOL)points showSurface: (BOOL)surface
 {
-    BOOL useDelaunay = delaunay;
-    BOOL usePowerCrust = powerCrust;
-    BOOL showPoints = points;
-    BOOL showSurface = surface;
+//    BOOL useDelaunay = delaunay;
+//    BOOL usePowerCrust = powerCrust;
+//    BOOL showPoints = points;
+//    BOOL showSurface = surface;
+    
+    BOOL useDelaunay = TRUE;
+    BOOL usePowerCrust = FALSE;
+    BOOL showPoints = FALSE;
+    BOOL showSurface = TRUE;
     
     WaitRendering *splash = [[WaitRendering alloc] init: NSLocalizedString( @"Rendering 3D Object...", nil)];
 	[splash showWindow:self];
@@ -134,14 +140,14 @@ vtkSmartPointer<vtkActor> surfaceActor;
             //**DAVID**//
             //aRenderer = [self renderer];
             
-            if (roiVolumeActor)
+            if (surfaceActor)
             {
-                aRenderer->RemoveActor(roiVolumeActor);
+                _renderer->RemoveActor(surfaceActor);
             }
             
-            if (ballActor)
+            if (ballsActor)
             {
-                aRenderer->RemoveActor(ballActor);
+                _renderer->RemoveActor(ballsActor);
             }
             
             vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
@@ -156,6 +162,7 @@ vtkSmartPointer<vtkActor> surfaceActor;
             
             vtkSmartPointer<vtkPolyData> profile = vtkSmartPointer<vtkPolyData>::New();
             profile -> SetPoints(points);
+            //profile -> Update();
             
             //**DAVID**//
             //Ejemplo de como se crea una línea uniendo puntos, útil para la interpolación.
@@ -200,6 +207,7 @@ vtkSmartPointer<vtkActor> surfaceActor;
                 polyDataNormals->ConsistencyOn();
                 polyDataNormals->AutoOrientNormalsOn();
                 polyDataNormals->SetInput(power->GetOutput());
+                //polyDataNormals->Update();
             
                 output = (vtkDataSet*) polyDataNormals -> GetOutput();
             }else if (useDelaunay == true)
@@ -260,13 +268,13 @@ vtkSmartPointer<vtkActor> surfaceActor;
 //            
 //			myballActor->SetMapper(mapBalls);
             
-            if (!pointsActor) {
-                pointsActor = vtkSmartPointer<vtkActor>::New();
-                pointsActor->GetProperty()->SetSpecular( 0.5);
-                pointsActor->GetProperty()->SetSpecularPower( 20);
-                pointsActor->GetProperty()->SetAmbient( 0.2);
-                pointsActor->GetProperty()->SetDiffuse( 0.8);
-                pointsActor->GetProperty()->SetOpacity( 0.8);
+            if (!ballsActor) {
+                ballsActor = vtkSmartPointer<vtkActor>::New();
+                ballsActor->GetProperty()->SetSpecular( 0.5);
+                ballsActor->GetProperty()->SetSpecularPower( 20);
+                ballsActor->GetProperty()->SetAmbient( 0.2);
+                ballsActor->GetProperty()->SetDiffuse( 0.8);
+                ballsActor->GetProperty()->SetOpacity( 0.8);
             }
 //
 ////			mapBalls->Delete();
@@ -274,11 +282,11 @@ vtkSmartPointer<vtkActor> surfaceActor;
 ////			profile->Delete();
 ////			xform->Delete();
             
-            pointsActor->SetMapper(mapBalls);
+            ballsActor->SetMapper(mapBalls);
 //
             if (showPoints)
             {
-                aRenderer->AddActor(pointsActor);
+                _renderer->AddActor(ballsActor);
             }
             //vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
             //if (!surfaceActor) {
@@ -297,7 +305,7 @@ vtkSmartPointer<vtkActor> surfaceActor;
             
             if (showSurface)
             {
-                aRenderer->AddActor(surfaceActor);
+                _renderer->AddActor(surfaceActor);
             }
                 
             vtkSmartPointer<vtkAnnotatedCubeActor> cube = vtkSmartPointer<vtkAnnotatedCubeActor>::New();
@@ -399,20 +407,20 @@ vtkSmartPointer<vtkActor> surfaceActor;
         //Doy por echo que los dos actores están añadidos al Renderer
 		if( points == NO)
         {
-            aRenderer->RemoveActor( ballActor);
+            _renderer->RemoveActor( ballActor);
         }
 		else
         {
-            aRenderer->AddActor( ballActor);
+            _renderer->AddActor( ballActor);
         }
 		
 		if( surface == NO)
         {
-           aRenderer->RemoveActor( roiVolumeActor);
+           _renderer->RemoveActor( roiVolumeActor);
         }
 		else
         {
-           aRenderer->AddActor( roiVolumeActor);
+           _renderer->AddActor( roiVolumeActor);
         }
 		
     }
@@ -456,10 +464,10 @@ vtkSmartPointer<vtkActor> surfaceActor;
     //aCamera->OrthogonalizeViewUp();
     //aCamera->SetParallelProjection( false);
     //aCamera->SetViewAngle( 60);
-    aRenderer->ResetCamera();
+    _renderer->ResetCamera();
     //_interactor->Start();
     
-    aRenderer->Render();
+    _renderer->Render();
     
     [self setNeedsDisplay:YES];
 	
