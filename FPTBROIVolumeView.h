@@ -14,7 +14,7 @@
 #define id Id
 //#include "vtkRenderer.h"
 //#include "vtkCamera.h"
-#include "vtkActor.h"
+#import "vtkActor.h"
 #include "vtkSmartPointer.h"
 #undef id
 
