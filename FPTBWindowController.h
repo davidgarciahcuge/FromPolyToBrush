@@ -7,22 +7,43 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import <OsiriXAPI/DCMView.h>
+
+#import "OsiriXAPI/DCMView.h"
+#import "OsiriXAPI/DCMPix.h"
+#import "OsiriXAPI/Window3DController.h"
+
+#import "FPTBROIVolumeView.h"
+
 
 @class ViewerController;
 
-@interface FPTBWindowController : NSWindowController {
+@interface FPTBWindowController : Window3DController <NSWindowDelegate> {
     
     ViewerController *_viewerController;
+    
     DCMView *_imageView;
     NSString *labeledImagePath;
+    NSMutableArray *_fptbPixList, *_fptbRoiList;
+    //short _fptbCurMovieIndex;
+    
+    DCMPix *_fptbcurPix;
     
     IBOutlet NSButton *buttonBrowse;
     IBOutlet NSButton *buttonImport;
+    IBOutlet NSButton *buttonDisplay;
     IBOutlet NSTextField *labelPath;
+    IBOutlet NSButton   *pointsCheckbox;
+    IBOutlet NSButton   *surfaceCheckbox;
+    IBOutlet NSButtonCell *delaunayReconstruction;
+    IBOutlet NSButtonCell *powerCrustReconstruction;
+    IBOutlet NSMatrix *matrixRadioButtons;
     
     //Path
     NSMutableString *FPTBhomeFilePath;
+    
+    //My view class for performing the visualization
+    IBOutlet FPTBROIVolumeView *_theView;
+    
 }
 
 //Init window.
@@ -36,6 +57,15 @@
 
 //Import labeled images to Brush ROIs
 -(IBAction)importLabeledImages:(id)sender;
+
+//Display a 3D model of the imported labeled image
+-(IBAction)displayLabeledImages:(id)sender;
+
+//Update the view displaying only points, only the surface or both
+-(IBAction)updateView:(id)sender;
+
+//Recompute the surface reconstruction
+-(IBAction)changeReconstruction:(id)sender;
 
 
 @end

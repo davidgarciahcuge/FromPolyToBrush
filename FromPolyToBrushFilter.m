@@ -38,6 +38,7 @@
     OSIROIMaskRun *maskRun2 = [maskRuns lastObject];*/
 
     fptbWindowController = [[FPTBWindowController alloc] initWithViewerController:viewerController];
+    
     [fptbWindowController showWindow:self];
     
 	if( fptbWindowController)  // No Errors
