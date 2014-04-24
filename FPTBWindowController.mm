@@ -15,6 +15,9 @@
 #import <OsirixAPI/Roi.h>
 #import <OsiriXAPI/DCMPix.h>
 #import <OsiriXAPI/RoiVolumeController.h>
+//#import <OsiriXAPI/XMLController.h>
+#import "FPTBXmlController.h"
+
 
 #define id Id
 #import <OsiriXAPI/vtkStructuredPointsReader.h>
@@ -756,6 +759,20 @@ double spacing[3];
         
         
     }
+}
+
+-(IBAction)changePatientPosition:(id)sender
+{
+    //imObj = [fileList[curMovieIndex] objectAtIndex:[imageView curImage]];
+    
+    _fptbFileList = [_viewerController fileList];
+    
+    short curIndex = [_viewerController curMovieIndex];
+
+    FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withIndex:curIndex];
+    [_fptbController modifyDicom];
+    
+    [_fptbController release];
 }
 
 

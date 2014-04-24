@@ -12,15 +12,15 @@
      PURPOSE.
 =========================================================================*/
 
-
-
 #import <Cocoa/Cocoa.h>
-#import <OsiriX/DCMObject.h>
+#import "DCMObject.h"
 
-@interface DCMObjectDBImport : DCMObject {
- 
-}
-+ (id)objectWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData;
-- (BOOL)isNeededAttribute:(char *)tagString;
+/** Category of DCMObject for creating DICOM encapsulated PDFs */
+@interface   DCMObject (DCMEncapsulatedPDF) 
+
+
+/** Encapsulates a pdf in a DICOM file */
++ (DCMObject*) encapsulatedPDF:(NSData *)pdf;
+
 
 @end

@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6304C6D618F6E30B0082E1AC /* FPTBXmlController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6304C6D418F6E30B0082E1AC /* FPTBXmlController.h */; };
+		6304C6D718F6E30B0082E1AC /* FPTBXmlController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6304C6D518F6E30B0082E1AC /* FPTBXmlController.m */; };
+		6304C6D918F6EEF90082E1AC /* OsiriX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6304C6D818F6EEF90082E1AC /* OsiriX.framework */; };
 		630E20C2188EC1D8007D0D88 /* FPTBROIVolumeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 630E20C0188EC1D8007D0D88 /* FPTBROIVolumeView.h */; };
 		630E20C3188EC1D8007D0D88 /* FPTBROIVolumeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 630E20C1188EC1D8007D0D88 /* FPTBROIVolumeView.mm */; };
+		63139C3018F5994B005CFCEC /* vtkImageStencil.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 63139C2A18F5994B005CFCEC /* vtkImageStencil.cxx.o */; };
+		63139C3118F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 63139C2B18F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o */; };
+		63139C3218F5994B005CFCEC /* vtkImageStencilIterator.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 63139C2C18F5994B005CFCEC /* vtkImageStencilIterator.cxx.o */; };
+		63139C3318F5994B005CFCEC /* vtkImageStencilSource.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 63139C2D18F5994B005CFCEC /* vtkImageStencilSource.cxx.o */; };
+		63139C3418F5994B005CFCEC /* vtkObjectBase.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 63139C2E18F5994B005CFCEC /* vtkObjectBase.cxx.o */; };
+		63139C3518F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 63139C2F18F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o */; };
 		63205BE817CB81AB001D56A4 /* FPTBWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 63205BE517CB81AB001D56A4 /* FPTBWindowController.h */; };
 		63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */; };
 		63205BEA17CB81AB001D56A4 /* FPTBWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63205BE717CB81AB001D56A4 /* FPTBWindow.xib */; };
-		6330FFAE18EC0FC200D91292 /* vtkImageStencil.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFAD18EC0FC200D91292 /* vtkImageStencil.cxx.o */; };
-		6330FFB018EC12F700D91292 /* vtkObjectBase.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFAF18EC12F700D91292 /* vtkObjectBase.cxx.o */; };
-		6330FFB218EC13A200D91292 /* vtkPolyDataToImageStencil.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFB118EC13A200D91292 /* vtkPolyDataToImageStencil.cxx.o */; };
-		6330FFB418EC13FE00D91292 /* vtkImageStencilSource.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFB318EC13FE00D91292 /* vtkImageStencilSource.cxx.o */; };
-		6330FFB618EC143600D91292 /* vtkImageStencilAlgorithm.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFB518EC143600D91292 /* vtkImageStencilAlgorithm.cxx.o */; };
-		6330FFB818EC15BF00D91292 /* vtkImageStencilIterator.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFB718EC15BE00D91292 /* vtkImageStencilIterator.cxx.o */; };
 		6330FFBA18EC63F700D91292 /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFB918EC63F700D91292 /* OsiriXAPI.framework */; };
 		63B861F118E9BAF900094DF2 /* symbolList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63B861F018E9BAF900094DF2 /* symbolList.txt */; };
 		8D5B49AE048680CD000E48DA /* FromPolyToBrush_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF630370AF2F00C91783 /* FromPolyToBrush_Prefix.pch */; };
@@ -33,17 +36,20 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF630370AF2F00C91783 /* FromPolyToBrush_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromPolyToBrush_Prefix.pch; sourceTree = "<group>"; };
+		6304C6D418F6E30B0082E1AC /* FPTBXmlController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTBXmlController.h; sourceTree = "<group>"; };
+		6304C6D518F6E30B0082E1AC /* FPTBXmlController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTBXmlController.m; sourceTree = "<group>"; };
+		6304C6D818F6EEF90082E1AC /* OsiriX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriX.framework; sourceTree = "<group>"; };
 		630E20C0188EC1D8007D0D88 /* FPTBROIVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTBROIVolumeView.h; sourceTree = "<group>"; };
 		630E20C1188EC1D8007D0D88 /* FPTBROIVolumeView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FPTBROIVolumeView.mm; sourceTree = "<group>"; };
+		63139C2A18F5994B005CFCEC /* vtkImageStencil.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencil.cxx.o; sourceTree = "<group>"; };
+		63139C2B18F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencilAlgorithm.cxx.o; sourceTree = "<group>"; };
+		63139C2C18F5994B005CFCEC /* vtkImageStencilIterator.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencilIterator.cxx.o; sourceTree = "<group>"; };
+		63139C2D18F5994B005CFCEC /* vtkImageStencilSource.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencilSource.cxx.o; sourceTree = "<group>"; };
+		63139C2E18F5994B005CFCEC /* vtkObjectBase.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkObjectBase.cxx.o; sourceTree = "<group>"; };
+		63139C2F18F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkPolyDataToImageStencil.cxx.o; sourceTree = "<group>"; };
 		63205BE517CB81AB001D56A4 /* FPTBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTBWindowController.h; sourceTree = "<group>"; };
 		63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBWindowController.mm; sourceTree = "<group>"; };
 		63205BE717CB81AB001D56A4 /* FPTBWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPTBWindow.xib; sourceTree = "<group>"; };
-		6330FFAD18EC0FC200D91292 /* vtkImageStencil.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencil.cxx.o; sourceTree = "<group>"; };
-		6330FFAF18EC12F700D91292 /* vtkObjectBase.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkObjectBase.cxx.o; sourceTree = "<group>"; };
-		6330FFB118EC13A200D91292 /* vtkPolyDataToImageStencil.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkPolyDataToImageStencil.cxx.o; sourceTree = "<group>"; };
-		6330FFB318EC13FE00D91292 /* vtkImageStencilSource.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencilSource.cxx.o; sourceTree = "<group>"; };
-		6330FFB518EC143600D91292 /* vtkImageStencilAlgorithm.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencilAlgorithm.cxx.o; sourceTree = "<group>"; };
-		6330FFB718EC15BE00D91292 /* vtkImageStencilIterator.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageStencilIterator.cxx.o; sourceTree = "<group>"; };
 		6330FFB918EC63F700D91292 /* OsiriXAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriXAPI.framework; sourceTree = "<group>"; };
 		63B861F018E9BAF900094DF2 /* symbolList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbolList.txt; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,13 +63,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6330FFB418EC13FE00D91292 /* vtkImageStencilSource.cxx.o in Frameworks */,
-				6330FFB018EC12F700D91292 /* vtkObjectBase.cxx.o in Frameworks */,
-				6330FFAE18EC0FC200D91292 /* vtkImageStencil.cxx.o in Frameworks */,
-				6330FFB218EC13A200D91292 /* vtkPolyDataToImageStencil.cxx.o in Frameworks */,
-				6330FFB618EC143600D91292 /* vtkImageStencilAlgorithm.cxx.o in Frameworks */,
-				6330FFB818EC15BF00D91292 /* vtkImageStencilIterator.cxx.o in Frameworks */,
+				63139C3518F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o in Frameworks */,
+				63139C3318F5994B005CFCEC /* vtkImageStencilSource.cxx.o in Frameworks */,
+				63139C3018F5994B005CFCEC /* vtkImageStencil.cxx.o in Frameworks */,
+				63139C3118F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				63139C3218F5994B005CFCEC /* vtkImageStencilIterator.cxx.o in Frameworks */,
+				63139C3418F5994B005CFCEC /* vtkObjectBase.cxx.o in Frameworks */,
+				6304C6D918F6EEF90082E1AC /* OsiriX.framework in Frameworks */,
 				6330FFBA18EC63F700D91292 /* OsiriXAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,12 +94,7 @@
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				6330FFAD18EC0FC200D91292 /* vtkImageStencil.cxx.o */,
-				6330FFAF18EC12F700D91292 /* vtkObjectBase.cxx.o */,
-				6330FFB118EC13A200D91292 /* vtkPolyDataToImageStencil.cxx.o */,
-				6330FFB318EC13FE00D91292 /* vtkImageStencilSource.cxx.o */,
-				6330FFB518EC143600D91292 /* vtkImageStencilAlgorithm.cxx.o */,
-				6330FFB718EC15BE00D91292 /* vtkImageStencilIterator.cxx.o */,
+				63139C3618F59955005CFCEC /* VTK */,
 				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
 				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
 			);
@@ -120,6 +122,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6304C6D818F6EEF90082E1AC /* OsiriX.framework */,
 				6330FFB918EC63F700D91292 /* OsiriXAPI.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
@@ -151,6 +154,19 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		63139C3618F59955005CFCEC /* VTK */ = {
+			isa = PBXGroup;
+			children = (
+				63139C2A18F5994B005CFCEC /* vtkImageStencil.cxx.o */,
+				63139C2B18F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o */,
+				63139C2C18F5994B005CFCEC /* vtkImageStencilIterator.cxx.o */,
+				63139C2D18F5994B005CFCEC /* vtkImageStencilSource.cxx.o */,
+				63139C2E18F5994B005CFCEC /* vtkObjectBase.cxx.o */,
+				63139C2F18F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o */,
+			);
+			name = VTK;
+			sourceTree = "<group>";
+		};
 		AB2C26750677B0C400A08910 /* FromPolyToBrushFilter */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +176,8 @@
 				63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */,
 				630E20C0188EC1D8007D0D88 /* FPTBROIVolumeView.h */,
 				630E20C1188EC1D8007D0D88 /* FPTBROIVolumeView.mm */,
+				6304C6D418F6E30B0082E1AC /* FPTBXmlController.h */,
+				6304C6D518F6E30B0082E1AC /* FPTBXmlController.m */,
 			);
 			name = FromPolyToBrushFilter;
 			sourceTree = "<group>";
@@ -172,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49AE048680CD000E48DA /* FromPolyToBrush_Prefix.pch in Headers */,
+				6304C6D618F6E30B0082E1AC /* FPTBXmlController.h in Headers */,
 				ABA48A650680BB600089EB4F /* FromPolyToBrushFilter.h in Headers */,
 				63205BE817CB81AB001D56A4 /* FPTBWindowController.h in Headers */,
 				630E20C2188EC1D8007D0D88 /* FPTBROIVolumeView.h in Headers */,
@@ -259,6 +278,7 @@
 				ABA48A670680BB690089EB4F /* FromPolyToBrushFilter.m in Sources */,
 				630E20C3188EC1D8007D0D88 /* FPTBROIVolumeView.mm in Sources */,
 				63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */,
+				6304C6D718F6E30B0082E1AC /* FPTBXmlController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +299,7 @@
 		CE6A9A9108AC841300D0C1EE /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -300,7 +321,7 @@
 				INSTALL_PATH = "@executable_path/../Plug-ins";
 				LD_DYLIB_INSTALL_NAME = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -327,6 +348,7 @@
 		CE6A9A9208AC841300D0C1EE /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -344,7 +366,7 @@
 				INSTALL_PATH = "@executable_path/../Plug-ins";
 				LD_DYLIB_INSTALL_NAME = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;

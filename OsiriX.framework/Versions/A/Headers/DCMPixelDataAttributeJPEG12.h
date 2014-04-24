@@ -12,15 +12,14 @@
      PURPOSE.
 =========================================================================*/
 
+#import <Foundation/Foundation.h>
+#import "DCMPixelDataAttribute.h"
 
 
-#import <Cocoa/Cocoa.h>
-#import <OsiriX/DCMObject.h>
 
-@interface DCMObjectDBImport : DCMObject {
- 
-}
-+ (id)objectWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData;
-- (BOOL)isNeededAttribute:(char *)tagString;
+@interface DCMPixelDataAttribute (DCMPixelDataAttributeJPEG12)  
+
+- (NSData *)convertJPEG12ToHost:(NSData *)jpegData;
+//- (NSMutableData *)compressJPEG12:(NSMutableData *)data  compressionSyntax:(DCMTransferSyntax *)compressionSyntax  quality:(float)quality;
 
 @end

@@ -12,6 +12,7 @@
 #import <OsiriXAPI/DCMPix.h>
 #import <OsiriXAPI/Window3DController.h>
 
+
 #import "FPTBROIVolumeView.h"
 
 #define id ID
@@ -27,9 +28,11 @@
 
 @class ViewerController;
 
+
 @interface FPTBWindowController : Window3DController <NSWindowDelegate> {
     
     ViewerController *_viewerController;
+    NSArray *_fptbFileList;
     
     DCMView *_imageView;
     NSString *labeledImagePath;
@@ -50,6 +53,7 @@
     IBOutlet NSButtonCell *delaunayReconstruction;
     IBOutlet NSButtonCell *powerCrustReconstruction;
     IBOutlet NSMatrix *matrixRadioButtons;
+    IBOutlet NSButton *buttonPatientPosition;
     
     //Path
     NSMutableString *FPTBhomeFilePath;
@@ -79,6 +83,9 @@
 
 //Recompute the surface reconstruction
 -(IBAction)changeReconstruction:(id)sender;
+
+//Update Patient Position tag
+-(IBAction)changePatientPosition:(id)sender;
 
 
 @end

@@ -12,15 +12,13 @@
      PURPOSE.
 =========================================================================*/
 
+#import <Foundation/Foundation.h>
 
 
-#import <Cocoa/Cocoa.h>
-#import <OsiriX/DCMObject.h>
+@interface DCMTagForNameDictionary : NSDictionary {
 
-@interface DCMObjectDBImport : DCMObject {
- 
 }
-+ (id)objectWithContentsOfFile:(NSString *)file decodingPixelData:(BOOL)decodePixelData;
-- (BOOL)isNeededAttribute:(char *)tagString;
+
++(id)sharedTagForNameDictionary;
 
 @end

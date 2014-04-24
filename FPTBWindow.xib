@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPTBWindowController">
@@ -11,6 +11,7 @@
                 <outlet property="buttonBrowse" destination="37" id="45"/>
                 <outlet property="buttonDisplay" destination="zvk-Gp-oXH" id="pTI-VO-ZO3"/>
                 <outlet property="buttonImport" destination="41" id="49"/>
+                <outlet property="buttonPatientPosition" destination="BUs-tn-8mJ" id="hOM-7d-lqb"/>
                 <outlet property="delaunayReconstruction" destination="Lno-sb-hY7" id="417-n1-aZj"/>
                 <outlet property="labelPath" destination="32" id="46"/>
                 <outlet property="matrixRadioButtons" destination="LPn-1a-yOf" id="YzI-XJ-v0c"/>
@@ -22,11 +23,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" wantsToBeColor="NO" animationBehavior="default" id="1">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="990" height="681"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="990" height="681"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -47,8 +48,8 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="37" userLabel="Push Button - Browse">
-                                    <rect key="frame" x="12" y="555" width="85" height="32"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37" userLabel="Push Button - Browse">
+                                    <rect key="frame" x="230" y="555" width="85" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="38">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -59,7 +60,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41" userLabel="Push Button - Generate">
-                                    <rect key="frame" x="113" y="555" width="83" height="32"/>
+                                    <rect key="frame" x="331" y="555" width="83" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="42">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,7 +71,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zvk-Gp-oXH">
-                                    <rect key="frame" x="211" y="555" width="100" height="32"/>
+                                    <rect key="frame" x="451" y="555" width="100" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="3D Display" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="q1E-ph-Z4J">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -85,7 +86,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
                                 <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgk-dV-xTP">
-                                    <rect key="frame" x="335" y="563" width="61" height="18"/>
+                                    <rect key="frame" x="575" y="563" width="61" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Points" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="CSr-Ly-W1v">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -96,7 +97,7 @@
                                     </connections>
                                 </button>
                                 <button ambiguous="YES" misplaced="YES" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="14" translatesAutoresizingMaskIntoConstraints="NO" id="Z0P-KW-RtZ">
-                                    <rect key="frame" x="400" y="563" width="76" height="18"/>
+                                    <rect key="frame" x="640" y="563" width="76" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Surface" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Lx6-yG-x2D">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -107,7 +108,7 @@
                                     </connections>
                                 </button>
                                 <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LPn-1a-yOf">
-                                    <rect key="frame" x="482" y="563" width="214" height="18"/>
+                                    <rect key="frame" x="722" y="563" width="214" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     <size key="cellSize" width="93" height="18"/>
@@ -134,6 +135,17 @@
                                         <action selector="changeReconstruction:" target="-2" id="tvf-Yt-2pi"/>
                                     </connections>
                                 </matrix>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BUs-tn-8mJ">
+                                    <rect key="frame" x="12" y="555" width="178" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Update Patient Position" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2i0-HW-uTS">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="changePatientPosition:" target="-2" id="07v-I0-Caw"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </view>
                         <constraints>

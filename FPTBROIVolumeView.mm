@@ -36,10 +36,12 @@
 //#import "vtkAnnotatedCubeActor.h"
 //#import "vtkRenderer.h"
 //#import "vtkActor.h"
+
 #import <OsirixAPI/vtkSmartPointer.h>
-#import <OsirixAPI/vtkActor.h>
-//#import <OsirixAPI/vtkPowerCrustSurfaceReconstruction.h>
+#import <OsiriXAPI/vtkActor.h>
+#import <OsiriXAPI/vtkPowerCrustSurfaceReconstruction.h>
 #undef id
+
 
 //vtkSmartPointer<vtkActor> pointsActor;
 //vtkSmartPointer<vtkActor> surfaceActor;
