@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-#import "OsiriXAPI/DCMObjectDBImport.h"
 //#import "OsiriXAPI/ViewerController.h"
 
 @interface FPTBXmlController : NSObject
@@ -21,13 +20,17 @@
     //Path to the current image in the viewer
     NSString *imagePath;
     
-    NSXMLDocument *xml;
-    DCMObjectDBImport *dcm;
+    //NSXMLDocument *xml;
+    //DCMObjectDBImport *dcm;
     
     //ViewerController *_viewer;
 }
 - (id) initWithImages:(NSArray*) images withIndex: (short) index;
 
-- (void)modifyDicom;
+//Extract the z patient position of each slice
+- (NSMutableArray*)extractZPatientPosition;
+
+//We update the Dicom Files with the new z patient positions computed
+- (void)modifyDicomsWithNewPositions: (NSMutableArray*) zPositions;
 
 @end

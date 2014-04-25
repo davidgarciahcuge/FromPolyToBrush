@@ -736,41 +736,69 @@ double spacing[3];
 
 #pragma mark Internal Use
 
--(void)setRealSliceLocation
+-(NSMutableArray*)setRealSliceLocations:(NSMutableArray*)originalPositions
 {
-    double zspacing = spacing[2];
+    //double zspacing = spacing[2];
+    double zspacing = 1.0; //Hardcodeamos para testing purposes
     
-    for( int x = 0; x < [_fptbPixList count] - 1; x++)
-	{
-		DCMPix *curPix1 = [_fptbPixList objectAtIndex:x];
-        DCMPix *curPix2 = [_fptbPixList objectAtIndex:(x + 1)];
+    NSMutableArray *correctPositions = [NSMutableArray arrayWithCapacity:[originalPositions count]];
+    
+    NSLog(@"NEW Z POSITIONS");
+    
+//    for( int x = 0; x < [_fptbPixList count] - 1; x++)
+//	{
+//		DCMPix *curPix1 = [_fptbPixList objectAtIndex:x];
+//        DCMPix *curPix2 = [_fptbPixList objectAtIndex:(x + 1)];
+//        
+//        if ([curPix1 sliceLocation] == [curPix2 sliceLocation] & x!= [_fptbPixList count] - 2) {
+//            [curPix1 setSliceLocation:[curPix1 sliceLocation] + (x*zspacing)];
+//            [curPix1 setSliceInterval:[curPix1 spacingBetweenSlices]];
+//        }else if ([curPix1 sliceLocation] == [curPix2 sliceLocation] & x == [_fptbPixList count] - 2)
+//        {
+//            [curPix1 setSliceLocation:[curPix1 sliceLocation] + (x*zspacing)];
+//            [curPix2 setSliceLocation:[curPix2 sliceLocation] + ((x+1)*zspacing)];
+//            
+//            [curPix1 setSliceInterval:[curPix1 spacingBetweenSlices]];
+//            [curPix2 setSliceInterval:[curPix2 spacingBetweenSlices]];
+//        }
+//        
+//        
+//    }
+    
+    for (int x = 0; x < [originalPositions count]; x++)
+    {
+        double original = [[originalPositions objectAtIndex:x] doubleValue];
+        double correct = original + (x*zspacing);
         
-        if ([curPix1 sliceLocation] == [curPix2 sliceLocation] & x!= [_fptbPixList count] - 2) {
-            [curPix1 setSliceLocation:[curPix1 sliceLocation] + (x*zspacing)];
-            [curPix1 setSliceInterval:[curPix1 spacingBetweenSlices]];
-        }else if ([curPix1 sliceLocation] == [curPix2 sliceLocation] & x == [_fptbPixList count] - 2)
-        {
-            [curPix1 setSliceLocation:[curPix1 sliceLocation] + (x*zspacing)];
-            [curPix2 setSliceLocation:[curPix2 sliceLocation] + ((x+1)*zspacing)];
-            
-            [curPix1 setSliceInterval:[curPix1 spacingBetweenSlices]];
-            [curPix2 setSliceInterval:[curPix2 spacingBetweenSlices]];
-        }
+        [correctPositions addObject:[NSNumber numberWithDouble:correct]];
         
-        
+        NSLog(@"Position: %f", correct);
     }
+    
+    return correctPositions;
 }
 
 -(IBAction)changePatientPosition:(id)sender
 {
     //imObj = [fileList[curMovieIndex] objectAtIndex:[imageView curImage]];
+
+    //Apuntes
+//    dcmDocument = [[DCMObject objectWithContentsOfFile:srcFile decodingPixelData:NO] retain];
+//    xmlDocument = [[dcmDocument xmlDocument] retain];
     
     _fptbFileList = [_viewerController fileList];
     
     short curIndex = [_viewerController curMovieIndex];
 
     FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withIndex:curIndex];
-    [_fptbController modifyDicom];
+    
+    //Extract z position of each slice
+    NSMutableArray *zPositions = [_fptbController extractZPatientPosition];
+    
+    //Compute the real zPosition
+    NSMutableArray *correctPositions = [self setRealSliceLocations:zPositions];
+    
+    [_fptbController modifyDicomsWithNewPositions:correctPositions];
     
     [_fptbController release];
 }

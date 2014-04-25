@@ -13,7 +13,10 @@
 #import "OsiriXAPI/MutableArrayCategory.h"
 #import "OsiriXAPI/DICOMToNSString.h"
 #import "OsiriXAPI/DicomFileDCMTKCategory.h"
+#import "OsiriXAPI/DCMObjectDBImport.h"
+#import "OsiriX/DCMAttribute.h"
 
+NSMutableArray *positions;
 
 @implementation FPTBXmlController
 
@@ -26,6 +29,8 @@
         //Complete list of paths to the file that corresponds to the images in the viewer.
         dicomFilePaths = [NSMutableArray arrayWithArray: [images valueForKey:@"completePath"]];
         imagePath = [dicomFilePaths objectAtIndex:index];
+        
+        positions = [[NSMutableArray alloc]init];
         
 //        if(dicomFilePaths)//Check if the file in the path is a Dicom file
 //        {
@@ -49,6 +54,8 @@
 -(void)dealloc
 {
     [dicomFilePaths release];
+    
+    [positions release];
     //[imagePath release];
     
     //[dcm release];
@@ -61,10 +68,49 @@
 
 #pragma mark Core
 
-- (void)modifyDicom
+- (NSMutableArray*)extractZPatientPosition
+{
+    NSMutableArray *zPositions = [[NSMutableArray alloc] init];
+    
+    NSLog(@"POSICIONES ORIGINALES: ");
+    
+    for (NSString *path in dicomFilePaths)
+    {
+        //Dicom object of the image in the viewer
+        DCMObjectDBImport *dcm = [[DCMObject objectWithContentsOfFile:path decodingPixelData:NO] retain];
+        
+        //Attributes list from the dicom object
+        NSMutableDictionary *attributes = [dcm attributes];
+        
+        //Get the attribute that we want
+        DCMAttribute *attribute = [attributes objectForKey:@"0020,0032"];
+        
+        //Get the values from the attribute
+        NSMutableArray *values = [attribute values];
+        
+        //Add the (x,y,z) slice position to the global array that stores all the positions.
+        [positions addObject:values];
+        
+        //Get z position
+        double z = [[values objectAtIndex:2] doubleValue];
+       
+        NSLog(@"Position %f", z);
+        
+        //Add to the array
+        [zPositions addObject:[NSNumber numberWithDouble:z]];
+        
+        [dcm release];
+    }
+    
+    return zPositions;
+    
+}
+
+- (void)modifyDicomsWithNewPositions: (NSMutableArray*) zPositions
 {
     //Params to modify the dicom files
     //NSMutableArray	*params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--verbose", @"--ignore-errors", @"-i", @"(0020,0032)=0.000000\0.000000\53.000000",nil];
+    
     NSMutableArray	*params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--verbose", @"--ignore-errors", nil];
     
     [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"(0020,0032)=0.000000\\0.000000\\53.000000"], nil]];
@@ -92,8 +138,7 @@
     
     //[paramsAndPaths release];
     [params release];
-    
-    
+        
 }
 
 @end
