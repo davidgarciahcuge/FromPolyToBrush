@@ -111,33 +111,48 @@ NSMutableArray *positions;
     //Params to modify the dicom files
     //NSMutableArray	*params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--verbose", @"--ignore-errors", @"-i", @"(0020,0032)=0.000000\0.000000\53.000000",nil];
     
-    NSMutableArray	*params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--verbose", @"--ignore-errors", nil];
-    
-    [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"(0020,0032)=0.000000\\0.000000\\53.000000"], nil]];
-    
-    //Array with the parameters and the list of file paths
-    [params addObjectsFromArray:dicomFilePaths];
-    
-    @try
+    for (int x=0; x < [dicomFilePaths count]; x++)
     {
-        //Get the encoding of the file
-        NSStringEncoding encoding = [NSString encodingForDICOMCharacterSet: [[DicomFile getEncodingArrayForFile: imagePath] objectAtIndex: 0]];
+        //Path of the image dicom file
+        NSString *filePath = [dicomFilePaths objectAtIndex:x];
         
-        //Telling the controller to modify all the dicoms with the parameters indicated.
-        [XMLController modifyDicom: params encoding: encoding];
+        //Array with the necessary parameters for modifyDicom
+        NSMutableArray	*params = [NSMutableArray arrayWithObjects:@"dcmodify", @"--verbose", @"--ignore-errors", nil];
         
-        for( id loopItem in dicomFilePaths)
-            [[NSFileManager defaultManager] removeFileAtPath:[loopItem stringByAppendingString:@".bak"] handler:nil];
-//
-//        [self updateDB: files objects: objects];
-    }
-    @catch (NSException * e)
-    {
-        NSLog(@"xml setObject: %@", e);
+        NSArray *values = [NSArray arrayWithArray:[positions objectAtIndex:x]];
+        
+        NSString *stringTagValues = [NSString stringWithFormat: @"(0020,0032)=%f\\%f\\%f", [[values objectAtIndex:0] doubleValue], [[values objectAtIndex:1] doubleValue], [[zPositions objectAtIndex:x] doubleValue]];
+        
+        //Adding the specific values for the current slice
+        //[params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", [NSString stringWithFormat: @"(0020,0032)=0.000000\\0.000000\\53.000000"], nil]];
+        [params addObjectsFromArray: [NSArray arrayWithObjects: @"-i", stringTagValues, nil]];
+        
+        //Array with the parameters and the list of file paths
+        [params addObjectsFromArray:[NSArray arrayWithObject:filePath]];
+        
+        @try
+        {
+            //Get the encoding of the file
+            NSStringEncoding encoding = [NSString encodingForDICOMCharacterSet: [[DicomFile getEncodingArrayForFile: filePath] objectAtIndex: 0]];
+            
+            //Telling the controller to modify all the dicoms with the parameters indicated.
+            [XMLController modifyDicom: params encoding: encoding];
+            
+            //for( id loopItem in dicomFilePaths)
+            [[NSFileManager defaultManager] removeFileAtPath:[filePath stringByAppendingString:@".bak"] handler:nil];
+        }
+        @catch (NSException * e)
+        {
+            NSLog(@"xml setObject: %@", e);
+        }
+        
+        //[paramsAndPaths release];
+        [params release];
+        [values release];
+        [stringTagValues release];
     }
     
-    //[paramsAndPaths release];
-    [params release];
+    
         
 }
 
