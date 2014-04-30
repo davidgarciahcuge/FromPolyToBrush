@@ -149,14 +149,14 @@ double spacing[3];
 -(IBAction)browseLabeledImages:(id)sender
 {
     
-    NSLog(@"Select labeled image.");    
+    NSLog(@"Mesh selection.");
     
     NSOpenPanel* nsopanel = [NSOpenPanel openPanel];
     [nsopanel setCanChooseFiles:TRUE];
     [nsopanel setCanCreateDirectories:FALSE];
     [nsopanel setCanChooseDirectories:FALSE];
     [nsopanel setAllowsMultipleSelection:FALSE];
-    [nsopanel setTitle:@"Select the labeled image file"];
+    [nsopanel setTitle:@"Select the 3D mesh file"];
     
     NSInteger returnvalue = [nsopanel runModal];
     
@@ -164,9 +164,9 @@ double spacing[3];
     {        
         NSArray* filenames = [nsopanel URLs];          
 
-        labeledImagePath = [[filenames objectAtIndex:0] path];
+        meshPath = [[filenames objectAtIndex:0] path];
         
-        if (![labeledImagePath  isEqual: @""])
+        if (![meshPath  isEqual: @""])
         {
             [buttonImport setEnabled:true];
             //[buttonDisplay setEnabled:true];
@@ -183,7 +183,7 @@ double spacing[3];
 -(void)updateLabel {
     
     NSLog(@"Update label."); 
-    [labelPath setStringValue:labeledImagePath];
+    [labelPath setStringValue:meshPath];
  
 }
 
@@ -193,11 +193,11 @@ double spacing[3];
     
     //NSString *imageFile = [la];
     
-    vtkSmartPointer<vtkImageData> stencil = [self labeledImagesFromPolydata:labeledImagePath];
+    vtkSmartPointer<vtkImageData> stencil = [self labeledImagesFromPolydata:meshPath];
     
     // Read image
 //    vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
-//    reader->SetFileName( [labeledImagePath UTF8String] );
+//    reader->SetFileName( [meshPath UTF8String] );
 //    
 //    vtkStructuredPoints *img = reader -> GetOutput();
 //    img -> Update();
@@ -416,7 +416,7 @@ double spacing[3];
     vtkSmartPointer<vtkPolyDataReader> dataReader = vtkSmartPointer<vtkPolyDataReader>::New();
     //dataReader->SetFileName("/Users/David/Documents/PHD/Data/Matthias_Segmentation_Data/2014/left-segmented-femur-subject1.vtp");
     
-    dataReader->SetFileName([labeledImagePath UTF8String]);
+    dataReader->SetFileName([meshPath UTF8String]);
     
     polydata = dataReader->GetOutput();
            
@@ -739,7 +739,7 @@ double spacing[3];
 -(NSMutableArray*)setRealSliceLocations:(NSMutableArray*)originalPositions
 {
     //double zspacing = spacing[2];
-    double zspacing = 1.0; //Hardcodeamos para testing purposes
+    double zspacing = 1.5; //Hardcodeamos para testing purposes
     
     NSMutableArray *correctPositions = [NSMutableArray arrayWithCapacity:[originalPositions count]];
     
@@ -788,9 +788,9 @@ double spacing[3];
     
     _fptbFileList = [_viewerController fileList];
     
-    short curIndex = [_viewerController curMovieIndex];
+    //short curIndex = [_viewerController curMovieIndex];
 
-    FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withIndex:curIndex];
+    FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController];
     
     //Extract z position of each slice
     NSMutableArray *zPositions = [_fptbController extractZPatientPosition];

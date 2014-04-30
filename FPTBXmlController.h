@@ -18,7 +18,7 @@
     NSMutableArray *dicomFilePaths;
     
     //Path to the current image in the viewer
-    NSString *imagePath;
+    //NSString *imagePath;
     
     //NSXMLDocument *xml;
     //DCMObjectDBImport *dcm;

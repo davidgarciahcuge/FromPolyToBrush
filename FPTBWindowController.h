@@ -35,7 +35,7 @@
     NSArray *_fptbFileList;
     
     DCMView *_imageView;
-    NSString *labeledImagePath;
+    NSString *meshPath;
     NSMutableArray *_fptbPixList, *_fptbRoiList;
     //short _fptbCurMovieIndex;
     
