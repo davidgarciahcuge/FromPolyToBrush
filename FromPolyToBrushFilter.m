@@ -8,9 +8,6 @@
 #import "FromPolyToBrushFilter.h"
 #import "FPTBWindowController.h"
 
-//#import <OsiriXAPI/OSIFloatVolumeData.h>
-//#import <OsiriXAPI/OSIROIMask.h>
-
 @implementation FromPolyToBrushFilter
 
 FPTBWindowController *fptbWindowController;

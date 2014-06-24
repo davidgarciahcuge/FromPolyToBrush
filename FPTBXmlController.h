@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-//#import "OsiriXAPI/ViewerController.h"
+#import "OsiriXAPI/ViewerController.h"
 
 @interface FPTBXmlController : NSObject
 {
@@ -25,12 +25,18 @@
     
     //ViewerController *_viewer;
 }
-- (id) initWithImages:(NSArray*) images withIndex: (short) index;
+- (id) initWithImages:(NSArray*) images withViewer: (ViewerController*) viewer;
+
+//Check if the serie is multiframe or singleframe
+-(BOOL)checkIfMultiFrame;
 
 //Extract the z patient position of each slice
 - (NSMutableArray*)extractZPatientPosition;
 
 //We update the Dicom Files with the new z patient positions computed
 - (void)modifyDicomsWithNewPositions: (NSMutableArray*) zPositions;
+
+//Create a set of single-frame .dcm files from the multi-frame
+-(BOOL)fromMultiFrameToSingleFrame;
 
 @end

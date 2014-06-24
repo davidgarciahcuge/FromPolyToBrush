@@ -14,7 +14,7 @@
 #import "OsiriXAPI/DICOMToNSString.h"
 #import "OsiriXAPI/DicomFileDCMTKCategory.h"
 #import "OsiriXAPI/DCMObjectDBImport.h"
-#import "OsiriXAPI/ViewerController.h"
+//#import "OsiriXAPI/ViewerController.h"
 #import "OsiriXAPI/Wait.h"
 #import "OsiriXAPI/DCMView.h"
 #import "OsiriXAPI/BrowserController.h"
@@ -26,29 +26,36 @@
 NSMutableArray *positions;
 ViewerController *_viewer;
 DCMView *_dcmView;
-BrowserController *_browserController;
-DicomDatabase *_database;
+NSArray *_images;
+//BrowserController *_browserController;
+//DicomDatabase *_database;
 
 @implementation FPTBXmlController
 
 - (id) initWithImages:(NSArray*) images withViewer: (ViewerController*) viewer;
 {
+    NSLog(@"Initializing  FPTBXmlController");
+    
     self = [super init];
     
     if (self) {
         
         //Complete list of paths to the file that corresponds to the images in the viewer.
-        dicomFilePaths = [NSMutableArray arrayWithArray: [images valueForKey:@"completePath"]];
+        _images = [images retain];
+        dicomFilePaths = [[NSMutableArray arrayWithArray: [_images valueForKey:@"completePath"]] retain];
+        //dicomFilePaths = [NSMutableArray arrayWithArray:[_images valueForKeyPath:@"completePath"]];
+    
         _viewer = [viewer retain];
         _dcmView = [[_viewer imageView] retain];
+        //_dcmView = [_viewer imageView];
         
-        NSString *firstPath = [dicomFilePaths objectAtIndex:0];
-        NSString *secondPath = [dicomFilePaths objectAtIndex:1];
+//        NSString *firstPath = [dicomFilePaths objectAtIndex:0];
+//        NSString *secondPath = [dicomFilePaths objectAtIndex:1];
         
         //if two consecutive paths are the same, then the serie is multi-frame and we need to create the single-frame images
-        if ([firstPath isEqualToString:secondPath]) {
-            [self fromMultiFrameToSingleFrame];
-        }
+//        if ([firstPath isEqualToString:secondPath]) {
+//            [self fromMultiFrameToSingleFrame];
+//        }
         
         //imagePath = [dicomFilePaths objectAtIndex:index];
         
@@ -70,24 +77,37 @@ DicomDatabase *_database;
 //        }
     }
     
+    NSLog(@"FPTBXmlController initialized");
+    
     return  self;
 }
 
 -(void)dealloc
 {
+    NSLog(@"FPTBWmlController: dealloc: begin");
+    
     [dicomFilePaths release];
+    dicomFilePaths = nil;
     
     [positions release];
+    positions = nil;
+    
     [_viewer release];
+    _viewer = nil;
+    
     [_dcmView release];
+    _dcmView = nil;
     
-    if (_browserController) {
-        [_browserController release];
-    }
+    [_images release];
+    _images = nil;
     
-    if (_database) {
-        [_database release];
-    }
+//    if (_browserController) {
+//        [_browserController release];
+//    }
+//    
+//    if (_database) {
+//        [_database release];
+//    }
     
     //[imagePath release];
     
@@ -97,13 +117,17 @@ DicomDatabase *_database;
     //[_viewer release];
     
     [super dealloc];
+    
+    NSLog(@"FPTBWmlController: dealloc: end");
+
 }
 
 #pragma mark Core
 
 - (NSMutableArray*)extractZPatientPosition
 {
-    NSMutableArray *zPositions = [[NSMutableArray alloc] init];
+    //NSMutableArray *zPositions = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *zPositions = [NSMutableArray array];
     
     NSLog(@"POSICIONES ORIGINALES: ");
     
@@ -112,11 +136,14 @@ DicomDatabase *_database;
         //Dicom object of the image in the viewer
         NSDate *start = [NSDate date];
         DCMObjectDBImport *dcm = [[DCMObject objectWithContentsOfFile:path decodingPixelData:NO] retain];
+        
         NSDate *end = [NSDate date];
         NSTimeInterval interval = [end timeIntervalSinceDate:start];
+        
         NSLog(@"Time for creating the DCMObject = %f seconds", interval);
         
         int fileSize = [[[[NSFileManager defaultManager] attributesOfItemAtPath: path error: nil] valueForKey: NSFileSize] longLongValue] / 1024L;
+        
         NSLog(@"The dicom file is : %d kbytes", fileSize);
         
         //Attributes list from the dicom object
@@ -138,18 +165,16 @@ DicomDatabase *_database;
             
             NSLog(@"Position %f", z);
             
+            NSNumber *zposition = [NSNumber numberWithDouble:z];
+            
             //Add to the array
-            [zPositions addObject:[NSNumber numberWithDouble:z]];
+            [zPositions addObject:zposition];
         }else
         {
             NSLog(@"Attribure (0020,0032) no encontrado");
         }
         
-        [start release];
-        [end release];
-        
-        //[dcm release];
-    }
+   }
     
     return zPositions;
     
@@ -162,6 +187,7 @@ DicomDatabase *_database;
     
     for (int x=0; x < [dicomFilePaths count]; x++)
     {
+        NSLog(@"Imagen: %d", x);
         //Path of the image dicom file
         NSString *filePath = [dicomFilePaths objectAtIndex:x];
         
@@ -196,16 +222,36 @@ DicomDatabase *_database;
         }
         
         //[paramsAndPaths release];
-        [params release];
-        [values release];
-        [stringTagValues release];
+//        [params release];
+//        [values release];
+//        [stringTagValues release];
     }
     
     
         
 }
 
--(void)fromMultiFrameToSingleFrame
+-(BOOL)checkIfMultiFrame
+{
+    NSString *firstPath = [dicomFilePaths objectAtIndex:0];
+    NSString *secondPath = [dicomFilePaths objectAtIndex:1];
+    
+    //if two consecutive paths are the same, then the serie is multi-frame and we need to create the single-frame images
+    if ([firstPath isEqualToString:secondPath]) {
+        NSLog(@"MULTI-FRAME");
+        return true;
+    }
+    else
+    {
+        NSLog(@"SINGLE-FRAME");
+        return false;
+    }
+
+        //[self fromMultiFrameToSingleFrame];
+    
+}
+
+-(BOOL)fromMultiFrameToSingleFrame
 {
     NSLog(@"fromMultiframeToSingleFrame: start");
     
@@ -219,99 +265,90 @@ DicomDatabase *_database;
     [[splash progress] setMaxValue: [dicomFilePaths count]];
     [splash setCancel: YES];
     
-    int curImage = [_dcmView curImage];
+    //A partir de aquí empezar el try catch
     
-    //En este for es donde se crean las .dcm y se escriben en memoria
-    for (int i = 0 ; i < [dicomFilePaths count]; i ++)
-   {
-       NSAutoreleasePool	*pool = [[NSAutoreleasePool alloc] init];
-//        
-//        BOOL	export = YES;
-//        
-//        if( [[dcmSelection selectedCell] tag] == 2)	// Only key images
-//        {
-//            NSManagedObject	*image;
-//            
-//            if( [imageView flippedData]) image = [[self fileList] objectAtIndex: (long)[[self fileList] count] -1 -i];
-//            else image = [[self fileList] objectAtIndex: i];
-//            
-//            export = [[image valueForKey:@"isKeyImage"] boolValue];
-//        }
-//        
-//        if( export)
-//        {
-//            if( [imageView flippedData]) [imageView setIndex: (long)[pixList[ curMovieIndex] count] -1 -i];
-//            else [imageView setIndex:i];
-//            
-//            [imageView sendSyncMessage: 0];
-//            [self adjustSlider];
-       [_dcmView setIndex:i];
-       
-       [_dcmView sendSyncMessage: 0];
-       [_viewer adjustSlider];
-
+    @try {
         
-       NSDictionary* s = [_viewer exportDICOMFileInt:0 withName:@"Single frames serie" allViewers: NO];
-       
-       NSLog(@"Produced File");
-    
-        if( s)
+        //Create and throw an exception.
+        //[NSException raise:@"Excepción de prueba" format:@"Probando mecanismo excepciones"];
+        
+        int curImage = [_dcmView curImage];
+        
+        //En este for es donde se crean las .dcm y se escriben en memoria
+        for (int i = 0 ; i < [dicomFilePaths count]; i ++)
         {
-            [producedFiles addObject: s];
-        }
-       
-       [splash incrementBy:1];
+            NSAutoreleasePool	*pool = [[NSAutoreleasePool alloc] init];
 
-        [pool release];
-       
-       
+            [_dcmView setIndex:i];
+            
+            [_dcmView sendSyncMessage: 0];
+            [_viewer adjustSlider];
+            
+            
+            NSDictionary* s = [_viewer exportDICOMFileInt:0 withName:@"Single frames serie" allViewers: NO];
+            
+            NSLog(@"Produced File");
+            
+            if( s)
+            {
+                [producedFiles addObject: s];
+            }
+            
+            [splash incrementBy:1];
+            
+            [pool release];
+            
+        }
+        
+        
+        //        [splash incrementBy: 1];
+        //
+        //        if( [splash aborted])
+        //            i = to;
+        
+        // Go back to initial frame
+        [_dcmView setIndex: curImage];
+        [_dcmView sendSyncMessage:0];
+        [_viewer adjustSlider];
+        
+        
+        NSLog( @"export end");
+        
+        
+        //Storing files in the database
+        if( [producedFiles count])
+        {
+            NSLog(@"Writing images in database");
+            
+            BrowserController *_browserController = [[BrowserController currentBrowser] retain];
+            DicomDatabase *_database = [[_browserController database] retain];
+            
+            NSArray *objects = [_database addFilesAtPaths: [producedFiles valueForKey: @"file"]
+                                        postNotifications: YES
+                                                dicomOnly: YES
+                                      rereadExistingItems: YES
+                                        generatedByOsiriX: YES];
+            
+            objects = [_database objectsWithIDs: objects];
+            
+        }
+        
+        return true;
+  
+    }
+    @catch (NSException *exception) {
+        return false;
+    }
+    @finally {
+        [splash close];
+        [splash autorelease];
+        
+        NSLog(@"fromMultiframeToSingleFrame: end");
     }
     
-        
-//        [splash incrementBy: 1];
-//        
-//        if( [splash aborted])
-//            i = to;
-    
-    // Go back to initial frame
-    [_dcmView setIndex: curImage];
-    [_dcmView sendSyncMessage:0];
-    [_viewer adjustSlider];
-    
-    [splash close];
-    [splash autorelease];
-    
-    NSLog( @"export end");
     
     
     
-    //Storing files in the database
-    if( [producedFiles count])
-    {
-        NSLog(@"Writing images in database");
-        
-        _browserController = [[BrowserController currentBrowser] retain];
-        _database = [[_browserController database] retain];
-        
-        NSArray *objects = [_database addFilesAtPaths: [producedFiles valueForKey: @"file"]
-                                                                    postNotifications: YES
-                                                                            dicomOnly: YES
-                                                                  rereadExistingItems: YES
-                                                                    generatedByOsiriX: YES];
-        
-        objects = [_database objectsWithIDs: objects];
-        
-//        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportSendToDICOMNode"])
-//            [_browserController selectServer: objects];
-//        
-//        if( [[NSUserDefaults standardUserDefaults] boolForKey: @"afterExportMarkThemAsKeyImages"])
-//        {
-//            for( DicomImage *im in objects)
-//                [im setValue: [NSNumber numberWithBool: YES] forKey: @"isKeyImage"];
-//        }
-    }
-    
-    NSLog(@"fromMultiframeToSingleFrame: end");
 }
 
 @end

@@ -27,6 +27,7 @@
 
 
 @class ViewerController;
+@class FPTBXmlController;
 
 
 @interface FPTBWindowController : Window3DController <NSWindowDelegate> {
@@ -43,6 +44,8 @@
     
     //vtkSmartPointer<vtkImageData> imageStencil;
     vtkSmartPointer<vtkPolyData> polydata;
+    
+    FPTBXmlController *_fptbXmlController;
     
     IBOutlet NSButton *buttonBrowse;
     IBOutlet NSButton *buttonImport;
@@ -86,6 +89,8 @@
 
 //Update Patient Position tag
 -(IBAction)changePatientPosition:(id)sender;
+
+-(IBAction)multiFrameToSingleFrame:(id)sender;
 
 
 @end

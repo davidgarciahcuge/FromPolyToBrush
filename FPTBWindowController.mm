@@ -66,6 +66,10 @@ double spacing[3];
     //We get the viewer and sen retain.
     _viewerController = viewerController;
     [viewerController retain];
+    
+    _fptbFileList = [[_viewerController fileList] retain];
+    
+    _fptbXmlController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController] ;
       
     // Load the window
 	self = [super initWithWindowNibName:@"FPTBWindow"];
@@ -109,6 +113,13 @@ double spacing[3];
     [_viewerController release];
     [_fptbPixList release];
     [_fptbRoiList release];
+    
+    
+    [_fptbXmlController release];
+    _fptbXmlController = nil;
+    
+    [_fptbFileList release];
+    
 
     
     [super dealloc];
@@ -786,21 +797,60 @@ double spacing[3];
 //    dcmDocument = [[DCMObject objectWithContentsOfFile:srcFile decodingPixelData:NO] retain];
 //    xmlDocument = [[dcmDocument xmlDocument] retain];
     
-    _fptbFileList = [_viewerController fileList];
+    //_fptbFileList = [[_viewerController fileList] retain];
     
     //short curIndex = [_viewerController curMovieIndex];
 
-    FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController];
+    //FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController] ;
+    
+    //Update ViewerController data
+    //[[_viewerController previewMatrixScrollView] ];
     
     //Extract z position of each slice
-    NSMutableArray *zPositions = [_fptbController extractZPatientPosition];
+    NSMutableArray *zPositions = [_fptbXmlController extractZPatientPosition];
     
     //Compute the real zPosition
     NSMutableArray *correctPositions = [self setRealSliceLocations:zPositions];
+
     
-    [_fptbController modifyDicomsWithNewPositions:correctPositions];
+    [_fptbXmlController modifyDicomsWithNewPositions:correctPositions];
+
     
-    [_fptbController release];
+//    [_fptbController release];
+//    _fptbController = nil;
+    
+}
+
+-(IBAction)multiFrameToSingleFrame:(id)sender
+{
+    //Files list of the loaded serie in the viewer controller
+    //_fptbFileList = [[_viewerController fileList] retain];
+    
+//    FPTBXmlController *_fptbController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController] ;
+//    
+//    [_fptbController release];
+//    _fptbController = nil;
+    
+    bool multi = [_fptbXmlController checkIfMultiFrame];
+    
+    if (multi) {
+        bool result = [_fptbXmlController fromMultiFrameToSingleFrame];
+        if (result) {
+            //Mostrar un popup diciendo que se ha hecho correctamente la conversión
+            //¿Devolver ya la lista de archivos?
+            NSRunAlertPanel(@"Multi - Single", @"Conversion from single-frame to multi-frame successful", @"OK", nil, nil);
+            
+//            NSRunInformationalAlertPanel(NSLocalizedString(@"OsiriX crashed", nil), NSLocalizedString(@"OsiriX crashed... You are running an outdated version of OsiriX ! This bug is probably corrected in the last version !", nil), NSLocalizedString(@"OK",nil), nil, nil);
+        }else{
+            //Mostrar popup diciendo que no se ha podico generar correctamente
+            NSRunAlertPanel(@"Multi - Single", @"There was an error in the conversion process", @"OK", nil, nil);
+        }
+    }else
+    {
+        //Popup diciendo ya se trata de una single frame
+        NSRunAlertPanel(@"Multi - Single", @"The .dcm files are already single-frame", @"OK", nil, nil);
+    }
+
 }
 
 

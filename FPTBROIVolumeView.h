@@ -27,7 +27,7 @@
 // Stablishes the source where the data we want to show resides
 //-(void)setPointsSource:(NSMutableArray*) points;
 
-// Render the data with thr reconstruction algorithm selected
+// Render the data with the reconstruction algorithm selected
 -(void)renderVolumeWitDelaunay: (BOOL)delaunay withPowerCrust: (BOOL)powerCrust showPoints: (BOOL)points showSurface: (BOOL)surface;
 
 // Update rendering actors
