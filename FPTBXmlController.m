@@ -323,6 +323,7 @@ NSArray *_images;
             BrowserController *_browserController = [[BrowserController currentBrowser] retain];
             DicomDatabase *_database = [[_browserController database] retain];
             
+            //producedFiles es un array key/value con los paths de cada .dcm creado
             NSArray *objects = [_database addFilesAtPaths: [producedFiles valueForKey: @"file"]
                                         postNotifications: YES
                                                 dicomOnly: YES

@@ -22,6 +22,33 @@
 		63205BE917CB81AB001D56A4 /* FPTBWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */; };
 		63205BEA17CB81AB001D56A4 /* FPTBWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63205BE717CB81AB001D56A4 /* FPTBWindow.xib */; };
 		6330FFBA18EC63F700D91292 /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330FFB918EC63F700D91292 /* OsiriXAPI.framework */; };
+		6392BE5519F28A9D001F8C7C /* vtkMetaImageWriter.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5419F28A9D001F8C7C /* vtkMetaImageWriter.cxx.o */; };
+		6392BE5719F29121001F8C7C /* vtkImageWriter.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5619F29121001F8C7C /* vtkImageWriter.cxx.o */; };
+		6392BE5919F2931E001F8C7C /* metaImage.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5819F2931E001F8C7C /* metaImage.cxx.o */; };
+		6392BE7319F293F8001F8C7C /* metaArray.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5B19F293F8001F8C7C /* metaArray.cxx.o */; };
+		6392BE7419F293F8001F8C7C /* metaArrow.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5C19F293F8001F8C7C /* metaArrow.cxx.o */; };
+		6392BE7519F293F8001F8C7C /* metaBlob.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5D19F293F8001F8C7C /* metaBlob.cxx.o */; };
+		6392BE7619F293F8001F8C7C /* metaCommand.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5E19F293F8001F8C7C /* metaCommand.cxx.o */; };
+		6392BE7719F293F8001F8C7C /* metaContour.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE5F19F293F8001F8C7C /* metaContour.cxx.o */; };
+		6392BE7819F293F8001F8C7C /* metaDTITube.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6019F293F8001F8C7C /* metaDTITube.cxx.o */; };
+		6392BE7919F293F8001F8C7C /* metaEllipse.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6119F293F8001F8C7C /* metaEllipse.cxx.o */; };
+		6392BE7A19F293F8001F8C7C /* metaFEMObject.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6219F293F8001F8C7C /* metaFEMObject.cxx.o */; };
+		6392BE7B19F293F8001F8C7C /* metaForm.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6319F293F8001F8C7C /* metaForm.cxx.o */; };
+		6392BE7C19F293F8001F8C7C /* metaGaussian.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6419F293F8001F8C7C /* metaGaussian.cxx.o */; };
+		6392BE7D19F293F8001F8C7C /* metaGroup.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6519F293F8001F8C7C /* metaGroup.cxx.o */; };
+		6392BE7E19F293F8001F8C7C /* metaImageUtils.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6619F293F8001F8C7C /* metaImageUtils.cxx.o */; };
+		6392BE7F19F293F8001F8C7C /* metaLandmark.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6719F293F8001F8C7C /* metaLandmark.cxx.o */; };
+		6392BE8019F293F8001F8C7C /* metaLine.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6819F293F8001F8C7C /* metaLine.cxx.o */; };
+		6392BE8119F293F8001F8C7C /* metaMesh.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6919F293F8001F8C7C /* metaMesh.cxx.o */; };
+		6392BE8219F293F8001F8C7C /* metaObject.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6A19F293F8001F8C7C /* metaObject.cxx.o */; };
+		6392BE8319F293F8001F8C7C /* metaOutput.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6B19F293F8001F8C7C /* metaOutput.cxx.o */; };
+		6392BE8419F293F8001F8C7C /* metaScene.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6C19F293F8001F8C7C /* metaScene.cxx.o */; };
+		6392BE8519F293F8001F8C7C /* metaSurface.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6D19F293F8001F8C7C /* metaSurface.cxx.o */; };
+		6392BE8619F293F8001F8C7C /* metaTransform.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6E19F293F8001F8C7C /* metaTransform.cxx.o */; };
+		6392BE8719F293F8001F8C7C /* metaTube.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE6F19F293F8001F8C7C /* metaTube.cxx.o */; };
+		6392BE8819F293F8001F8C7C /* metaTubeGraph.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE7019F293F8001F8C7C /* metaTubeGraph.cxx.o */; };
+		6392BE8919F293F8001F8C7C /* metaUtils.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE7119F293F8001F8C7C /* metaUtils.cxx.o */; };
+		6392BE8A19F293F8001F8C7C /* metaVesselTube.cxx.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6392BE7219F293F8001F8C7C /* metaVesselTube.cxx.o */; };
 		63B861F118E9BAF900094DF2 /* symbolList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63B861F018E9BAF900094DF2 /* symbolList.txt */; };
 		8D5B49AE048680CD000E48DA /* FromPolyToBrush_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF630370AF2F00C91783 /* FromPolyToBrush_Prefix.pch */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -51,6 +78,33 @@
 		63205BE617CB81AB001D56A4 /* FPTBWindowController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FPTBWindowController.mm; sourceTree = "<group>"; };
 		63205BE717CB81AB001D56A4 /* FPTBWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPTBWindow.xib; sourceTree = "<group>"; };
 		6330FFB918EC63F700D91292 /* OsiriXAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriXAPI.framework; sourceTree = "<group>"; };
+		6392BE5419F28A9D001F8C7C /* vtkMetaImageWriter.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkMetaImageWriter.cxx.o; sourceTree = "<group>"; };
+		6392BE5619F29121001F8C7C /* vtkImageWriter.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = vtkImageWriter.cxx.o; sourceTree = "<group>"; };
+		6392BE5819F2931E001F8C7C /* metaImage.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaImage.cxx.o; sourceTree = "<group>"; };
+		6392BE5B19F293F8001F8C7C /* metaArray.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaArray.cxx.o; sourceTree = "<group>"; };
+		6392BE5C19F293F8001F8C7C /* metaArrow.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaArrow.cxx.o; sourceTree = "<group>"; };
+		6392BE5D19F293F8001F8C7C /* metaBlob.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaBlob.cxx.o; sourceTree = "<group>"; };
+		6392BE5E19F293F8001F8C7C /* metaCommand.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaCommand.cxx.o; sourceTree = "<group>"; };
+		6392BE5F19F293F8001F8C7C /* metaContour.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaContour.cxx.o; sourceTree = "<group>"; };
+		6392BE6019F293F8001F8C7C /* metaDTITube.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaDTITube.cxx.o; sourceTree = "<group>"; };
+		6392BE6119F293F8001F8C7C /* metaEllipse.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaEllipse.cxx.o; sourceTree = "<group>"; };
+		6392BE6219F293F8001F8C7C /* metaFEMObject.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaFEMObject.cxx.o; sourceTree = "<group>"; };
+		6392BE6319F293F8001F8C7C /* metaForm.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaForm.cxx.o; sourceTree = "<group>"; };
+		6392BE6419F293F8001F8C7C /* metaGaussian.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaGaussian.cxx.o; sourceTree = "<group>"; };
+		6392BE6519F293F8001F8C7C /* metaGroup.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaGroup.cxx.o; sourceTree = "<group>"; };
+		6392BE6619F293F8001F8C7C /* metaImageUtils.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaImageUtils.cxx.o; sourceTree = "<group>"; };
+		6392BE6719F293F8001F8C7C /* metaLandmark.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaLandmark.cxx.o; sourceTree = "<group>"; };
+		6392BE6819F293F8001F8C7C /* metaLine.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaLine.cxx.o; sourceTree = "<group>"; };
+		6392BE6919F293F8001F8C7C /* metaMesh.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaMesh.cxx.o; sourceTree = "<group>"; };
+		6392BE6A19F293F8001F8C7C /* metaObject.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaObject.cxx.o; sourceTree = "<group>"; };
+		6392BE6B19F293F8001F8C7C /* metaOutput.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaOutput.cxx.o; sourceTree = "<group>"; };
+		6392BE6C19F293F8001F8C7C /* metaScene.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaScene.cxx.o; sourceTree = "<group>"; };
+		6392BE6D19F293F8001F8C7C /* metaSurface.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaSurface.cxx.o; sourceTree = "<group>"; };
+		6392BE6E19F293F8001F8C7C /* metaTransform.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaTransform.cxx.o; sourceTree = "<group>"; };
+		6392BE6F19F293F8001F8C7C /* metaTube.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaTube.cxx.o; sourceTree = "<group>"; };
+		6392BE7019F293F8001F8C7C /* metaTubeGraph.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaTubeGraph.cxx.o; sourceTree = "<group>"; };
+		6392BE7119F293F8001F8C7C /* metaUtils.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaUtils.cxx.o; sourceTree = "<group>"; };
+		6392BE7219F293F8001F8C7C /* metaVesselTube.cxx.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = metaVesselTube.cxx.o; sourceTree = "<group>"; };
 		63B861F018E9BAF900094DF2 /* symbolList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbolList.txt; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB5D36050680E57E00F4007A /* FromPolyToBrush.osirixplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FromPolyToBrush.osirixplugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,14 +118,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				63139C3518F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o in Frameworks */,
+				6392BE8119F293F8001F8C7C /* metaMesh.cxx.o in Frameworks */,
+				6392BE7319F293F8001F8C7C /* metaArray.cxx.o in Frameworks */,
+				6392BE8519F293F8001F8C7C /* metaSurface.cxx.o in Frameworks */,
+				6392BE7919F293F8001F8C7C /* metaEllipse.cxx.o in Frameworks */,
+				6392BE7A19F293F8001F8C7C /* metaFEMObject.cxx.o in Frameworks */,
+				6392BE7519F293F8001F8C7C /* metaBlob.cxx.o in Frameworks */,
 				63139C3318F5994B005CFCEC /* vtkImageStencilSource.cxx.o in Frameworks */,
+				6392BE5719F29121001F8C7C /* vtkImageWriter.cxx.o in Frameworks */,
+				6392BE8219F293F8001F8C7C /* metaObject.cxx.o in Frameworks */,
+				6392BE7619F293F8001F8C7C /* metaCommand.cxx.o in Frameworks */,
+				6392BE5919F2931E001F8C7C /* metaImage.cxx.o in Frameworks */,
+				6392BE7819F293F8001F8C7C /* metaDTITube.cxx.o in Frameworks */,
+				6392BE5519F28A9D001F8C7C /* vtkMetaImageWriter.cxx.o in Frameworks */,
 				63139C3018F5994B005CFCEC /* vtkImageStencil.cxx.o in Frameworks */,
+				6392BE7D19F293F8001F8C7C /* metaGroup.cxx.o in Frameworks */,
+				6392BE8819F293F8001F8C7C /* metaTubeGraph.cxx.o in Frameworks */,
+				6392BE8319F293F8001F8C7C /* metaOutput.cxx.o in Frameworks */,
 				63139C3118F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				6392BE8419F293F8001F8C7C /* metaScene.cxx.o in Frameworks */,
+				6392BE8619F293F8001F8C7C /* metaTransform.cxx.o in Frameworks */,
+				6392BE7C19F293F8001F8C7C /* metaGaussian.cxx.o in Frameworks */,
+				6392BE8A19F293F8001F8C7C /* metaVesselTube.cxx.o in Frameworks */,
 				63139C3218F5994B005CFCEC /* vtkImageStencilIterator.cxx.o in Frameworks */,
+				6392BE7F19F293F8001F8C7C /* metaLandmark.cxx.o in Frameworks */,
+				6392BE8919F293F8001F8C7C /* metaUtils.cxx.o in Frameworks */,
+				6392BE7B19F293F8001F8C7C /* metaForm.cxx.o in Frameworks */,
 				63139C3418F5994B005CFCEC /* vtkObjectBase.cxx.o in Frameworks */,
 				6304C6D918F6EEF90082E1AC /* OsiriX.framework in Frameworks */,
+				6392BE8019F293F8001F8C7C /* metaLine.cxx.o in Frameworks */,
 				6330FFBA18EC63F700D91292 /* OsiriXAPI.framework in Frameworks */,
+				6392BE7E19F293F8001F8C7C /* metaImageUtils.cxx.o in Frameworks */,
+				6392BE8719F293F8001F8C7C /* metaTube.cxx.o in Frameworks */,
+				6392BE7419F293F8001F8C7C /* metaArrow.cxx.o in Frameworks */,
+				6392BE7719F293F8001F8C7C /* metaContour.cxx.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,14 +238,49 @@
 		63139C3618F59955005CFCEC /* VTK */ = {
 			isa = PBXGroup;
 			children = (
+				6392BE5A19F293D0001F8C7C /* meta */,
 				63139C2A18F5994B005CFCEC /* vtkImageStencil.cxx.o */,
 				63139C2B18F5994B005CFCEC /* vtkImageStencilAlgorithm.cxx.o */,
+				6392BE5419F28A9D001F8C7C /* vtkMetaImageWriter.cxx.o */,
+				6392BE5619F29121001F8C7C /* vtkImageWriter.cxx.o */,
+				6392BE5819F2931E001F8C7C /* metaImage.cxx.o */,
 				63139C2C18F5994B005CFCEC /* vtkImageStencilIterator.cxx.o */,
 				63139C2D18F5994B005CFCEC /* vtkImageStencilSource.cxx.o */,
 				63139C2E18F5994B005CFCEC /* vtkObjectBase.cxx.o */,
 				63139C2F18F5994B005CFCEC /* vtkPolyDataToImageStencil.cxx.o */,
 			);
 			name = VTK;
+			sourceTree = "<group>";
+		};
+		6392BE5A19F293D0001F8C7C /* meta */ = {
+			isa = PBXGroup;
+			children = (
+				6392BE5B19F293F8001F8C7C /* metaArray.cxx.o */,
+				6392BE5C19F293F8001F8C7C /* metaArrow.cxx.o */,
+				6392BE5D19F293F8001F8C7C /* metaBlob.cxx.o */,
+				6392BE5E19F293F8001F8C7C /* metaCommand.cxx.o */,
+				6392BE5F19F293F8001F8C7C /* metaContour.cxx.o */,
+				6392BE6019F293F8001F8C7C /* metaDTITube.cxx.o */,
+				6392BE6119F293F8001F8C7C /* metaEllipse.cxx.o */,
+				6392BE6219F293F8001F8C7C /* metaFEMObject.cxx.o */,
+				6392BE6319F293F8001F8C7C /* metaForm.cxx.o */,
+				6392BE6419F293F8001F8C7C /* metaGaussian.cxx.o */,
+				6392BE6519F293F8001F8C7C /* metaGroup.cxx.o */,
+				6392BE6619F293F8001F8C7C /* metaImageUtils.cxx.o */,
+				6392BE6719F293F8001F8C7C /* metaLandmark.cxx.o */,
+				6392BE6819F293F8001F8C7C /* metaLine.cxx.o */,
+				6392BE6919F293F8001F8C7C /* metaMesh.cxx.o */,
+				6392BE6A19F293F8001F8C7C /* metaObject.cxx.o */,
+				6392BE6B19F293F8001F8C7C /* metaOutput.cxx.o */,
+				6392BE6C19F293F8001F8C7C /* metaScene.cxx.o */,
+				6392BE6D19F293F8001F8C7C /* metaSurface.cxx.o */,
+				6392BE6E19F293F8001F8C7C /* metaTransform.cxx.o */,
+				6392BE6F19F293F8001F8C7C /* metaTube.cxx.o */,
+				6392BE7019F293F8001F8C7C /* metaTubeGraph.cxx.o */,
+				6392BE7119F293F8001F8C7C /* metaUtils.cxx.o */,
+				6392BE7219F293F8001F8C7C /* metaVesselTube.cxx.o */,
+			);
+			name = meta;
 			sourceTree = "<group>";
 		};
 		AB2C26750677B0C400A08910 /* FromPolyToBrushFilter */ = {

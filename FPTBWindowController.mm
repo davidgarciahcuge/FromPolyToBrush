@@ -231,7 +231,7 @@ double spacing[3];
     
     NSPoint roiOrigin;
     roiOrigin.x = org1[0];
-    roiOrigin.y = org1[1];  
+    roiOrigin.y = org1[1];
     
     int *dim = stencil->GetDimensions();
     
@@ -362,7 +362,13 @@ double spacing[3];
         
             
         free(roiBuff);
-            
+        
+//        roiOrigin.x = -249.609375;
+//        roiOrigin.y = -249.609375;
+        
+//        minH = 5;
+//        minW = 5;
+        
         // Create the new ROI
         ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
                                             textWidth:optBuffWidth
@@ -457,8 +463,9 @@ double spacing[3];
     
     //Mismas dimensiones que el DICOM
     int dim[3];
-    dim[0] = [firstPix pheight];
-    dim[1] = [firstPix pwidth];
+    
+    dim[0] = [firstPix pwidth];
+    dim[1] = [firstPix pheight];
     dim[2] = [_fptbPixList count];
     
     whiteImage->SetDimensions(dim);
@@ -478,8 +485,12 @@ double spacing[3];
     origin[1] = [firstPix originY];
     origin[2] = [firstPix originZ];
     
+    //**Set WhiteImage Origin**//
+    //whiteImage->SetOrigin(origin[0], origin[1], origin[2]);
+    //****//
+    
 #if VTK_MAJOR_VERSION <= 5
-    whiteImage->SetScalarTypeToUnsignedChar();
+    whiteImage->SetScalarTypeToUnsignedChar()();
     whiteImage->AllocateScalars();
 #else
     whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
@@ -505,8 +516,11 @@ double spacing[3];
 #else
     pol2stenc->SetInputData(polydata);
 #endif
-    
+    //**DAVID**//
+    //Vamos a jugar con el origin
     pol2stenc->SetOutputOrigin(origin);
+    //pol2stenc->SetOutputOrigin(whiteImage->GetOrigin());
+    //****//
     pol2stenc->SetOutputSpacing(spacing);
     pol2stenc->SetOutputWholeExtent(whiteImage->GetExtent()); //Extent de la imagen output (será el Extent de toda la serie)
     pol2stenc->Update();
@@ -523,16 +537,25 @@ double spacing[3];
     imgstenc->SetStencilConnection(pol2stenc->GetOutputPort());
 #endif
     
-    imgstenc->ReverseStencilOff();
+    //imgstenc->ReverseStencilOff();
     imgstenc->SetBackgroundValue(outval);
     imgstenc->Update();
     
     vtkSmartPointer<vtkImageData> imageStencil = imgstenc -> GetOutput();
     
+    //Escribir el resultado en un archivo
+//    vtkSmartPointer<vtkImageWriter> writer = vtkSmartPointer<vtkImageWriter>::New();
+//    writer->SetInput(imageStencil);
+//    writer->SetFileName("/Users/David/Desktop/prueba.vtk");
+//    writer->SetFileDimensionality(2);
+//    writer->Write();
+//
+//    NSLog(@"Stencil escrito");
+    
     //Writing the image created in a file
 //    vtkSmartPointer<vtkMetaImageWriter> writer =
 //    vtkSmartPointer<vtkMetaImageWriter>::New();
-//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/fptb_left-segmented-femur-subject1.mhd");
+//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/vastus_medialis.mhd");
 //    
 //#if VTK_MAJOR_VERSION <= 5
 //    writer->SetInput(imgstenc->GetOutput());
