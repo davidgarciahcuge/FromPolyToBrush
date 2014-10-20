@@ -490,7 +490,7 @@ double spacing[3];
     //****//
     
 #if VTK_MAJOR_VERSION <= 5
-    whiteImage->SetScalarTypeToUnsignedChar()();
+    whiteImage->SetScalarTypeToUnsignedChar();
     whiteImage->AllocateScalars();
 #else
     whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
