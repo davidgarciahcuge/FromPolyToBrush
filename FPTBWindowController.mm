@@ -202,14 +202,12 @@ double spacing[3];
 {
     NSLog(@"Importing labeled images");
     
-    //NSString *imageFile = [la];
-    
     vtkSmartPointer<vtkImageData> stencil = [self labeledImagesFromPolydata:meshPath];
     
     // Read image
 //    vtkStructuredPointsReader* reader = vtkStructuredPointsReader::New();
 //    reader->SetFileName( [meshPath UTF8String] );
-//    
+//   
 //    vtkStructuredPoints *img = reader -> GetOutput();
 //    img -> Update();
     
@@ -227,15 +225,18 @@ double spacing[3];
     double sy = spac1[1];
     double sz = spac1[2];
     
+    //double *org1=img->GetOrigin();
     double *org1 = stencil->GetOrigin();
     
     NSPoint roiOrigin;
     roiOrigin.x = org1[0];
     roiOrigin.y = org1[1];
     
+    //int *dim = img->GetDimensions();
     int *dim = stencil->GetDimensions();
     
     // Get data pointer
+    //unsigned short *buffOriginal = (unsigned short*)img->GetScalarPointer(); //Pointer to the first byte of the DICOM image
     unsigned short *buffOriginal = (unsigned short*)stencil->GetScalarPointer(); //Pointer to the first byte of the DICOM image
     
     int buffWidth  = dim[0];
@@ -243,9 +244,18 @@ double spacing[3];
     int buffDepth  = dim[2];
     
     //We assume we are in RAI coordinates, feet first.
+    bool RAI = TRUE;
+    
     int start = 0;
     int end = buffDepth-1;
-    int step = 1; 
+    int step = 1;
+    
+    if (!RAI)
+    {
+        start = buffDepth-1;
+        end = 0;
+        step = -1;
+    }
     
     //We get the list of images
     _fptbPixList = [_viewerController pixList];
@@ -271,7 +281,7 @@ double spacing[3];
     // For each slice
     for( int i = start; i != end; i+=step)         
     {               
-        unsigned char *buff = (unsigned char*)buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+        unsigned short *buff = (unsigned short*)buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
         
         DCMPix *curDCM = [_fptbPixList objectAtIndex: i];
         
@@ -301,24 +311,15 @@ double spacing[3];
             int minH = buffHeight; int maxH = 0;
             
             bool hasLabelValue = false;
-            
-            // Get label information
-            /*int labelValue = [[label valueForKey:@"IDX"] intValue];
-            NSString* labelName = [label valueForKey:@"LABEL"];  
-            RGBColor labelColor;          
-            labelColor.red = (short) [[label valueForKey:@"R"]floatValue] /255.0*65535.;
-            labelColor.green = (short) [[label valueForKey:@"G"]floatValue] /255.0*65535.;
-            labelColor.blue = (short) [[label valueForKey:@"B"]floatValue] /255.0*65535.; */
-            
-            // Skip label 0
-            //if (labelValue == 0) continue;
-            
+        
+        //**DAVID**//
             for (int h=0; h<buffHeight; h++) {                    
                 for (int w=0; w<buffWidth; w++) {
                     int k = h*buffWidth + w;
                     
                     //if (buff[k] == labelValue) {
                     if (buff[k] == 255){
+                    //if (buff[k] != 0){ //Para trabajar con labeled images
                         roiBuff[k] = 255;
                         hasLabelValue = true;
                         //hasLabelInCompleteImage = true;
@@ -332,7 +333,30 @@ double spacing[3];
                     
                 }
             }
-            
+        //****//
+        
+        //Cambiamos el jodido algorithmo a ver si lo podemos apañar de una puta vez
+//                    for (int h=buffHeight; h>0; h--) {
+//                        for (int w=buffWidth; w>0; w--) {
+//                            int k = h*buffWidth + w;
+//        
+//                            //if (buff[k] == labelValue) {
+//                            if (buff[k] == 255){
+//                            //if (buff[k] != 0){
+//                                roiBuff[k] = 255;
+//                                hasLabelValue = true;
+//                                //hasLabelInCompleteImage = true;
+//                                if (w < minW) minW = w;
+//                                if (w > maxW) maxW = w;
+//                                if (h < minH) minH = h;
+//                                if (h > maxH) maxH = h;
+//                            } else {
+//                                roiBuff[k] = 0;
+//                            }
+//                            
+//                        }
+//                    }
+        
             // If the slice does not contain the current label skip it
             if (!hasLabelValue) {
                 free(roiBuff);
@@ -342,7 +366,7 @@ double spacing[3];
                 
                 continue;
             }
-            
+        
             // Resize buffer for memory optimisation
             
         int optBuffWidth = maxW - minW+1;
@@ -363,12 +387,6 @@ double spacing[3];
             
         free(roiBuff);
         
-//        roiOrigin.x = -249.609375;
-//        roiOrigin.y = -249.609375;
-        
-//        minH = 5;
-//        minW = 5;
-        
         // Create the new ROI
         ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
                                             textWidth:optBuffWidth
@@ -380,12 +398,12 @@ double spacing[3];
                                             spacingY:sy
                                             imageOrigin:roiOrigin];                
         free(optRoiBuff);
-            
-        // Add RGB color to the new ROI               
+        
+        // Add RGB color to the new ROI
         [theNewROI setNSColor:[NSColor greenColor]];
             
         // Set ROI thickness
-        [theNewROI setSliceThickness:sz];
+        [theNewROI setSliceThickness:3];
 
         //Set ROI opacity
         [theNewROI setOpacity:0.5];
@@ -428,6 +446,7 @@ double spacing[3];
     [_fptbPixList retain];
     
     DCMPix *firstPix = [_fptbPixList objectAtIndex:0];
+    [firstPix retain];
     
     //Leemos la mesh desde archivo
     vtkSmartPointer<vtkPolyDataReader> dataReader = vtkSmartPointer<vtkPolyDataReader>::New();
@@ -442,15 +461,14 @@ double spacing[3];
     //Imagen a la que luego se aplicará el stencil
     vtkSmartPointer<vtkImageData> whiteImage = vtkSmartPointer<vtkImageData>::New();
     
-//    double bounds[6];
-//    pd->GetBounds(bounds);
+
     
     // desired volume spacing, sacamos el spacing de la serie que tenemos, que es con la que queremos que esté alineada.
 
     spacing[0] = [firstPix pixelSpacingX];
     spacing[1] = [firstPix pixelSpacingY];
     spacing[2] = [firstPix spacingBetweenSlices];
-    //spacing[2] = 1;
+    //spacing[2] = 1.5;
     
     whiteImage->SetSpacing(spacing);
     
@@ -461,6 +479,7 @@ double spacing[3];
 //        dim[i] = static_cast<int>(ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i]));
 //    }
     
+    
     //Mismas dimensiones que el DICOM
     int dim[3];
     
@@ -469,16 +488,17 @@ double spacing[3];
     dim[2] = [_fptbPixList count];
     
     whiteImage->SetDimensions(dim);
-    whiteImage->SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1);
+    whiteImage->SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0,dim[2] - 1);
     
-    //Establecemos origen --> Todo tiene que concidir con la DICOM!!
+    //Origen a partir de los bounds del polydata
+//    double bounds[6];
+//    polydata->GetBounds(bounds);
+//    
 //    double origin[3];
 //    origin[0] = bounds[0] + spacing[0] / 2;
 //    origin[1] = bounds[2] + spacing[1] / 2;
 //    origin[2] = bounds[4] + spacing[2] / 2;
-//    
-//    whiteImage->SetOrigin(origin);
-    
+
     //Mismo origen que la serie DICOM
     double origin[3];
     origin[0] = [firstPix originX];
@@ -486,18 +506,18 @@ double spacing[3];
     origin[2] = [firstPix originZ];
     
     //**Set WhiteImage Origin**//
-    //whiteImage->SetOrigin(origin[0], origin[1], origin[2]);
+    whiteImage->SetOrigin(origin);
     //****//
     
 #if VTK_MAJOR_VERSION <= 5
-    whiteImage->SetScalarTypeToUnsignedChar();
+    whiteImage->SetScalarTypeToUnsignedShort();
     whiteImage->AllocateScalars();
 #else
-    whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
+    whiteImage->AllocateScalars(VTK_UNSIGNED_SHORT,1);
 #endif
     
-    unsigned char inval = 255;
-    unsigned char outval = 0;
+    unsigned short inval = 255;
+    unsigned short outval = 0;
     
     vtkIdType count = whiteImage->GetNumberOfPoints();
     
@@ -516,11 +536,8 @@ double spacing[3];
 #else
     pol2stenc->SetInputData(polydata);
 #endif
-    //**DAVID**//
-    //Vamos a jugar con el origin
+    
     pol2stenc->SetOutputOrigin(origin);
-    //pol2stenc->SetOutputOrigin(whiteImage->GetOrigin());
-    //****//
     pol2stenc->SetOutputSpacing(spacing);
     pol2stenc->SetOutputWholeExtent(whiteImage->GetExtent()); //Extent de la imagen output (será el Extent de toda la serie)
     pol2stenc->Update();
@@ -537,33 +554,43 @@ double spacing[3];
     imgstenc->SetStencilConnection(pol2stenc->GetOutputPort());
 #endif
     
-    //imgstenc->ReverseStencilOff();
+    imgstenc->ReverseStencilOff();
     imgstenc->SetBackgroundValue(outval);
-    imgstenc->Update();
+    //imgstenc->Update();
     
-    vtkSmartPointer<vtkImageData> imageStencil = imgstenc -> GetOutput();
+    //vtkSmartPointer<vtkImageData> imageStencil = imgstenc -> GetOutput();
     
-    //Escribir el resultado en un archivo
-//    vtkSmartPointer<vtkImageWriter> writer = vtkSmartPointer<vtkImageWriter>::New();
-//    writer->SetInput(imageStencil);
-//    writer->SetFileName("/Users/David/Desktop/prueba.vtk");
-//    writer->SetFileDimensionality(2);
-//    writer->Write();
-//
-//    NSLog(@"Stencil escrito");
+    //Writing the image created in a .mhd file
+    vtkSmartPointer<vtkMetaImageWriter> writer =
+    vtkSmartPointer<vtkMetaImageWriter>::New();
     
-    //Writing the image created in a file
-//    vtkSmartPointer<vtkMetaImageWriter> writer =
-//    vtkSmartPointer<vtkMetaImageWriter>::New();
-//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/vastus_medialis.mhd");
-//    
-//#if VTK_MAJOR_VERSION <= 5
-//    writer->SetInput(imgstenc->GetOutput());
-//#else
-//    writer->SetInputData(imgstenc->GetOutput());
-//#endif
-//    
-//    writer->Write();
+    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh.mhd");
+    writer->SetInput(imgstenc->GetOutput());
+    
+    writer->Write();
+    
+    //Flipping y axes
+    vtkSmartPointer<vtkImageFlip> flipyFilter = vtkSmartPointer<vtkImageFlip>::New();
+    
+    flipyFilter->SetFilteredAxis(1); // flip y axis
+    flipyFilter->SetInput(imgstenc->GetOutput());
+    //flipyFilter->Update();
+    
+    vtkSmartPointer<vtkImageFlip> flipxFilter = vtkSmartPointer<vtkImageFlip>::New();
+    
+    flipxFilter->SetFilteredAxis(0); // flip x axis
+    flipxFilter->SetInput(flipyFilter->GetOutput());
+    flipxFilter->Update();
+    
+    writer->SetInput(flipxFilter->GetOutput());
+    
+    
+    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh_yxflipped.mhd");
+    
+    writer->Write();
+    
+    vtkSmartPointer<vtkImageData> imageStencil = flipxFilter -> GetOutput();
+
     
     NSLog(@"Labeled Image creada");
     
