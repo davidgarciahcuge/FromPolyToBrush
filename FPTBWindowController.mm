@@ -237,7 +237,7 @@ double spacing[3];
     
     // Get data pointer
     //unsigned short *buffOriginal = (unsigned short*)img->GetScalarPointer(); //Pointer to the first byte of the DICOM image
-    unsigned short *buffOriginal = (unsigned short*)stencil->GetScalarPointer(); //Pointer to the first byte of the DICOM image
+    unsigned char *buffOriginal = (unsigned char*)stencil->GetScalarPointer(); //Pointer to the first byte of the DICOM image
     
     int buffWidth  = dim[0];
     int buffHeight = dim[1];
@@ -281,7 +281,7 @@ double spacing[3];
     // For each slice
     for( int i = start; i != end; i+=step)         
     {               
-        unsigned short *buff = (unsigned short*)buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
+        unsigned char *buff = (unsigned char*)buffOriginal+i*buffWidth*buffHeight; //Apunta al primer pixel de la imagen
         
         DCMPix *curDCM = [_fptbPixList objectAtIndex: i];
         
@@ -448,6 +448,9 @@ double spacing[3];
     DCMPix *firstPix = [_fptbPixList objectAtIndex:0];
     [firstPix retain];
     
+    DCMPix *lastPix = [_fptbPixList lastObject];
+    [lastPix retain];
+    
     //Leemos la mesh desde archivo
     vtkSmartPointer<vtkPolyDataReader> dataReader = vtkSmartPointer<vtkPolyDataReader>::New();
     //dataReader->SetFileName("/Users/David/Documents/PHD/Data/Matthias_Segmentation_Data/2014/left-segmented-femur-subject1.vtp");
@@ -461,63 +464,72 @@ double spacing[3];
     //Imagen a la que luego se aplicará el stencil
     vtkSmartPointer<vtkImageData> whiteImage = vtkSmartPointer<vtkImageData>::New();
     
-
-    
     // desired volume spacing, sacamos el spacing de la serie que tenemos, que es con la que queremos que esté alineada.
 
     spacing[0] = [firstPix pixelSpacingX];
     spacing[1] = [firstPix pixelSpacingY];
     spacing[2] = [firstPix spacingBetweenSlices];
-    //spacing[2] = 1.5;
+    
+//    spacing[0] = 0.78125;
+//    spacing[1] = 0.78125;
+//    spacing[2] = 1.5;
     
     whiteImage->SetSpacing(spacing);
     
     // compute dimensions, dividiendo los límites entre el spacing, eso hace que squemos el número de píxels.
-//    int dim[3];
+//    double bounds[6];
+//    polydata->GetBounds(bounds);
+//    
+//    int dimPoly[3];
 //    for (int i = 0; i < 3; i++)
 //    {
-//        dim[i] = static_cast<int>(ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i]));
+//        dimPoly[i] = static_cast<int>(ceil((bounds[i * 2 + 1] - bounds[i * 2]) / spacing[i]));
 //    }
+//    
+//    //Origen a partir de los bounds del polydata
+//    double originPoly[3];
+//    originPoly[0] = bounds[0] + spacing[0] / 2;
+//    originPoly[1] = bounds[2] + spacing[1] / 2;
+//    originPoly[2] = bounds[4] + spacing[2] / 2;
     
     
     //Mismas dimensiones que el DICOM
     int dim[3];
-    
+
     dim[0] = [firstPix pwidth];
     dim[1] = [firstPix pheight];
     dim[2] = [_fptbPixList count];
     
-    whiteImage->SetDimensions(dim);
-    whiteImage->SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0,dim[2] - 1);
+//    dim[0]=640;
+//    dim[1]=640;
+//    dim[2]=260;
     
-    //Origen a partir de los bounds del polydata
-//    double bounds[6];
-//    polydata->GetBounds(bounds);
-//    
-//    double origin[3];
-//    origin[0] = bounds[0] + spacing[0] / 2;
-//    origin[1] = bounds[2] + spacing[1] / 2;
-//    origin[2] = bounds[4] + spacing[2] / 2;
-
+    whiteImage->SetDimensions(dim);
+    whiteImage->SetExtent(0, dim[0] - 1, 0, dim[1] - 1, 0, dim[2] - 1);
+    
+    //NSNumber *test = [[NSNumber alloc] initWithDouble:round([firstPix originZ] * 1000)/1000];
+    
     //Mismo origen que la serie DICOM
     double origin[3];
     origin[0] = [firstPix originX];
     origin[1] = [firstPix originY];
-    origin[2] = [firstPix originZ];
+    origin[2] = round([firstPix originZ]); //Round to make the stencil work...
+    
+//    [firstPix origin:origin];
     
     //**Set WhiteImage Origin**//
     whiteImage->SetOrigin(origin);
     //****//
     
 #if VTK_MAJOR_VERSION <= 5
-    whiteImage->SetScalarTypeToUnsignedShort();
+    whiteImage->SetScalarTypeToUnsignedChar();
     whiteImage->AllocateScalars();
 #else
-    whiteImage->AllocateScalars(VTK_UNSIGNED_SHORT,1);
+    whiteImage->AllocateScalars(VTK_UNSIGNED_CHAR,1);
 #endif
     
-    unsigned short inval = 255;
-    unsigned short outval = 0;
+    unsigned char inval = 255;
+    unsigned char outval = 0;
     
     vtkIdType count = whiteImage->GetNumberOfPoints();
     
@@ -540,6 +552,7 @@ double spacing[3];
     pol2stenc->SetOutputOrigin(origin);
     pol2stenc->SetOutputSpacing(spacing);
     pol2stenc->SetOutputWholeExtent(whiteImage->GetExtent()); //Extent de la imagen output (será el Extent de toda la serie)
+    //pol2stenc->SetOutputWholeExtent(dimPoly);
     pol2stenc->Update();
     
     // cut the corresponding white image and set the background:
@@ -564,10 +577,10 @@ double spacing[3];
     vtkSmartPointer<vtkMetaImageWriter> writer =
     vtkSmartPointer<vtkMetaImageWriter>::New();
     
-    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh.mhd");
-    writer->SetInput(imgstenc->GetOutput());
-    
-    writer->Write();
+//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh.mhd");
+//    writer->SetInput(imgstenc->GetOutput());
+//    
+//    writer->Write();
     
     //Flipping y axes
     vtkSmartPointer<vtkImageFlip> flipyFilter = vtkSmartPointer<vtkImageFlip>::New();
@@ -585,7 +598,7 @@ double spacing[3];
     writer->SetInput(flipxFilter->GetOutput());
     
     
-    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh_yxflipped.mhd");
+    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh_yxflipped_round.mhd");
     
     writer->Write();
     
@@ -593,6 +606,11 @@ double spacing[3];
 
     
     NSLog(@"Labeled Image creada");
+    
+    [firstPix release];
+    [lastPix release];
+    [_fptbPixList release];
+    
     
     return imageStencil;
 //    return EXIT_SUCCESS;

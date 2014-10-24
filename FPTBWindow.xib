@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPTBWindowController">
@@ -46,7 +46,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41" userLabel="Push Button - Generate">
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41" userLabel="Push Button - Generate">
                                     <rect key="frame" x="361" y="556" width="83" height="32"/>
                                     <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="42">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,7 +70,7 @@
                                     <rect key="frame" x="18" y="8" width="918" height="534"/>
                                 </customView>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgk-dV-xTP">
-                                    <rect key="frame" x="629" y="579" width="61" height="18"/>
+                                    <rect key="frame" x="640" y="574" width="61" height="18"/>
                                     <buttonCell key="cell" type="check" title="Points" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="CSr-Ly-W1v">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -80,7 +80,7 @@
                                     </connections>
                                 </button>
                                 <button fixedFrame="YES" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="14" translatesAutoresizingMaskIntoConstraints="NO" id="Z0P-KW-RtZ">
-                                    <rect key="frame" x="629" y="557" width="76" height="18"/>
+                                    <rect key="frame" x="640" y="554" width="76" height="18"/>
                                     <buttonCell key="cell" type="check" title="Surface" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Lx6-yG-x2D">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -154,7 +154,6 @@
                             <constraint firstItem="32" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="16" id="36"/>
                             <constraint firstAttribute="bottom" secondItem="T1V-fi-zUN" secondAttribute="bottom" constant="5" id="709-u4-3xe"/>
                             <constraint firstItem="T1V-fi-zUN" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="16" id="Iut-ZY-67o"/>
-                            <constraint firstItem="zvk-Gp-oXH" firstAttribute="leading" secondItem="41" secondAttribute="trailing" constant="27" id="cqe-Gs-gEx"/>
                             <constraint firstItem="T1V-fi-zUN" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="61" id="f30-CG-Le9"/>
                             <constraint firstItem="zvk-Gp-oXH" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="20" id="kR8-8e-80M"/>
                             <constraint firstAttribute="trailing" secondItem="T1V-fi-zUN" secondAttribute="trailing" constant="16" id="tPj-D5-dxU"/>
@@ -173,7 +172,6 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
-            <point key="canvasLocation" x="575" y="422.5"/>
         </window>
     </objects>
 </document>
