@@ -81,7 +81,8 @@ NSString *meshPath;
 //        _viewerController = viewerController;
 //        [viewerController retain];
         
-        NSLog(@"Reference count viewer controller: %d", [viewerController ])
+        
+        //NSLog(@"Reference count viewer controller: %d", [viewerController ])
         self._viewerController = viewerController; //Esto es equivalente a lo de arriba, estamos utilizando el setter definido en properties, que es la forma correcta de hacerlo.
         
         self._imageView = [_viewerController imageView];
@@ -345,7 +346,7 @@ NSString *meshPath;
                     //if (buff[k] == labelValue) {
                     if (buff[k] == 255){
                     //if (buff[k] != 0){ //Para trabajar con labeled images
-                        roiBuff[k] = 255;
+                        roiBuff[k] = 0;
                         hasLabelValue = true;
                         //hasLabelInCompleteImage = true;
                         if (w < minW) minW = w;
@@ -353,34 +354,11 @@ NSString *meshPath;
                         if (h < minH) minH = h;
                         if (h > maxH) maxH = h;
                     } else {
-                        roiBuff[k] = 0;
+                        roiBuff[k] = 255;
                     }
                     
                 }
             }
-        //****//
-        
-        //Cambiamos el jodido algorithmo a ver si lo podemos apañar de una puta vez
-//                    for (int h=buffHeight; h>0; h--) {
-//                        for (int w=buffWidth; w>0; w--) {
-//                            int k = h*buffWidth + w;
-//        
-//                            //if (buff[k] == labelValue) {
-//                            if (buff[k] == 255){
-//                            //if (buff[k] != 0){
-//                                roiBuff[k] = 255;
-//                                hasLabelValue = true;
-//                                //hasLabelInCompleteImage = true;
-//                                if (w < minW) minW = w;
-//                                if (w > maxW) maxW = w;
-//                                if (h < minH) minH = h;
-//                                if (h > maxH) maxH = h;
-//                            } else {
-//                                roiBuff[k] = 0;
-//                            }
-//                            
-//                        }
-//                    }
         
             // If the slice does not contain the current label skip it
             if (!hasLabelValue) {
@@ -392,36 +370,38 @@ NSString *meshPath;
                 continue;
             }
         
-            // Resize buffer for memory optimisation
+        // Resize buffer for memory optimisation
             
-        int optBuffWidth = maxW - minW+1;
-        int optBuffHeight = maxH - minH+1;        
-        unsigned char *optRoiBuff = (unsigned char*) malloc( optBuffHeight*optBuffWidth*sizeof(unsigned char) );
-            
-        for (int h=0; h<optBuffHeight; h++) {    
-                for (int w=0; w<optBuffWidth; w++) {
-                    
-                    int k = (minH+h)*buffWidth + w + minW;
-                    int optK = h*optBuffWidth + w;
-                    
-                    optRoiBuff[optK] = roiBuff[k];
-                    
-                }
-            }
+//        int optBuffWidth = maxW - minW+1;
+//        int optBuffHeight = maxH - minH+1;        
+//        unsigned char *optRoiBuff = (unsigned char*) malloc( optBuffHeight*optBuffWidth*sizeof(unsigned char) );
+//            
+//        for (int h=0; h<optBuffHeight; h++) {    
+//                for (int w=0; w<optBuffWidth; w++) {
+//                    
+//                    int k = (minH+h)*buffWidth + w + minW;
+//                    int optK = h*optBuffWidth + w;
+//                    
+//                    optRoiBuff[optK] = roiBuff[k];
+//                    
+//                }
+//            }
         
             
-        free(roiBuff);
         
         // Create the new ROI
-        ROI *theNewROI = [[ROI alloc] initWithTexture:optRoiBuff
-                                            textWidth:optBuffWidth
-                                            textHeight:optBuffHeight
+        ROI *theNewROI = [[ROI alloc] initWithTexture:roiBuff
+                                            textWidth:buffWidth
+                                            textHeight:buffHeight
                                             textName:@"ROI_Prueba"
                                             positionX:minW
                                             positionY:minH
                                             spacingX:sx
                                             spacingY:sy
                                             imageOrigin:roiOrigin];
+        
+        free(roiBuff);
+
 //
 //        NSLog(@"BrushROI created");
         
@@ -441,7 +421,7 @@ NSString *meshPath;
 //        [theNewROI setRoiView:_imageView];
         //****//
         
-        free(optRoiBuff);
+//        free(optRoiBuff);
         
 //        ROI *polROI = [_viewerController convertBrushROItoPolygon:theNewROI numPoints:100];
 //        
@@ -621,42 +601,62 @@ NSString *meshPath;
     imgstenc->SetStencilConnection(pol2stenc->GetOutputPort());
 #endif
     
-    imgstenc->ReverseStencilOff();
+    imgstenc->ReverseStencilOn();
     imgstenc->SetBackgroundValue(outval);
     //imgstenc->Update();
     
     //vtkSmartPointer<vtkImageData> imageStencil = imgstenc -> GetOutput();
     
-    //Writing the image created in a .mhd file
-    vtkSmartPointer<vtkMetaImageWriter> writer =
-    vtkSmartPointer<vtkMetaImageWriter>::New();
+//    //**Writing the image created in a .mhd file**//
+
+    //****//
     
-//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh.mhd");
-//    writer->SetInput(imgstenc->GetOutput());
-//    
-//    writer->Write();
-    
-    //Flipping y axes
+//    //**Flipping y**//
     vtkSmartPointer<vtkImageFlip> flipyFilter = vtkSmartPointer<vtkImageFlip>::New();
     
     flipyFilter->SetFilteredAxis(1); // flip y axis
     flipyFilter->SetInput(imgstenc->GetOutput());
-    //flipyFilter->Update();
     
+//    vtkSmartPointer<vtkImageData> imageStencil = flipyFilter -> GetOutput();
+//    
+//    flipyFilter -> Update();
+//    
+
+    //****//
+    
+    //**Flipping x**//
+//
     vtkSmartPointer<vtkImageFlip> flipxFilter = vtkSmartPointer<vtkImageFlip>::New();
     
     flipxFilter->SetFilteredAxis(0); // flip x axis
     flipxFilter->SetInput(flipyFilter->GetOutput());
-    flipxFilter->Update();
-    
-    writer->SetInput(flipxFilter->GetOutput());
-    
-    
-    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh_yxflipped_round.mhd");
-    
-    writer->Write();
     
     vtkSmartPointer<vtkImageData> imageStencil = flipxFilter -> GetOutput();
+
+    flipxFilter->Update();
+    
+      //****//
+//
+//    //Write image and flipped images in files
+    
+//    vtkSmartPointer<vtkMetaImageWriter> writer =
+//    vtkSmartPointer<vtkMetaImageWriter>::New();
+//    
+//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh.mhd");
+//    writer->SetInput(imgstenc->GetOutput());
+//    
+//    writer->Write();
+//    
+//    writer -> SetInput(flipyFilter->GetOutput());
+//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh_yflipped_round.mhd");
+//    
+//    writer -> Write();
+//    
+//    writer->SetInput(flipxFilter->GetOutput());
+//    writer->SetFileName("/Users/David/Development/Repositories/FromPolyToBrushResults/labeled_mesh_yxflipped_round.mhd");
+//    
+//    writer->Write();
+//
 
     
     NSLog(@"Labeled Image creada");

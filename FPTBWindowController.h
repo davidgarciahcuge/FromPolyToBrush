@@ -32,14 +32,14 @@
 @interface FPTBWindowController : Window3DController <NSWindowDelegate> {
     
     ViewerController *_viewerController;
-    NSArray *_fptbFileList;
+    __weak NSArray *_fptbFileList;
     
-    DCMView *_imageView;
+    __weak  DCMView *_imageView;
     //NSString *meshPath;
-    NSMutableArray *_fptbPixList, *_fptbRoiList;
+    __weak NSMutableArray *_fptbPixList, *_fptbRoiList;
     //short _fptbCurMovieIndex;
     
-    DCMPix *_fptbcurPix;
+    __weak DCMPix *_fptbcurPix;
     
     //vtkSmartPointer<vtkImageData> imageStencil;
     vtkSmartPointer<vtkPolyData> polydata;
