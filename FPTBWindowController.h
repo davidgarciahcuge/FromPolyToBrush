@@ -11,9 +11,7 @@
 #import <OsiriXAPI/DCMView.h>
 #import <OsiriXAPI/DCMPix.h>
 #import <OsiriXAPI/Window3DController.h>
-
-
-#import "FPTBROIVolumeView.h"
+#import <OsiriXAPI/ViewerController.h>
 
 #define id ID
 #import <OsiriXAPI/vtkSmartPointer.h>
@@ -26,8 +24,9 @@
 #undef id
 
 
-@class ViewerController;
-@class FPTBXmlController;
+#import "FPTBXmlController.h"
+#import "FPTBROIVolumeView.h"
+
 
 
 @interface FPTBWindowController : Window3DController <NSWindowDelegate> {
@@ -36,7 +35,7 @@
     NSArray *_fptbFileList;
     
     DCMView *_imageView;
-    NSString *meshPath;
+    //NSString *meshPath;
     NSMutableArray *_fptbPixList, *_fptbRoiList;
     //short _fptbCurMovieIndex;
     
@@ -65,6 +64,13 @@
     IBOutlet FPTBROIVolumeView *_theView;
     
 }
+
+//@property (retain) DCMView *_imageView;
+@property(retain) ViewerController *_viewerController;
+@property NSArray *_fptbFileList;
+@property DCMView *_imageView;
+@property NSMutableArray *_fptbPixList, *_fptbRoiList;
+@property DCMPix *_fptbcurPix;
 
 //Init window.
 -(id)initWithViewerController :(ViewerController*)viewerController;

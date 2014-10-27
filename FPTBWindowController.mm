@@ -10,11 +10,11 @@
 
 #import "FPTBWindowController.h"
 
-#import <OsiriXAPI/ViewerController.h>
-#import <OsirixAPI/Notifications.h>
-#import <OsirixAPI/Roi.h>
-#import <OsiriXAPI/DCMPix.h>
-#import <OsiriXAPI/RoiVolumeController.h>
+//#import <OsiriXAPI/ViewerController.h>
+#import "OsirixAPI/Notifications.h"
+#import "OsirixAPI/ROI.h"
+//#import <OsiriXAPI/DCMPix.h>
+#import "OsiriXAPI/RoiVolumeController.h"
 //#import <OsiriXAPI/XMLController.h>
 #import "FPTBXmlController.h"
 
@@ -40,8 +40,15 @@
 #undef id
 
 double spacing[3];
+NSString *meshPath;
 
 @implementation FPTBWindowController
+
+@synthesize _viewerController;
+@synthesize _fptbFileList;
+@synthesize _imageView;
+@synthesize _fptbPixList, _fptbRoiList;
+@synthesize _fptbcurPix;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -63,24 +70,32 @@ double spacing[3];
 
 -(id)initWithViewerController:(ViewerController*)viewerController {
     
-    //We get the viewer and sen retain.
-    _viewerController = viewerController;
-    [viewerController retain];
+    self = [super initWithWindowNibName:@"FPTBWindow"];
     
-    _fptbFileList = [[_viewerController fileList] retain];
+    if (self) {
+        
+        [[self window] setDelegate:self];
+
+        //We get the viewer and sen retain.
+//        [_viewerController release];
+//        _viewerController = viewerController;
+//        [viewerController retain];
+        
+        NSLog(@"Reference count viewer controller: %d", [viewerController ])
+        self._viewerController = viewerController; //Esto es equivalente a lo de arriba, estamos utilizando el setter definido en properties, que es la forma correcta de hacerlo.
+        
+        self._imageView = [_viewerController imageView];
+        
+        self._fptbFileList = [_viewerController fileList];
+        
+        _fptbXmlController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController] ;
+        
+       
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewerWillClose:) name: OsirixCloseViewerNotification object: nil];
+    }
     
-    _fptbXmlController = [[FPTBXmlController alloc] initWithImages:_fptbFileList withViewer:_viewerController] ;
-      
-    // Load the window
-	self = [super initWithWindowNibName:@"FPTBWindow"];
     
-    [[self window] setDelegate:self];
-	
-	//FPTBhomeFilePath = [[NSMutableString alloc] initWithString: NSHomeDirectory()];//home path
-    //[FPTBhomeFilePath appendString:@"/Documents/RadioAnatomy_Data/FPTBROIs_generated"]; //folder of masks and meshes
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name: NSWindowWillCloseNotification object: nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewerWillClose:) name: OsirixCloseViewerNotification object: nil];
     
     return self;
 }
@@ -111,15 +126,22 @@ double spacing[3];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [_viewerController release];
-    [_fptbPixList release];
-    [_fptbRoiList release];
+    _viewerController = nil;
     
+//    [_fptbPixList release];
+//    _fptbPixList = nil;
+//    
+//    [_fptbRoiList release];
+//    _fptbRoiList = nil;
     
     [_fptbXmlController release];
     _fptbXmlController = nil;
     
-    [_fptbFileList release];
-    
+//    [_fptbFileList release];
+//    _fptbFileList = nil;
+//    
+//    [_imageView release];
+//    _imageView = nil;
 
     
     [super dealloc];
@@ -259,12 +281,15 @@ double spacing[3];
     
     //We get the list of images
     _fptbPixList = [_viewerController pixList];
-    [_fptbPixList retain];
+    //[_fptbPixList retain];
     //[[_viewerController pixList] retain];
     
     //We get the ROIs
     _fptbRoiList = [_viewerController roiList];
-    [_fptbRoiList retain];
+    //[_fptbRoiList retain];
+    
+//    _imageView = [_viewerController imageView];
+//    [_imageView retain];
     
     NSLog(@"Dirección de _fptbRoiList = %p", &_fptbRoiList);
     NSLog(@"_fptbRoiList apunta a:  %p", _fptbRoiList);
@@ -396,14 +421,37 @@ double spacing[3];
                                             positionY:minH
                                             spacingX:sx
                                             spacingY:sy
-                                            imageOrigin:roiOrigin];                
+                                            imageOrigin:roiOrigin];
+//
+//        NSLog(@"BrushROI created");
+        
+        //Try to create a tCPolygon ROI from scratch
+//        ROI *theNewROI = [[[ROI alloc] initWithType:10 :sx :roiOrigin] autorelease];
+//        
+//        //**DAVID**//
+//        [theNewROI retain];
+//        
+//        [theNewROI setName:@"ROI_Prueba"];
+//        
+//        [theNewROI setTexture:optRoiBuff width:optBuffWidth height:optBuffHeight];
+//        
+//        [[_imageView curRoiList] addObject:theNewROI];
+        [_imageView roiSet:theNewROI];
+        
+//        [theNewROI setRoiView:_imageView];
+        //****//
+        
         free(optRoiBuff);
+        
+//        ROI *polROI = [_viewerController convertBrushROItoPolygon:theNewROI numPoints:100];
+//        
+//        NSLog(@"PolygonROI created");
         
         // Add RGB color to the new ROI
         [theNewROI setNSColor:[NSColor greenColor]];
             
         // Set ROI thickness
-        [theNewROI setSliceThickness:3];
+        [theNewROI setSliceThickness:1.5];
 
         //Set ROI opacity
         [theNewROI setOpacity:0.5];
@@ -414,15 +462,21 @@ double spacing[3];
         //Unlock the ROI
         [theNewROI setLocked:false];
         
+        
         //We add the ROI to roiList in OSIRIX
         [[_fptbRoiList objectAtIndex: i] addObject: theNewROI];
         
-        //Since the arrasy sent a retain to theNewROI, we can send a release. We won't loose it.
-        [theNewROI release];
+
+        
         
         //[[_viewerController roiList[0] objectAtIndex: i] addObject: theNewROI];
         
-        [_imageView roiSet: theNewROI];
+        //[_imageView roiSet: theNewROI];
+        
+        //NSLog(@"PolygonROI stored");
+        
+        //Since the arrasy sent a retain to theNewROI, we can send a release. We won't loose it.
+        [theNewROI release];
         
         
     } // End slices
