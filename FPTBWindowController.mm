@@ -343,18 +343,16 @@ NSString *meshPath;
                 for (int w=0; w<buffWidth; w++) {
                     int k = h*buffWidth + w;
                     
-                    //if (buff[k] == labelValue) {
                     if (buff[k] == 255){
-                    //if (buff[k] != 0){ //Para trabajar con labeled images
                         roiBuff[k] = 0;
-                        hasLabelValue = true;
-                        //hasLabelInCompleteImage = true;
+                        //hasLabelValue = true;
                         if (w < minW) minW = w;
                         if (w > maxW) maxW = w;
                         if (h < minH) minH = h;
                         if (h > maxH) maxH = h;
                     } else {
                         roiBuff[k] = 255;
+                        hasLabelValue = true;
                     }
                     
                 }
@@ -416,7 +414,7 @@ NSString *meshPath;
 //        [theNewROI setTexture:optRoiBuff width:optBuffWidth height:optBuffHeight];
 //        
 //        [[_imageView curRoiList] addObject:theNewROI];
-        [_imageView roiSet:theNewROI];
+        
         
 //        [theNewROI setRoiView:_imageView];
         //****//
@@ -424,8 +422,10 @@ NSString *meshPath;
 //        free(optRoiBuff);
         
 //        ROI *polROI = [_viewerController convertBrushROItoPolygon:theNewROI numPoints:100];
-//        
+//
 //        NSLog(@"PolygonROI created");
+        
+        [_imageView roiSet:theNewROI];
         
         // Add RGB color to the new ROI
         [theNewROI setNSColor:[NSColor greenColor]];
