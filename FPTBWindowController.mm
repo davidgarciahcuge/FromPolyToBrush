@@ -421,30 +421,30 @@ NSString *meshPath;
         
 //        free(optRoiBuff);
         
-//        ROI *polROI = [_viewerController convertBrushROItoPolygon:theNewROI numPoints:100];
+        ROI *polROI = [_viewerController convertBrushROItoPolygon:theNewROI numPoints:100];
 //
 //        NSLog(@"PolygonROI created");
         
-        [_imageView roiSet:theNewROI];
+        [_imageView roiSet:polROI];
         
         // Add RGB color to the new ROI
-        [theNewROI setNSColor:[NSColor greenColor]];
+        [polROI setNSColor:[NSColor greenColor]];
             
         // Set ROI thickness
-        [theNewROI setSliceThickness:1.5];
+        [polROI setSliceThickness:1.5];
 
         //Set ROI opacity
-        [theNewROI setOpacity:0.5];
+        [polROI setOpacity:0.5];
         
         //Set the ROI to its images
-        [theNewROI setPix:curDCM];
+        [polROI setPix:curDCM];
         
         //Unlock the ROI
-        [theNewROI setLocked:false];
+        [polROI setLocked:false];
         
         
         //We add the ROI to roiList in OSIRIX
-        [[_fptbRoiList objectAtIndex: i] addObject: theNewROI];
+        [[_fptbRoiList objectAtIndex: i] addObject: polROI];
         
 
         
